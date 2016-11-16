@@ -43,6 +43,7 @@ var SubmitButton = React.createClass({
   },
 
   submitClassifier: function(e) {
+    e.preventDefault();
     this.setState({pressed: true}, function(){
       var self = this;
       var req = request.post(this.props.url);
