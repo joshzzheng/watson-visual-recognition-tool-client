@@ -18,12 +18,13 @@ var DeleteButton = React.createClass({
 
   deleteClassifier: function(){
     this.setState({pressed: true}, function(){
+      console.log(this.props.apiKey)
       var req = request.del(this.props.host + 
                             "api/classifier/" + 
                             this.props.classifierID);
       var self = this;
 
-      req.set('apiKey', this.props.apiKey)
+      req.query('apiKey='+this.props.apiKey)
       req.then(function(res, err){
         self.context.router.push('/');
         self.setState({pressed: false});
