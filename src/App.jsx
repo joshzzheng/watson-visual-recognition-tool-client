@@ -11,7 +11,7 @@ var App = React.createClass({
     {/*host:"http://0.0.0.0:5000/""*/}
     return {
       apiKey: null,
-      host: "https://watson-visual-recognition-tool.herokuapp.com/
+      host: "https://watson-visual-recognition-tool.herokuapp.com/"
     }
   },
 
