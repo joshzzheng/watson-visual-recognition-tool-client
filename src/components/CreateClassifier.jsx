@@ -46,7 +46,7 @@ var SubmitButton = React.createClass({
     e.preventDefault();
     this.setState({pressed: true}, function(){
       var self = this;
-      var req = request.post(this.props.url);
+      var req = request.post(this.props.host + "api/classifiers");
       var apiKey = this.props.getApiKey();
 
       this.props.classes.map(function(c){
@@ -175,7 +175,7 @@ var CreateClassifier = React.createClass({
 
                   <div className="row">
                     <SubmitButton 
-                      url={this.props.route.url}
+                      host={this.props.route.host}
                       getApiKey={this.props.route.getApiKey}
                       classifierName={this.state.classifierName}
                       classes={this.state.classes}/>

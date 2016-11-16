@@ -6,7 +6,7 @@ import CustomClassifierDetails from './CustomClassifierDetails'
 var CustomClassifiersList = React.createClass({
   loadClassifiersFromServer: function(){
     $.ajax({
-      url: this.props.url,
+      url: this.props.host + "api/classifiers",
       dataType: 'json',
       cache: false,
       data: { apiKey: this.state.apiKey },
@@ -14,7 +14,7 @@ var CustomClassifiersList = React.createClass({
         this.setState({classifiers: data});
       }.bind(this),
       error: function(xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
+        console.error(this.props.host + "api/classifiers", status, err.toString());
       }.bind(this)
     });
   },
@@ -45,7 +45,7 @@ var CustomClassifiersList = React.createClass({
     this.state.classifiers.forEach(function(classifier){
       classifiers.push(
         <CustomClassifierDetails
-          url = {'/api/classifier/' + classifier.classifier_id}
+          host={self.props.host}
           classifierID={classifier.classifier_id}
           name={classifier.name}
           status={classifier.status}

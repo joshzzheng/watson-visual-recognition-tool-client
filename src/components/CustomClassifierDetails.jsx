@@ -18,7 +18,9 @@ var DeleteButton = React.createClass({
 
   deleteClassifier: function(){
     this.setState({pressed: true}, function(){
-      var req = request.del(this.props.url);
+      var req = request.del(this.props.host + 
+                            "api/classifier/" + 
+                            this.props.classifierID);
       var self = this;
 
       req.set('apiKey', this.props.apiKey)
@@ -78,7 +80,7 @@ var CustomClassifierDetails = React.createClass({
   
   loadClassifierDetailsFromServer: function(){
     $.ajax({
-      url: this.props.url,
+      url: this.props.host + "api/classifier" + this.props.classiferID,
       dataType: 'json',
       cache: false,
       data: {apiKey: this.props.apiKey},
@@ -87,7 +89,7 @@ var CustomClassifierDetails = React.createClass({
         this.setState({classifier: data});
       }.bind(this),
       error: function(xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
+        console.error(this.props.host, status, err.toString());
       }.bind(this)
     });
   },
@@ -137,7 +139,8 @@ var CustomClassifierDetails = React.createClass({
           <ClassList classes={this.state.classifier.classes} />
           <div className="card-block">          
             <DeleteButton 
-              url={this.props.url} 
+              host={this.props.host}
+              classifierID={this.props.classifierID}
               apiKey={this.props.apiKey} />
           </div>
 
@@ -147,7 +150,7 @@ var CustomClassifierDetails = React.createClass({
               onClick={this.toggleClassifyImage}>
                 {this.state.classifyButtonText}</button>
                 {this.state.showClassifyImage ? 
-                    <ClassifyImage url={'/api/classify'} 
+                    <ClassifyImage host={this.props.host} 
                                    classifierID={this.props.classifierID}
                                    apiKey={this.props.apiKey}/> 
                     : null}

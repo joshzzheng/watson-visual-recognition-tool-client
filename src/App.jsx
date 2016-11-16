@@ -32,11 +32,11 @@ var App = React.createClass({
                     getApiKey={this.getApiKey}
                     setApiKey={this.setApiKey}
                     apiKey={this.state.apiKey}
-                    url={this.state.host + "api/classifiers"}/>
+                    host={this.state.host}/>
         <Route path="/create" 
                component={CreateClassifier}
                getApiKey={this.getApiKey}
-               url={this.state.host + "api/classifiers"}/>
+               host={this.state.host}/>
         {/*<Route path="/collections" component={Collections}/>*/} 
         {/*<Route path="/similarity" component={Repos}/>*/} 
         {/*<Route path="/cloudant" component={About}/>*/}      

@@ -1,6 +1,6 @@
 ---
 applications:
-- name: watson-visual-recognition-tool
+- name: watson-vr-tool
   path: .
   memory: 512M
   instances: 1

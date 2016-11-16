@@ -2,6 +2,7 @@ import React from 'react'
 import Dropzone from 'react-dropzone'
 import request from 'superagent'
 import $ from "jquery"
+import classNames from 'classnames'
 
 var ResultList = React.createClass({
   render: function(){
@@ -60,6 +61,68 @@ var ImageDropzoneButton = React.createClass({
   }
 });
 
+var ClassifyImageButton = React.createClass({
+  getInitialState: function(){
+    return {
+      pressed: false
+    }
+  },
+
+  contextTypes: {
+    router: React.PropTypes.object
+  },
+
+  classifyImage: function(e) {
+    e.preventDefault();
+    this.setState({pressed: true}, function() {
+      var self = this;
+
+      var req = request.post(this.props.host + "api/classify");
+
+      if (this.props.imageFile){
+        req.attach('file', this.props.imageFile);
+      }
+
+      req.field('classifier_id', this.props.classifierID);
+      req.field('api_key', this.props.apiKey);
+      
+      if (this.props.imageURL) {
+        req.field('image_url', this.props.imageURL);
+      }
+
+      req.then(function(res, err){
+        var newResults = $.extend([], self.state.classes);
+        res.body.images[0].classifiers[0].classes.map(function(c){
+          newResults.push(c);
+        });
+        newResults.sort(function(a, b) {
+            return b.score - a.score;
+        });
+        self.props.setResults(newResults, true);
+        self.props.resetState();  
+        self.setState({pressed: false});
+      });
+    });
+  },
+
+  render: function(){
+    var btnClass = classNames({
+      'btn': true,
+      'btn-sm': true,
+      'btn-primary': true,
+      'disabled': this.state.pressed,
+      'loading': this.state.pressed
+    });
+
+    return (
+      <button className={btnClass}
+              onClick={this.classifyImage}>
+        Classify Image
+      </button>
+    )
+  }
+});
+
 var ClassifyImage = React.createClass({
   getInitialState: function () {
     return {
@@ -79,6 +142,13 @@ var ClassifyImage = React.createClass({
     });
   },
 
+  setResults: function(newResults, hasResults){
+    this.setState({
+      results: newResults, 
+      hasResults: hasResults
+    });
+  },
+
   handleImageURLChange: function(e) {
     this.setState({ imageURL: e.target.value });
   },
@@ -87,36 +157,6 @@ var ClassifyImage = React.createClass({
     this.setState({ 
       imageFileName: imageFileName,
       imageFile: imageFile
-    });
-  },
-
-  classifyImage: function(e) {
-    e.preventDefault();
-    var self = this;
-
-    var req = request.post(this.props.url);
-
-    if (this.state.imageFile){
-      req.attach('file', this.state.imageFile);
-    }
-
-    req.field('classifier_id', this.props.classifierID);
-    req.field('api_key', this.props.apiKey);
-    
-    if (this.state.imageURL) {
-      req.field('image_url', this.state.imageURL);
-    }
-
-    req.then(function(res, err){
-      var newResults = $.extend([], self.state.classes);
-      res.body.images[0].classifiers[0].classes.map(function(c){
-        newResults.push(c);
-      });
-      newResults.sort(function(a, b) {
-          return b.score - a.score;
-      });
-      self.setState({results: newResults, hasResults: true});
-      self.resetState();  
     });
   },
 
@@ -132,9 +172,15 @@ var ClassifyImage = React.createClass({
                  value={this.state.imageURL}
                  onChange={this.handleImageURLChange} />
           <br/>
-          <button className="btn btn-sm btn-primary" 
-                  onClick={this.classifyImage}>
-            Classify Image</button>
+          <ClassifyImageButton
+            imageFile={this.state.imageFile}
+            imageURL={this.state.imageURL}
+            resetState={this.resetState}
+            setResults={this.setResults}
+            host={this.props.host}
+            classifierID={this.props.classifierID}
+            apiKey={this.props.apiKey} />
+
         </div>
         <div className="card-block">
           {this.state.hasResults ? <h7>Result:</h7> : null}

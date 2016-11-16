@@ -59,7 +59,7 @@ var Home = React.createClass({
                   <div class="divider"></div>
                   
                   <CustomClassifierList 
-                    url={this.props.route.url}
+                    host={this.props.route.host}
                     apiKey={this.state.apiKey} />
                 </div>
               </div>
