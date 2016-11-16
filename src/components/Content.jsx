@@ -22,10 +22,10 @@ var Content = React.createClass({
               </NavLink>
             </li>
             <li><NavLink className="nav-link" to="/create">Create Classifier</NavLink></li>
-            <li><NavLink className="nav-link" to="/collection">Collections</NavLink></li>
-            <li><NavLink className="nav-link" to="/similarity">Similarity Search</NavLink></li>
-            <li><NavLink className="nav-link" to="/cloudant">Cloudant</NavLink></li>
-            <li><NavLink className="nav-link" to="/calculator">Pricing Calculator</NavLink></li>
+            <li><NavLink className="nav-link" to="/collection">Collections (Coming Soon)</NavLink></li>
+            <li><NavLink className="nav-link" to="/similarity">Similarity (Coming Soon) </NavLink></li>
+            <li><NavLink className="nav-link" to="/cloudant">Cloudant (Coming Soon)</NavLink></li>
+            <li><NavLink className="nav-link" to="/calculator">Price Calculator (Coming Soon) </NavLink></li>
           </ul>
         </div>
         {this.props.children}

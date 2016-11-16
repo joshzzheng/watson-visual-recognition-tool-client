@@ -180,6 +180,10 @@ var CreateClassifier = React.createClass({
                       classifierName={this.state.classifierName}
                       classes={this.state.classes}/>
                   </div>
+                  <br/>
+                  <div className="row">
+                    Might take up to 15 seconds before receiving a response. Be patient!
+                  </div>
                 </form>
               </div>
             </div>

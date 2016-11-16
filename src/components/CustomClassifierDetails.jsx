@@ -123,7 +123,7 @@ var CustomClassifierDetails = React.createClass({
 
     return(
       <div className="col-sm-2">
-        <div className="card" style={{maxWidth:'20rem'}}>
+        <div className="card" style={{maxWidth:'20rem', marginBottom:'4rem'}}>
           <div className="card-block">
             <h4 className="card-title">{this.props.name}</h4>
             <p className="card-text">
