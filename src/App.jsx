@@ -9,7 +9,8 @@ import CreateClassifier from './components/CreateClassifier'
 var App = React.createClass({
   getInitialState: function(){
     return {
-      apiKey: null
+      apiKey: null,
+      host: "https://watson-visual-recognition-tool.herokuapp.com/"
     }
   },
 
@@ -30,11 +31,12 @@ var App = React.createClass({
         <IndexRoute component={Home} 
                     getApiKey={this.getApiKey}
                     setApiKey={this.setApiKey}
-                    apiKey={this.state.apiKey}/>
+                    apiKey={this.state.apiKey}
+                    url={this.state.host + "api/classifiers"}/>
         <Route path="/create" 
                component={CreateClassifier}
                getApiKey={this.getApiKey}
-               url="/api/classifiers"/>
+               url={this.state.host + "api/classifiers"}/>
         {/*<Route path="/collections" component={Collections}/>*/} 
         {/*<Route path="/similarity" component={Repos}/>*/} 
         {/*<Route path="/cloudant" component={About}/>*/}      

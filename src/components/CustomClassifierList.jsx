@@ -9,7 +9,7 @@ var CustomClassifiersList = React.createClass({
       url: this.props.url,
       dataType: 'json',
       cache: false,
-      data: {apiKey: this.state.apiKey},
+      data: { apiKey: this.state.apiKey },
       success: function(data) {
         this.setState({classifiers: data});
       }.bind(this),
