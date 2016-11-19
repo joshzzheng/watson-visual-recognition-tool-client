@@ -10,6 +10,7 @@ var ApiKeyModal = React.createClass({
   saveApiKey: function(){
     var key = ReactDOM.findDOMNode(this.refs.apiKey).value
     this.props.setApiKey(key);
+    localStorage.setItem('apiKey', key);
     this.props.handleHideModal();
   },
 
