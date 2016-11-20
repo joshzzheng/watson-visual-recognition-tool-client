@@ -151,6 +151,31 @@ var CreateClassifier = React.createClass({
               <div className="container">
                 <h2>Create New Classifer</h2>
                 <hr />
+                <p>
+                  <a className="btn btn-link" 
+                     data-toggle="collapse" 
+                     href="#sizeLimitInfo" 
+                     aria-expanded="false" 
+                     aria-controls="sizeLimitInfo">
+                    What are the size limits?
+                  </a>
+                </p>
+                <div className="collapse" id="sizeLimitInfo">
+                  <div>
+                    <p>There are size limitations for training calls and data:</p>
+                    <ul>
+                      <li>The service accepts a maximum of 10,000 images or 100 MB per .zip file.</li>
+                      <li>The service requires a minimum of 10 images per .zip file.</li>
+                      <li>The service accepts a maximum of 256 MB per training call.</li>
+                    </ul>
+                    <p>There are also size limitations for classification calls:</p>
+                    <ul>
+                      <li>The POST /v3/classify methods accept a maximum of 20 images per batch.</li>
+                      <li>The POST /v3/detect_faces methods accept a maximum of 15 images per batch.</li>
+                    </ul>   
+                  </div>
+                </div>
+
                 <form className="form-horizontal">
                   <div className="form-group">
                     <label className="col-sm-2 form-label">
@@ -182,7 +207,8 @@ var CreateClassifier = React.createClass({
                   </div>
                   <br/>
                   <div className="row">
-                    Might take up to 15 seconds before receiving a response. Be patient!
+                    Depending on this size of the training files, 
+                    this call can take several minutes to complete. Be patient!
                   </div>
                 </form>
               </div>

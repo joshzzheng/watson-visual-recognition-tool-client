@@ -15,7 +15,7 @@ module.exports = {
   devtool: 'source-map',
 
   plugins: [
-    new ExtractTextPlugin('app.css', { 
+    new ExtractTextPlugin('bundle.css', { 
       allChunks: true 
     }),
     new webpack.ProvidePlugin({
@@ -41,7 +41,15 @@ module.exports = {
         query: {
           presets: ['es2015', 'react']
         }
-      }
+      },
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract('style', 'css')
+      },
+      {
+        test: /\.(eot|svg|ttf|woff(2)?)(\?v=\d+\.\d+\.\d+)?/,
+        loader: 'url'
+      } 
     ]
   }
 };

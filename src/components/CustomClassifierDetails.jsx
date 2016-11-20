@@ -43,7 +43,7 @@ var DeleteButton = React.createClass({
     return (
       <button className={btnClass}
               onClick={this.deleteClassifier}>
-        Delete
+        Delete Classifier
       </button>
     )
   }
@@ -73,8 +73,7 @@ var CustomClassifierDetails = React.createClass({
       classifier: {
         classes: []
       },
-      showClassifyImage: false,
-      classifyButtonText: "Show Classify Image"
+      showClassifyImage: false
     };
   },
   
@@ -108,28 +107,42 @@ var CustomClassifierDetails = React.createClass({
     if (this.state.showClassifyImage == true) {
       this.setState({
         showClassifyImage: false, 
-        classifyButtonText: "Show Classify Image"
       })
     } else {
       this.setState({
         showClassifyImage: true,
-        classifyButtonText: "Hide Classify Image"
       });
     }
   },
 
   render: function() {
-
     var date = moment(this.state.classifier.created)
                 .format("MMMM Do YYYY, h:mm a")
 
+    var textStyle = {
+      textDecoration:'none', 
+      display:'block',
+      whiteSpace:'nowrap', 
+      overflow:'hidden',
+      textOverflow:'ellipsis'
+    }
+
+    let arrowClass = classNames({
+      'triangle': true,
+      'triangle-right': !this.state.showClassifyImage,
+      'triangle-down': this.state.showClassifyImage
+    })
+
     return(
-      <div className="col-sm-2">
-        <div className="card" style={{maxWidth:'20rem', marginBottom:'4rem'}}>
+      <div className="col-sm-4">
+        <div className="card" 
+             style={{
+              maxWidth:'30rem',
+              marginBottom:'4rem'}}>
           <div className="card-block">
-            <h4 className="card-title">{this.props.name}</h4>
-            <p className="card-text">
-              <b>ID:</b> {this.props.classifierID} <br/>
+            <h4 className="card-title" style={textStyle}>{this.props.name}</h4>
+            <p className="card-text" style={textStyle}>
+              <b>ID:</b> {this.props.classifierID}<br/>
               <b>Status:</b> {this.props.status} <br/>
               {/*<b>Created:</b> {date} <br/>
               <b>Owner:</b> {this.state.classifier.owner || "None"}*/}
@@ -145,15 +158,22 @@ var CustomClassifierDetails = React.createClass({
           </div>
 
           <div className="card-block">
-            <button 
+            <button
               className="btn btn-sm btn-block"
               onClick={this.toggleClassifyImage}>
-                {this.state.classifyButtonText}</button>
+                Classify Image &nbsp;
                 {this.state.showClassifyImage ? 
-                    <ClassifyImage host={this.props.host} 
-                                   classifierID={this.props.classifierID}
-                                   apiKey={this.props.apiKey}/> 
-                    : null}
+                  <i className='fa fa-caret-down fa' 
+                     aria-hidden="true"/>
+                : <i className='fa fa-caret-right fa'
+                     aria-hidden="true"/>}
+            </button>
+
+            {this.state.showClassifyImage ? 
+                <ClassifyImage host={this.props.host} 
+                               classifierID={this.props.classifierID}
+                               apiKey={this.props.apiKey}/> 
+                : null}
           </div>
         </div>
       </div>

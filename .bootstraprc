@@ -55,11 +55,10 @@ extractStyles: false
 # Import your custom styles here. You have access to all the bootstrap variables. If you require
 # your sass files separately, you will not have access to the bootstrap variables, mixins, clases, etc.
 # Usually this endpoint-file contains list of @imports of your application styles.
-appStyles: ./src/stylesheets/simple-sidebar.css
+appStyles: ./src/stylesheets/app.css
 
 ### Bootstrap styles
 styles:
-
   # Mixins
   mixins: true
 
