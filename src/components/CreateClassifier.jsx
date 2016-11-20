@@ -21,7 +21,7 @@ var ClassRow = React.createClass({
                  className="form-input"
                  value={this.props.classes[this.props.rowId].name}
                  onChange={this.handleRowClassNameChange}
-                 disabled={this.props.classes[this.props.rowId].disabled} />
+                 placeholder={this.props.classes[this.props.rowId].placeholder} />
         </div>
         <DropzoneButton rowId={this.props.rowId}
                         classes={this.props.classes}
@@ -83,8 +83,8 @@ var CreateClassifier = React.createClass({
     return {
       classifierName: "",
       classes: [
-        {label: "Negatives", name: "negative", file: null, disabled: true},
-        {label: "Class 1", name: "", file: null, disabled: false}
+        {label: "Class 1", name: "", placeholder: "negatives", file: null},
+        {label: "Class 2", name: "", placeholder: "<class name>", file: null}
       ]
     };
   },
@@ -93,8 +93,8 @@ var CreateClassifier = React.createClass({
     this.setState({
       classifierName: "",
       classes: [
-        {label: "Negatives", name: "negative", file: null, disabled: true},
-        {label: "Class 1", name: "", file: null, disabled: false}
+        {label: "Class 1", name: "", placeholder: "negatives", file: null},
+        {label: "Class 2", name: "", placeholder: " <class name>", file: null}
       ]
     });
   },
@@ -121,8 +121,8 @@ var CreateClassifier = React.createClass({
     newClasses.push({
       label: "Class " + this.state.classes.length.toString(),
       name: "",
-      file: null,
-      disabled: false
+      placeholder: "<class name>",
+      file: null
     });
     this.setState({classes: newClasses});
   },
@@ -185,6 +185,7 @@ var CreateClassifier = React.createClass({
                       <input type="text" 
                              className="form-input" 
                              value={this.state.classifierName || ""}
+                             placeholder="<classifier name>"
                              onChange={this.handleClassifierNameChange} />
                     </div>
                   </div>
