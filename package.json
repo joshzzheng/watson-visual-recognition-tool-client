@@ -11,8 +11,8 @@
   "author": "Josh Zheng <joshzheng@us.ibm.com> (https://github.com/boxcarton)",
   "license": "BSD-2-Clause",
   "dependencies": {
-    "bootstrap": "^4.0.0-alpha.2",
-    "bootstrap-loader": "^1.0.10",
+    "bootstrap": "4.0.0-alpha.2",
+    "bootstrap-loader": "1.0.10",
     "classnames": "^2.2.5",
     "css-loader": "^0.23.1",
     "express": "^4.14.0",
