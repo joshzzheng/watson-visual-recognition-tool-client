@@ -20,9 +20,9 @@ var ApiKeyModal = React.createClass({
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
-              <button type="button" 
-                      className="close" 
-                      data-dismiss="modal" 
+              <button type="button"
+                      className="close"
+                      data-dismiss="modal"
                       aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -32,9 +32,9 @@ var ApiKeyModal = React.createClass({
               <p>WARNING: This app will not function without an Watson VR API key.</p>
               <form id="api-key-form" role="form" action="#">
                 <div className="form-group">
-                  <input 
+                  <input
                     ref="apiKey"
-                    className="form-control" 
+                    className="form-control"
                     type="text"
                     placeholder="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
                     />
@@ -42,13 +42,13 @@ var ApiKeyModal = React.createClass({
               </form>
             </div>
             <div className="modal-footer">
-              <button type="button" 
-                      className="btn btn-default" 
+              <button type="button"
+                      className="btn btn-default"
                       data-dismiss="modal"
                       onClick={this.props.handleHideModal}>
                 Close
               </button>
-              <button type="button" 
+              <button type="button"
                       className="btn btn-primary"
                       data-dismiss="modal"
                       onClick={this.saveApiKey}>

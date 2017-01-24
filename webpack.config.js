@@ -4,7 +4,6 @@ var path = require('path');
 
 module.exports = {
   entry: [
-    'bootstrap-loader',
     './src/app'
   ],
   output: {
@@ -15,19 +14,19 @@ module.exports = {
   devtool: 'source-map',
 
   plugins: [
-    new ExtractTextPlugin('bundle.css', { 
-      allChunks: true 
-    }),
-    new webpack.ProvidePlugin({
-      "window.Tether": "tether"
-    }),
-    new webpack.ProvidePlugin({
-      $: "jquery",
-      jQuery: "jquery"
-    }),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    // new ExtractTextPlugin('bundle.css', {
+    //   allChunks: true
+    // }),
+    // new webpack.ProvidePlugin({
+    //   "window.Tether": "tether"
+    // }),
+    // new webpack.ProvidePlugin({
+    //   $: "jquery",
+    //   jQuery: "jquery"
+    // }),
+    // new webpack.optimize.OccurenceOrderPlugin(),
+    // new webpack.HotModuleReplacementPlugin(),
+    // new webpack.NoErrorsPlugin()
   ],
   resolve:{
     extensions: ['', '.js', '.jsx']
@@ -39,7 +38,8 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
-          presets: ['es2015', 'react']
+          plugins: ['transform-decorators-legacy'],
+          presets: ['es2015', 'react', 'stage-0']
         }
       },
       {
@@ -49,7 +49,7 @@ module.exports = {
       {
         test: /\.(eot|svg|ttf|woff(2)?)(\?v=\d+\.\d+\.\d+)?/,
         loader: 'url'
-      } 
+      }
     ]
   }
 };

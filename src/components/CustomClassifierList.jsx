@@ -2,6 +2,7 @@ import React from 'react'
 import moment from "moment"
 import $ from "jquery"
 import CustomClassifierDetails from './CustomClassifierDetails'
+import Button from './Button'
 
 var CustomClassifiersList = React.createClass({
   loadClassifiersFromServer: function(){
@@ -18,7 +19,7 @@ var CustomClassifiersList = React.createClass({
       }.bind(this)
     });
   },
-  
+
   getInitialState: function() {
     return {
       classifiers: [],
@@ -49,17 +50,15 @@ var CustomClassifiersList = React.createClass({
           classifierID={classifier.classifier_id}
           name={classifier.name}
           status={classifier.status}
-          key={classifier.classifier_id} 
-          apiKey={self.state.apiKey} 
+          key={classifier.classifier_id}
+          apiKey={self.state.apiKey}
         />);
     });
     return (
       <div>
-        {
-          this.state.classifiers.length > 0 ? 
-            <h4>Your Classifiers:</h4> :
-            <h4>No classifiers found!</h4>
-        }
+        <div style={{margin: '21px 0px'}}>
+            <Button text={"Create classifier"} kind={"bold"} icon={"btn_create.png"}/>
+        </div>
         <div className='row'>{classifiers}</div>
       </div>
     );

@@ -15,8 +15,8 @@ var DropzoneButton = React.createClass({
       files: files,
       text: files[files.length-1].name
     });
-    this.props.addFile(this.props.classes, 
-                       this.props.rowId, 
+    this.props.addFile(this.props.classes,
+                       this.props.rowId,
                        files[files.length-1])
   },
 
@@ -30,11 +30,11 @@ var DropzoneButton = React.createClass({
     };
 
     return (
-      <Dropzone ref="dropzone" 
-                onDrop={this.onDrop} 
+      <Dropzone ref="dropzone"
+                onDrop={this.onDrop}
                 multiple={false}
                 className="btn btn-secondary"
-                style={dropzoneStyle}> 
+                style={dropzoneStyle}>
         {this.state.text}
       </Dropzone>
     );

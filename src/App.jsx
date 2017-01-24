@@ -1,10 +1,18 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { Router, Route, browserHistory, IndexRoute } from 'react-router'
+// import React from 'react'
+// import ReactDOM from 'react-dom'
+// import { Router, Route, browserHistory, IndexRoute } from 'react-router'
+//
+// import Content from './components/Content'
+// import Home from './components/Home'
+// import CreateClassifier from './components/CreateClassifier'
 
-import Content from './components/Content'
-import Home from './components/Home'
-import CreateClassifier from './components/CreateClassifier'
+var React = require('react');
+var ReactDOM = require('react-dom');
+var { Router, Route, browserHistory, IndexRoute } = require('react-router');
+
+var Content = require('./components/Content');
+var Home = require('./components/Home');
+var CreateClassifier = require('./components/CreateClassifier');
 
 var App = React.createClass({
   getInitialState: function(){
@@ -17,30 +25,34 @@ var App = React.createClass({
 
   getApiKey: function() {
     return this.state.apiKey;
-  }, 
+  },
 
   setApiKey: function(key) {
     this.setState({
       apiKey: key
     });
   },
-  
+
   render: function(){
     const routes = (
-      <Route path="/" 
-             component={Content}>
-        <IndexRoute component={Home} 
+      <Route path="/"
+             component={Content}
+             getApiKey={this.getApiKey}
+             setApiKey={this.setApiKey}
+             apiKey={this.state.apiKey}
+             host={this.state.host}>
+        <IndexRoute component={Home}
                     getApiKey={this.getApiKey}
                     setApiKey={this.setApiKey}
                     apiKey={this.state.apiKey}
                     host={this.state.host}/>
-        <Route path="/create" 
+        <Route path="/create"
                component={CreateClassifier}
                getApiKey={this.getApiKey}
                host={this.state.host}/>
-        {/*<Route path="/collections" component={Collections}/>*/} 
-        {/*<Route path="/similarity" component={Repos}/>*/} 
-        {/*<Route path="/cloudant" component={About}/>*/}      
+        {/*<Route path="/collections" component={Collections}/>*/}
+        {/*<Route path="/similarity" component={Repos}/>*/}
+        {/*<Route path="/cloudant" component={About}/>*/}
       </Route>
     );
 
@@ -51,6 +63,6 @@ var App = React.createClass({
 });
 
 ReactDOM.render(
-  <App />, 
+  <App />,
   document.getElementById("main")
 );

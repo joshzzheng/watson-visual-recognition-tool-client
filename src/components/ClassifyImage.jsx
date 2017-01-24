@@ -4,6 +4,8 @@ import request from 'superagent'
 import $ from "jquery"
 import classNames from 'classnames'
 
+import DropButton from './DropButton'
+
 var ResultList = React.createClass({
   render: function(){
     var resultList = this.props.results.map(function(result){
@@ -44,17 +46,17 @@ var ImageDropzoneButton = React.createClass({
 
   render: function () {
     return (
-      <Dropzone 
-        ref="dropzone" 
-        onDrop={this.onDrop} 
+      <Dropzone
+        ref="dropzone"
+        onDrop={this.onDrop}
         multiple={false}
         className="btn"
         style={{
-          border: "dotted", 
+          border: "dotted",
           height: "4rem",
           lineHeight: "2rem",
           marginBottom: "1rem"
-        }}> 
+        }}>
         {this.state.text}
       </Dropzone>
     );
@@ -85,7 +87,7 @@ var ClassifyImageButton = React.createClass({
 
       req.field('classifier_id', this.props.classifierID);
       req.field('api_key', this.props.apiKey);
-      
+
       if (this.props.imageURL) {
         req.field('image_url', this.props.imageURL);
       }
@@ -99,7 +101,7 @@ var ClassifyImageButton = React.createClass({
             return b.score - a.score;
         });
         self.props.setResults(newResults, true);
-        self.props.resetState();  
+        self.props.resetState();
         self.setState({pressed: false});
       });
     });
@@ -138,13 +140,13 @@ var ClassifyImage = React.createClass({
     this.setState({
       imageURL: "",
       imageFileName: "",
-      imageFile: null      
+      imageFile: null
     });
   },
 
   setResults: function(newResults, hasResults){
     this.setState({
-      results: newResults, 
+      results: newResults,
       hasResults: hasResults
     });
   },
@@ -154,7 +156,7 @@ var ClassifyImage = React.createClass({
   },
 
   addImageFile: function(imageFileName, imageFile) {
-    this.setState({ 
+    this.setState({
       imageFileName: imageFileName,
       imageFile: imageFile
     });
@@ -164,9 +166,12 @@ var ClassifyImage = React.createClass({
     return (
       <div>
         <div className="card-block">
-          <ImageDropzoneButton addImageFile={this.addImageFile} />
+          <DropButton
+            addImageFile={this.addImageFile}
+            text={"Drag images here to classify them"}
+            subtext={"choose your files"} />
           <br/>
-          <input type="text" 
+          <input type="text"
                  className="form-control"
                  placeholder="Image URL"
                  value={this.state.imageURL}

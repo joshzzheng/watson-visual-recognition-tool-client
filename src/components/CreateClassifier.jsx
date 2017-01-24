@@ -9,7 +9,7 @@ var ClassRow = React.createClass({
   handleRowClassNameChange: function(e) {
     this.props.handleClassNameChange(e, this.props.classes, this.props.rowId)
   },
-  
+
   render: function() {
     return (
       <div className="form-group">
@@ -17,7 +17,7 @@ var ClassRow = React.createClass({
           {this.props.classes[this.props.rowId].label}
         </label>
         <div className="col-sm-4">
-          <input type="text" 
+          <input type="text"
                  className="form-input"
                  value={this.props.classes[this.props.rowId].name}
                  onChange={this.handleRowClassNameChange}
@@ -37,7 +37,7 @@ var SubmitButton = React.createClass({
       pressed: false
     };
   },
-  
+
   contextTypes: {
     router: React.PropTypes.object
   },
@@ -135,7 +135,7 @@ var CreateClassifier = React.createClass({
     var self = this;
     var classRowList = this.state.classes.map(function(r, i){
       return (
-        <ClassRow classes={self.state.classes} 
+        <ClassRow classes={self.state.classes}
                   addFile={self.addFile}
                   handleClassNameChange={self.handleClassNameChange}
                   rowId={i}
@@ -152,10 +152,10 @@ var CreateClassifier = React.createClass({
                 <h2>Create New Classifer</h2>
                 <hr />
                 <p>
-                  <a className="btn btn-link" 
-                     data-toggle="collapse" 
-                     href="#sizeLimitInfo" 
-                     aria-expanded="false" 
+                  <a className="btn btn-link"
+                     data-toggle="collapse"
+                     href="#sizeLimitInfo"
+                     aria-expanded="false"
                      aria-controls="sizeLimitInfo">
                     What are the size limits?
                   </a>
@@ -172,7 +172,7 @@ var CreateClassifier = React.createClass({
                     <ul>
                       <li>The POST /v3/classify methods accept a maximum of 20 images per batch.</li>
                       <li>The POST /v3/detect_faces methods accept a maximum of 15 images per batch.</li>
-                    </ul>   
+                    </ul>
                   </div>
                 </div>
 
@@ -182,16 +182,16 @@ var CreateClassifier = React.createClass({
                       Classifer Name
                     </label>
                     <div className="col-sm-5">
-                      <input type="text" 
-                             className="form-input" 
+                      <input type="text"
+                             className="form-input"
                              value={this.state.classifierName || ""}
                              placeholder="<classifier name>"
                              onChange={this.handleClassifierNameChange} />
                     </div>
                   </div>
-                  
+
                   {classRowList}
-                  
+
                   <div className="row" style={{marginBottom: '2%'}}>
                     <button className="btn"
                             onClick={this.addNewClass}>
@@ -200,7 +200,7 @@ var CreateClassifier = React.createClass({
                   </div>
 
                   <div className="row">
-                    <SubmitButton 
+                    <SubmitButton
                       host={this.props.route.host}
                       getApiKey={this.props.route.getApiKey}
                       classifierName={this.state.classifierName}
@@ -208,7 +208,7 @@ var CreateClassifier = React.createClass({
                   </div>
                   <br/>
                   <div className="row">
-                    Depending on this size of the training files, 
+                    Depending on this size of the training files,
                     this call can take several minutes to complete. Be patient!
                   </div>
                 </form>
