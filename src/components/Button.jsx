@@ -13,9 +13,9 @@ class Button extends React.Component {
     render() {
         var buttonStyle = {
             base: {
-                cursor: 'pointer',
                 lineHeight: '0px',
                 alignSelf: 'center',
+                cursor: 'pointer',
                 borderRadius: '15px',
                 borderColor: Styles.colorPrimary,
                 borderWidth: 'thin',
@@ -63,7 +63,14 @@ class Button extends React.Component {
             width: '21px',
             height: '21px',
             marginLeft: '21px',
+            verticalAlign: 'middle',
         };
+
+        var textStyle = {
+          display: 'inline-block',
+          verticalAlign: 'middle',
+          color: 'inherit'
+        }
 
         return (
             <button
@@ -71,7 +78,7 @@ class Button extends React.Component {
                 this.props.icon ? [buttonStyle.base, buttonStyle[this.props.kind], buttonStyle.image] : [buttonStyle.base, buttonStyle[this.props.kind]]
               }
               onClick={this.props.onClick}>
-    						{this.props.text}
+    						<div style={textStyle}>{this.props.text}</div>
                 {this.props.icon ? <img src={this.props.icon} style={imgStyle}></img> : ''}
             </button>
         );
