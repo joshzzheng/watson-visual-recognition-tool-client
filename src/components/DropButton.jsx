@@ -1,50 +1,67 @@
 import React from 'react'
 import Dropzone from 'react-dropzone'
-import request from 'superagent'
 import Styles from './Styles'
+import Radium from 'radium'
 
-var DropButton = React.createClass({
-  	getInitialState: function(){
-				return {
-          files: [],
-          hover: false
+@Radium
+class DropButton extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = { files: [] }
+    }
+
+    onDrop = (files) => {
+        this.setState({ files: files })
+        // this.props.addFile(this.props.classes, this.props.rowId, files[files.length-1])
+    }
+
+    onOpenClick = () => {
+        this.refs.dropzone.open()
+    }
+
+    toggleHover = () => {
+        this.setState({hover: !this.state.hover})
+    }
+
+    render() {
+        var textStyles = {
+            base: {
+                color: Styles.colorTextLight,
+                font: Styles.fontDefault,
+            },
+            link: {
+                color: Styles.colorPrimary,
+            },
+            header: {
+                font: Styles.fontBold,
+                marginTop: '3px',
+                marginBottom: '7px',
+                textAlign: 'center',
+            },
+            subheader: {
+                textAlign: 'center',
+                marginBottom: '3px',
+            },
+            uploading: {
+                font: Styles.fontBold,
+                display: 'inline-flex',
+                verticalAlign: 'middle',
+            },
+            ellipsis: {
+                /* Required for text-overflow to do anything */
+                maxWidth: '200px',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+            }
         }
-    },
 
-    onDrop: function (files) {
-      this.setState({
-        files: files
-      });
-      this.props.addFile(this.props.classes,
-                         this.props.rowId,
-                         files[files.length-1])
-    },
-
-    onOpenClick: function () {
-      this.refs.dropzone.open();
-    },
-
-    toggleHover: function(){
-				this.setState({hover: !this.state.hover})
-    },
-
-    render: function() {
-    		var textStyle = {
-            color: Styles.colorTextLight,
-            font: Styles.fontBold,
-            marginTop: '3px',
-            marginBottom: '7px',
-            textAlign: 'center',
-        };
-        var orStyle = {
-        		color: Styles.colorTextLight,
-            font: Styles.fontDefault,
-            textAlign: 'center',
-            marginBottom: '3px',
+        if (this.state.hover) {
+        		textStyles.link.textDecoration = 'underline';
+        } else {
+        		textStyles.link.textDecoration = 'none';
         }
-    		var subtextStyle = {
-            color: Styles.colorPrimary,
-        };
+
         var dropzoneStyle = {
             width: '100%',
             cursor: 'pointer',
@@ -55,43 +72,29 @@ var DropButton = React.createClass({
             borderStyle: 'dashed',
             background: '#fcfcfc',
             padding: '25px 0px',
-        };
-        if (this.state.hover) {
-        		subtextStyle.textDecoration = 'underline';
-        } else {
-        		subtextStyle.textDecoration = 'none';
         }
 
         var imgStyle = {
-          display: 'inline-flex',
-          margin: 'auto',
-          maxHeight: '100%',
-          maxWidth: '100%',
-        };
-
-        var container = {
             display: 'inline-flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: '45px',
-            height: '45px',
-            border: '1px solid #dedede',
-            overflow: 'hidden',
-            marginRight: '10px',
+            margin: 'auto',
+            maxHeight: '100%',
+            maxWidth: '100%',
         }
 
-        var inLineTextStyle = {
-          display: 'inline-flex',
-          verticalAlign: 'middle',
-          color: Styles.colorTextLight,
-        }
-
-        var containerWrapper = {
-          width: '100%',
-            display: 'inline-flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            overflow: 'hidden',
+        var containerStyles = {
+            base: {
+                width: '100%',
+                display: 'inline-flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                overflow: 'hidden',
+            },
+            image: {
+                width: '45px',
+                height: '45px',
+                border: '1px solid #dedede',
+                marginRight: '10px',
+            }
         }
 
         return (
@@ -102,21 +105,22 @@ var DropButton = React.createClass({
                 onMouseEnter={this.toggleHover}
                 onMouseLeave={this.toggleHover}>
                 {this.state.files.length > 0 ?
-                  <div style={containerWrapper}>
-                    {this.state.files.map((file) => <div style={container}><img style={imgStyle} src={file.preview}/></div> )}
-                    <div style={inLineTextStyle}>Uploading {this.state.files[this.state.files.length - 1].name}...</div>
-                  </div> :
-                  <div><div style={textStyle}>
-                    {this.props.text}
-                  </div>
-                  <div style={orStyle}>
-                     Or <span style={subtextStyle}>{this.props.subtext}</span>
-                  </div></div>
-                  }
-
-      			</Dropzone>
-        );
+                    <div style={containerStyles.base}>
+                        {this.state.files.map((file) => <div style={[containerStyles.base, containerStyles.image]}><img style={imgStyle} src={file.preview}/></div> )}
+                        <div style={[textStyles.base, textStyles.uploading]}><div style={textStyles.ellipsis}>Uploading {this.state.files[this.state.files.length - 1].name}...</div></div>
+                    </div> :
+                    <div>
+                        <div style={[textStyles.base, textStyles.header]}>
+                            {this.props.text}
+                        </div>
+                        <div style={[textStyles.base, textStyles.subheader]}>
+                            Or <span style={[textStyles.base, textStyles.link]}>{this.props.subtext}</span>
+                        </div>
+                    </div>
+                }
+            </Dropzone>
+        )
     }
-});
+}
 
-module.exports = DropButton;
+module.exports = DropButton

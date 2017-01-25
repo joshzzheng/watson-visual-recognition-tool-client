@@ -8,7 +8,7 @@ class Button extends React.Component {
         kind: 'thin'
     };
     static propTypes = {
-      kind: React.PropTypes.oneOf(['thin', 'bold'])
+        kind: React.PropTypes.oneOf(['thin', 'bold'])
     };
     render() {
         var buttonStyle = {
@@ -65,18 +65,18 @@ class Button extends React.Component {
         };
 
         var textStyle = {
-          display: 'inline-block',
-          verticalAlign: 'middle',
-          color: 'inherit'
+            display: 'inline-block',
+            verticalAlign: 'middle',
+            color: 'inherit'
         }
-
+        
         return (
             <button
-              style = {
-                this.props.icon ? [buttonStyle.base, buttonStyle[this.props.kind], buttonStyle.image] : [buttonStyle.base, buttonStyle[this.props.kind]]
-              }
-              onClick={this.props.onClick}>
-    						<div style={textStyle}>{this.props.text}</div>
+                style = {
+                    this.props.icon ? [buttonStyle.base, buttonStyle[this.props.kind], buttonStyle.image] : [buttonStyle.base, buttonStyle[this.props.kind]]
+                }
+                onClick={this.props.onClick}>
+                <div style={textStyle}>{this.props.text}</div>
                 {this.props.icon ? <img src={this.props.icon} style={imgStyle}></img> : ''}
             </button>
         );
