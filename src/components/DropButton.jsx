@@ -83,7 +83,7 @@ var DropButton = React.createClass({
         var inLineTextStyle = {
           display: 'inline-flex',
           verticalAlign: 'middle',
-          color: 'inherit'
+          color: Styles.colorTextLight,
         }
 
         var containerWrapper = {
