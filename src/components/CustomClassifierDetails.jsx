@@ -6,6 +6,7 @@ import ClassifyImage from './ClassifyImage'
 import classNames from 'classnames'
 
 import DropButton from './DropButton'
+import Styles from './Styles'
 
 var ClassList = React.createClass({
   render: function(){
@@ -57,10 +58,8 @@ var CustomClassifierDetails = React.createClass({
       whiteSpace:'nowrap',
       overflow:'hidden',
       textOverflow:'ellipsis',
-      color: '#404040',
-      fontFamily: 'Helvetica, sans-serif',
-      fontWeight: '200',
-      fontSize: '14px',
+      color: Styles.colorTextDark,
+      font: Styles.fontDefault,
     }
 
     var titleStyle = {
@@ -69,10 +68,8 @@ var CustomClassifierDetails = React.createClass({
       whiteSpace:'nowrap',
       overflow:'hidden',
       textOverflow:'ellipsis',
-      color: '#404040',
-      fontWeight: '600',
-      fontSize: '21px',
-      fontFamily: 'Helvetica, sans-serif',
+      color: Styles.colorTextDark,
+      font: Styles.fontHeader,
     }
 
     var cardStyle = {

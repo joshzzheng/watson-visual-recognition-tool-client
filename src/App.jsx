@@ -11,7 +11,9 @@ var ReactDOM = require('react-dom');
 var { Router, Route, browserHistory, IndexRoute } = require('react-router');
 
 var Content = require('./components/Content');
-var Home = require('./components/Home');
+var TitleBar = require('./components/TitleBar');
+var Classifiers = require('./components/CustomClassifierList');
+var Apps = require('./components/Home');
 var CreateClassifier = require('./components/CreateClassifier');
 
 var App = React.createClass({
@@ -36,12 +38,18 @@ var App = React.createClass({
   render: function(){
     const routes = (
       <Route path="/"
-             component={Content}
+             component={Apps}
              getApiKey={this.getApiKey}
              setApiKey={this.setApiKey}
              apiKey={this.state.apiKey}
              host={this.state.host}>
-        <IndexRoute component={Home}
+        <IndexRoute component={Classifiers}
+                    getApiKey={this.getApiKey}
+                    setApiKey={this.setApiKey}
+                    apiKey={this.state.apiKey}
+                    host={this.state.host}/>
+                  <Route path="/collections"
+                    component={Classifiers}
                     getApiKey={this.getApiKey}
                     setApiKey={this.setApiKey}
                     apiKey={this.state.apiKey}

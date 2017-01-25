@@ -1,6 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import CustomClassifierList from './CustomClassifierList'
+import TitleBar from './TitleBar'
+import TabBar from './TabBar'
 import ApiKeyModal from './ApiKeyModal'
 
 var Home = React.createClass({
@@ -27,10 +29,14 @@ var Home = React.createClass({
 
   render: function() {
     return (
-      <div id="page-content-wrapper">
-          <CustomClassifierList
-            host={this.props.route.host}
-            apiKey={this.state.apiKey} />
+      <div>
+        <TitleBar/>
+        <TabBar/>
+        <div id="page-content-wrapper">
+            <CustomClassifierList
+              host={this.props.route.host}
+              apiKey={this.state.apiKey} />
+        </div>
       </div>
     );
   }

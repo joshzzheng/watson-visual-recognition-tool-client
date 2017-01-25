@@ -21,9 +21,7 @@ class Button extends React.Component {
                 borderWidth: 'thin',
                 borderStyle: 'solid',
                 height: '30px',
-                fontSize: '14px',
-                fontWeight: '200',
-                fontFamily: 'Helvetica, sans-serif',
+                font: Styles.fontDefault,
                 padding: '0px 21px 0px 21px',
 
                 ':hover': {
