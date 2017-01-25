@@ -14,6 +14,7 @@ var ApiKeyModal = React.createClass({
     this.props.setApiKey(key)
     localStorage.setItem('apiKey', key)
     this.props.handleHideModal()
+    $(ReactDOM.findDOMNode(this)).modal('hide');
   },
 
   render: function(){
@@ -44,7 +45,7 @@ var ApiKeyModal = React.createClass({
               </form>
             </div>
             <div className="modal-footer">
-                <Button onClick={this.saveApiKey} type="button" dataDismiss="modal" kind={"bold"} text={"Save key"}/>
+                <Button dataDismiss="modal" onClick={this.saveApiKey} kind={"bold"} text={"Save key"}/>
             </div>
           </div>
         </div>
