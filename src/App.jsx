@@ -1,19 +1,10 @@
-// import React from 'react'
-// import ReactDOM from 'react-dom'
-// import { Router, Route, browserHistory, IndexRoute } from 'react-router'
-//
-// import Content from './components/Content'
-// import Home from './components/Home'
-// import CreateClassifier from './components/CreateClassifier'
-
 var React = require('react');
 var ReactDOM = require('react-dom');
 var { Router, Route, browserHistory, IndexRoute } = require('react-router');
 
-var Content = require('./components/Content');
 var TitleBar = require('./components/TitleBar');
-var Classifiers = require('./components/CustomClassifierList');
-var Apps = require('./components/Home');
+var Classifiers = require('./components/Classifiers');
+var Base = require('./components/Base');
 var CreateClassifier = require('./components/CreateClassifier');
 
 var App = React.createClass({
@@ -38,7 +29,7 @@ var App = React.createClass({
   render: function(){
     const routes = (
       <Route path="/"
-             component={Apps}
+             component={Base}
              getApiKey={this.getApiKey}
              setApiKey={this.setApiKey}
              apiKey={this.state.apiKey}

@@ -3,7 +3,7 @@ import request from 'superagent'
 import $ from "jquery"
 import classNames from 'classnames'
 
-import DropzoneButton from './DropzoneButton'
+import DropzoneButton from './DropButton'
 
 var ClassRow = React.createClass({
   handleRowClassNameChange: function(e) {
@@ -23,7 +23,7 @@ var ClassRow = React.createClass({
                  onChange={this.handleRowClassNameChange}
                  placeholder={this.props.classes[this.props.rowId].placeholder} />
         </div>
-        <DropzoneButton rowId={this.props.rowId}
+        <DropButton rowId={this.props.rowId}
                         classes={this.props.classes}
                         addFile={this.props.addFile} />
       </div>

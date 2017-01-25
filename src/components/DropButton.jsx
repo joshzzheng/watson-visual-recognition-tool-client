@@ -32,13 +32,15 @@ var DropButton = React.createClass({
     		var textStyle = {
             color: Styles.colorTextLight,
             font: Styles.fontBold,
-            paddingBottom: '5px',
+            marginTop: '3px',
+            marginBottom: '7px',
             textAlign: 'center',
         };
         var orStyle = {
         		color: Styles.colorTextLight,
             font: Styles.fontDefault,
             textAlign: 'center',
+            marginBottom: '3px',
         }
     		var subtextStyle = {
             color: Styles.colorPrimary,
@@ -61,7 +63,7 @@ var DropButton = React.createClass({
         }
 
         var imgStyle = {
-          display: 'table',
+          display: 'inline-flex',
           margin: 'auto',
           maxHeight: '100%',
           maxWidth: '100%',
@@ -75,12 +77,21 @@ var DropButton = React.createClass({
             height: '45px',
             border: '1px solid #dedede',
             overflow: 'hidden',
+            marginRight: '10px',
         }
 
         var inLineTextStyle = {
           display: 'inline-flex',
           verticalAlign: 'middle',
           color: 'inherit'
+        }
+
+        var containerWrapper = {
+          width: '100%',
+            display: 'inline-flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            overflow: 'hidden',
         }
 
         return (
@@ -91,7 +102,7 @@ var DropButton = React.createClass({
                 onMouseEnter={this.toggleHover}
                 onMouseLeave={this.toggleHover}>
                 {this.state.files.length > 0 ?
-                  <div>
+                  <div style={containerWrapper}>
                     {this.state.files.map((file) => <div style={container}><img style={imgStyle} src={file.preview}/></div> )}
                     <div style={inLineTextStyle}>Uploading {this.state.files[this.state.files.length - 1].name}...</div>
                   </div> :
