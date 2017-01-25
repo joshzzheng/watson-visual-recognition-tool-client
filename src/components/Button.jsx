@@ -69,7 +69,7 @@ class Button extends React.Component {
             verticalAlign: 'middle',
             color: 'inherit'
         }
-        
+
         return (
             <button
                 style = {

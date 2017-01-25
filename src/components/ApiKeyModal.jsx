@@ -1,17 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Button from './Button'
 
 var ApiKeyModal = React.createClass({
-  componentDidMount: function(){
+  componentDidMount: function() {
     $(ReactDOM.findDOMNode(this)).modal('show');
     $(ReactDOM.findDOMNode(this)).on('hidden.bs.modal', this.props.handleHideModal);
   },
 
-  saveApiKey: function(){
+  saveApiKey: function() {
+    console.log('save the key!')
     var key = ReactDOM.findDOMNode(this.refs.apiKey).value
-    this.props.setApiKey(key);
-    localStorage.setItem('apiKey', key);
-    this.props.handleHideModal();
+    this.props.setApiKey(key)
+    localStorage.setItem('apiKey', key)
+    this.props.handleHideModal()
   },
 
   render: function(){
@@ -42,18 +44,7 @@ var ApiKeyModal = React.createClass({
               </form>
             </div>
             <div className="modal-footer">
-              <button type="button"
-                      className="btn btn-default"
-                      data-dismiss="modal"
-                      onClick={this.props.handleHideModal}>
-                Close
-              </button>
-              <button type="button"
-                      className="btn btn-primary"
-                      data-dismiss="modal"
-                      onClick={this.saveApiKey}>
-                Save key
-              </button>
+                <Button onClick={this.saveApiKey} type="button" dataDismiss="modal" kind={"bold"} text={"Save key"}/>
             </div>
           </div>
         </div>
