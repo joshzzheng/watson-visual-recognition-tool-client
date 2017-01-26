@@ -4,7 +4,7 @@ import $ from 'jquery'
 import request from 'superagent'
 import ClassifyImage from './ClassifyImage'
 import classNames from 'classnames'
-
+import ResultList from './ResultList'
 import DropButton from './DropButton'
 import Styles from './Styles'
 
@@ -51,6 +51,33 @@ var CustomClassifierDetails = React.createClass({
     });
   },
 
+  onDrop: function(files, onFinished) {
+      // this.props.addFile(this.props.classes, this.props.rowId, files[files.length-1])
+      var self = this
+      var req = request.post(this.props.host + "api/classify")
+
+      if (files[0]) {
+          req.attach('file', files[0])
+      }
+
+      req.field('classifier_id', this.props.classifierID)
+      req.field('api_key', this.props.apiKey)
+
+      req.on('progress', function(e) {
+          console.log(e.direction + ' Percentage done: ' + e.percent)
+      })
+
+      req.end(function(err, res) {
+          var results = res.body.images[0].classifiers[0].classes
+          results.sort(function(a, b) {
+              return b.score - a.score;
+          })
+          console.log(results)
+          self.setState({ file: files[0], results: results })
+          onFinished()
+      })
+  },
+
   render: function() {
     var textStyle = {
       textDecoration:'none',
@@ -93,9 +120,10 @@ var CustomClassifierDetails = React.createClass({
             <ClassList classes={this.state.classifier.classes} />
 
             <DropButton
-              addImageFile={this.addImageFile}
-              text={"Drag images here to classify them"}
-              subtext={"choose your files"} />
+                onDrop={this.onDrop}
+                text={"Drag images here to classify them"}
+                subtext={"choose your files"} />
+            {this.state.results ? <ResultList file={this.state.file} results={this.state.results}/> : null}
         </div>
       </div>
     );

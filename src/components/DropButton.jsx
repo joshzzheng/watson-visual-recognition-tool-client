@@ -1,6 +1,7 @@
 import React from 'react'
 import Dropzone from 'react-dropzone'
 import Styles from './Styles'
+import request from 'superagent'
 import Radium from 'radium'
 
 @Radium
@@ -11,8 +12,12 @@ class DropButton extends React.Component {
     }
 
     onDrop = (files) => {
-        this.setState({ files: files })
-        // this.props.addFile(this.props.classes, this.props.rowId, files[files.length-1])
+        var self = this
+        this.setState({ files: files }, function() {
+            this.props.onDrop(this.state.files, function() {
+                self.setState({ files: [] })
+            })
+        })
     }
 
     onOpenClick = () => {
@@ -57,9 +62,9 @@ class DropButton extends React.Component {
         }
 
         if (this.state.hover) {
-        		textStyles.link.textDecoration = 'underline';
+            textStyles.link.textDecoration = 'underline';
         } else {
-        		textStyles.link.textDecoration = 'none';
+            textStyles.link.textDecoration = 'none';
         }
 
         var dropzoneStyle = {
@@ -106,7 +111,7 @@ class DropButton extends React.Component {
                 onMouseLeave={this.toggleHover}>
                 {this.state.files.length > 0 ?
                     <div style={containerStyles.base}>
-                        {this.state.files.map((file) => <div style={[containerStyles.base, containerStyles.image]}><img style={imgStyle} src={file.preview}/></div> )}
+                        {this.state.files.map((file) => <div key={file.name} style={[containerStyles.base, containerStyles.image]}><img style={imgStyle} src={file.preview}/></div> )}
                         <div style={[textStyles.base, textStyles.uploading]}><div style={textStyles.ellipsis}>Uploading {this.state.files[this.state.files.length - 1].name}...</div></div>
                     </div> :
                     <div>
@@ -115,12 +120,12 @@ class DropButton extends React.Component {
                         </div>
                         <div style={[textStyles.base, textStyles.subheader]}>
                             Or <span style={[textStyles.base, textStyles.link]}>{this.props.subtext}</span>
-                        </div>
                     </div>
-                }
-            </Dropzone>
-        )
-    }
+                </div>
+            }
+        </Dropzone>
+    )
+}
 }
 
 module.exports = DropButton
