@@ -82,11 +82,18 @@ class ClassifierDetail extends React.Component {
 
         var status = {
             marginBottom: '-1px',
+            marginRight: '5px',
             display: 'inline-block',
             width: '10px',
             height: '10px',
             borderRadius: '5px',
-            background: '#64dd17',
+        }
+
+        var color
+        if (this.props.status == 'ready') {
+            color = '#64dd17'
+        } else {
+            color = '#ffab00'
         }
 
         return(
@@ -94,7 +101,7 @@ class ClassifierDetail extends React.Component {
                 <div style={cardStyle}>
                     <div style={titleStyle}>{this.props.name}</div>
                     <div style={textStyle}>{this.props.classifierID}</div>
-                    <div style={textStyle}>{this.props.status} <div style={status}/></div>
+                    <div style={textStyle}><div style={[status, {background: color}]}/>{this.props.status}</div>
 
                     <div style={{width: '100%', height:'20px'}}></div>
 
