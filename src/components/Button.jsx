@@ -3,13 +3,15 @@ import Styles from './Styles'
 import Radium from 'radium'
 
 @Radium
-class Button extends React.Component {
+export default class Button extends React.Component {
     static defaultProps = {
         kind: 'thin'
-    };
+    }
+
     static propTypes = {
         kind: React.PropTypes.oneOf(['thin', 'bold'])
-    };
+    }
+
     render() {
         var buttonStyle = {
             base: {
@@ -55,14 +57,14 @@ class Button extends React.Component {
             image: {
                 padding: '0px 4px 0px 21px',
             }
-        };
+        }
 
         var imgStyle = {
             width: '21px',
             height: '21px',
             marginLeft: '21px',
             verticalAlign: 'middle',
-        };
+        }
 
         var textStyle = {
             display: 'inline-block',
@@ -79,8 +81,6 @@ class Button extends React.Component {
                 <div style={textStyle}>{this.props.text}</div>
                 {this.props.icon ? <img src={this.props.icon} style={imgStyle}></img> : ''}
             </button>
-        );
+        )
     }
 }
-
-module.exports = Button;

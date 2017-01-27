@@ -4,7 +4,7 @@ import Styles from './Styles'
 import Radium from 'radium'
 
 @Radium
-class DropButton extends React.Component {
+export default class DropButton extends React.Component {
     constructor(props) {
         super(props)
         this.state = { files: [] }
@@ -61,9 +61,9 @@ class DropButton extends React.Component {
         }
 
         if (this.state.hover) {
-            textStyles.link.textDecoration = 'underline';
+            textStyles.link.textDecoration = 'underline'
         } else {
-            textStyles.link.textDecoration = 'none';
+            textStyles.link.textDecoration = 'none'
         }
 
         var dropzoneStyle = {
@@ -119,12 +119,10 @@ class DropButton extends React.Component {
                         </div>
                         <div style={[textStyles.base, textStyles.subheader]}>
                             Or <span style={[textStyles.base, textStyles.link]}>{this.props.subtext}</span>
+                        </div>
                     </div>
-                </div>
-            }
-        </Dropzone>
-    )
+                }
+            </Dropzone>
+        )
+    }
 }
-}
-
-module.exports = DropButton

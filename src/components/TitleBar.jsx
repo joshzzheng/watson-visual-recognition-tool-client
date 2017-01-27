@@ -5,7 +5,7 @@ import Styles from './Styles'
 import Radium from 'radium'
 
 @Radium
-class TitleBar extends React.Component {
+export default class TitleBar extends React.Component {
     static defaultProps = {
         title: 'Title',
     }
@@ -18,9 +18,9 @@ class TitleBar extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-      if (nextProps.apiKey !== null) {
-        this.setState({apiKey: nextProps.apiKey})
-      }
+        if (nextProps.apiKey !== null) {
+            this.setState({apiKey: nextProps.apiKey})
+        }
     }
 
     render() {
@@ -36,7 +36,7 @@ class TitleBar extends React.Component {
         var logo = {
             height: '60px',
             float: 'left',
-        };
+        }
 
         var lineHeight = {
             lineHeight: '65px',
@@ -89,5 +89,3 @@ class TitleBar extends React.Component {
         )
     }
 }
-
-module.exports = TitleBar

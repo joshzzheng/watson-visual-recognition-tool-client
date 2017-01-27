@@ -3,7 +3,7 @@ import Styles from './Styles'
 import Radium from 'radium'
 
 @Radium
-class ResultList extends React.Component {
+export default class ResultList extends React.Component {
     render(){
         var textStyles = {
             base: {
@@ -66,34 +66,28 @@ class ResultList extends React.Component {
             }
         }
 
-      var resultList = this.props.results.map(function(result, index){
-        return (
-          <li key={result.class}>
-            {index == 0 ?
-                <div style={[imgStyle, topResult]}>
-                    <div style={[textStyles.topClass, {display: 'inline-block'}]}>{result.class}</div>
-                    <div style={[textStyles.topScore, {float: 'right', display: 'inline-block'}]}>{~~(result.score * 100)}%</div>
-                </div> :
-                <div style={resultStyle}>
-                    <div style={[textStyles.base, textStyles.dark, {display: 'inline-block'}]}><b>{result.class}</b></div>
-                    <div style={[textStyles.base, {float: 'right', display: 'inline-block'}]}>{~~(result.score * 100)}%</div>
-                </div>
-            }
-          </li>
-        )
-      })
+        var resultList = this.props.results.map(function(result, index){
+            return (
+                <li key={result.class}>
+                    {index == 0 ?
+                        <div style={[imgStyle, topResult]}>
+                            <div style={[textStyles.topClass, {display: 'inline-block'}]}>{result.class}</div>
+                            <div style={[textStyles.topScore, {float: 'right', display: 'inline-block'}]}>{~~(result.score * 100)}%</div>
+                        </div> :
+                        <div style={resultStyle}>
+                            <div style={[textStyles.base, textStyles.dark, {display: 'inline-block'}]}><b>{result.class}</b></div>
+                            <div style={[textStyles.base, {float: 'right', display: 'inline-block'}]}>{~~(result.score * 100)}%</div>
+                        </div>
+                    }
+                </li>
+            )
+        })
 
-      return (
-        <div>
-            {/*<div style={containerStyles.base}>
-                <div style={[containerStyles.base, containerStyles.image]}><img style={imgStyle} src={this.props.file.preview}/></div>
-                <div style={[textStyles.base, textStyles.uploading]}><ul> {resultList} </ul></div>
-            </div>*/}
-            <img style={imgStyle} src={this.props.file.preview}/>
-            <ul style={list}> {resultList} </ul>
-        </div>
-      );
+        return (
+            <div>
+                <img style={imgStyle} src={this.props.file.preview}/>
+                <ul style={list}> {resultList} </ul>
+            </div>
+        )
     }
 }
-
-module.exports = ResultList

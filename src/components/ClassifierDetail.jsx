@@ -6,7 +6,7 @@ import Styles from './Styles'
 import Radium from 'radium'
 
 @Radium
-class ClassifierDetail extends React.Component {
+export default class ClassifierDetail extends React.Component {
     onDrop = (files, onFinished) => {
         var self = this
         var req = request.post(this.props.host + "api/classify")
@@ -25,7 +25,7 @@ class ClassifierDetail extends React.Component {
         req.end(function(err, res) {
             var results = res.body.images[0].classifiers[0].classes
             results.sort(function(a, b) {
-                return b.score - a.score;
+                return b.score - a.score
             })
             console.log(results)
             self.setState({ file: files[0], results: results })
@@ -101,5 +101,3 @@ class ClassifierDetail extends React.Component {
         )
     }
 }
-
-module.exports = ClassifierDetail

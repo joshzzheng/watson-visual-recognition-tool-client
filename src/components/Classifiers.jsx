@@ -5,7 +5,7 @@ import Button from './Button'
 import Radium from 'radium'
 
 @Radium
-class CustomClassifiersList extends React.Component {
+export default class CustomClassifiersList extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -59,5 +59,3 @@ class CustomClassifiersList extends React.Component {
         )
     }
 }
-
-module.exports = CustomClassifiersList
