@@ -1,68 +1,63 @@
 import React from 'react'
-import moment from "moment"
-import $ from "jquery"
-import CustomClassifierDetails from './CustomClassifierDetails'
+import request from 'superagent'
+import ClassifierDetail from './ClassifierDetail'
 import Button from './Button'
+import Radium from 'radium'
 
-var CustomClassifiersList = React.createClass({
-  loadClassifiersFromServer: function(){
-    $.ajax({
-      url: this.props.host + "api/classifiers",
-      dataType: 'json',
-      cache: false,
-      data: { apiKey: this.state.apiKey },
-      success: function(data) {
-        this.setState({classifiers: data});
-      }.bind(this),
-      error: function(xhr, status, err) {
-        console.error(this.props.host + "api/classifiers", status, err.toString());
-      }.bind(this)
-    });
-  },
-
-  getInitialState: function() {
-    return {
-      classifiers: [],
-      apiKey: this.props.apiKey
-    };
-  },
-
-  componentDidMount: function() {
-    this.loadClassifiersFromServer();
-  },
-
-  componentWillReceiveProps: function(nextProps) {
-    if(nextProps.apiKey !== null){
-      this.setState({apiKey: nextProps.apiKey}, function(){
-         this.loadClassifiersFromServer();
-      })
+@Radium
+class CustomClassifiersList extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            classifiers: []
+        }
     }
-  },
 
-  render: function() {
-    var classifiers = [];
+    loadClassifiersFromServer = () => {
+        var self = this
+        var req = request.get(this.props.host + "api/classifiers")
 
-    var self = this;
-    this.state.classifiers.forEach(function(classifier){
-      classifiers.push(
-        <CustomClassifierDetails
-          host={self.props.host}
-          classifierID={classifier.classifier_id}
-          name={classifier.name}
-          status={classifier.status}
-          key={classifier.classifier_id}
-          apiKey={self.state.apiKey}
-        />);
-    });
-    return (
-      <div>
-        <div style={{margin: '21px 0px'}}>
-            <Button text={"Create classifier"} kind={"bold"} icon={"btn_create.png"}/>
-        </div>
-        <div className='row'>{classifiers}</div>
-      </div>
-    );
-  }
-});
+        req.query({ apiKey: this.props.apiKey })
 
-module.exports = CustomClassifiersList;
+        req.end(function(err, res) {
+            self.setState({ classifiers: res.body })
+        })
+    }
+
+    componentDidMount() {
+        this.loadClassifiersFromServer()
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.apiKey !== null){
+            this.setState({apiKey: nextProps.apiKey}, function(){
+                this.loadClassifiersFromServer()
+            })
+        }
+    }
+
+    render() {
+        var self = this
+        var classifiers = this.state.classifiers.map(function(classifier){
+            return (
+                <ClassifierDetail
+                    host={self.props.host}
+                    classifierID={classifier.classifier_id}
+                    name={classifier.name}
+                    status={classifier.status}
+                    key={classifier.classifier_id}
+                    apiKey={self.props.apiKey}/>
+            )
+        })
+        return (
+            <div>
+                <div style={{margin: '21px 0px'}}>
+                    <Button text={"Create classifier"} kind={"bold"} icon={"btn_create.png"}/>
+                </div>
+                <div className='row'>{classifiers}</div>
+            </div>
+        )
+    }
+}
+
+module.exports = CustomClassifiersList

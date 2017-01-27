@@ -1,7 +1,6 @@
 import React from 'react'
 import Dropzone from 'react-dropzone'
 import Styles from './Styles'
-import request from 'superagent'
 import Radium from 'radium'
 
 @Radium

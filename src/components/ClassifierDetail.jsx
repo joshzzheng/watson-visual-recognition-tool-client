@@ -7,20 +7,6 @@ import Radium from 'radium'
 
 @Radium
 class ClassifierDetail extends React.Component {
-    loadClassifierDetailsFromServer = () => {
-        var self = this
-        var req = request.get(this.props.host + "api/classifier" + this.props.classiferID)
-
-        req.type('json')
-        req.set('api_key', this.props.apiKey)
-        req.set('Expires', '-1')
-        req.set('Cache-Control', 'no-cache,no-store,must-revalidate,max-age=-1,private')
-
-        req.end(function(err, res) {
-            self.setState({classifier: data})
-        })
-    }
-
     onDrop = (files, onFinished) => {
         var self = this
         var req = request.post(this.props.host + "api/classify")

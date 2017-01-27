@@ -80,7 +80,7 @@ class ResultList extends React.Component {
                 </div>
             }
           </li>
-        );
+        )
       })
 
       return (
