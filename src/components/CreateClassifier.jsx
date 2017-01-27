@@ -2,8 +2,7 @@ import React from 'react'
 import request from 'superagent'
 import $ from "jquery"
 import classNames from 'classnames'
-
-import DropzoneButton from './DropButton'
+import DropButton from './DropButton'
 
 var ClassRow = React.createClass({
   handleRowClassNameChange: function(e) {
