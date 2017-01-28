@@ -3,7 +3,7 @@ import request from 'superagent'
 import {browserHistory} from 'react-router'
 import ClassifierDetail from './ClassifierDetail'
 import Button from './Button'
-import Host from './host'
+import Constants from './Constants'
 import Radium from 'radium'
 
 @Radium
@@ -17,7 +17,7 @@ export default class Classifiers extends React.Component {
 
     loadClassifiersFromServer = () => {
         var self = this
-        var req = request.get(Host.host + "api/classifiers")
+        var req = request.get(Constants.host + "api/classifiers")
         req.query({ apiKey: localStorage.getItem('apiKey') })
 
         req.end(function(err, res) {

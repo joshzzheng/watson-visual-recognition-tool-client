@@ -6,12 +6,13 @@ import Styles from './Styles'
 import ResultList from './ResultList'
 import DropButton from './DropButton'
 import Card from './Card'
+import Constants from './Constants'
 
 @Radium
 export default class ClassifierDetail extends React.Component {
     onDrop = (files, onFinished) => {
         var self = this
-        var req = request.post(this.props.host + "api/classify")
+        var req = request.post(Constants.host + "api/classify")
 
         if (files[0]) {
             req.attach('file', files[0])
