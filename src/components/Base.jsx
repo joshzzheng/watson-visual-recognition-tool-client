@@ -36,7 +36,7 @@ export default class Base extends React.Component {
                 <TabBar/>
                 <div id="page-content-wrapper">
                     {/*This is to force an update*/}
-                    {React.cloneElement(this.props.children, { apiKey: localStorage.getItem('apiKey') })}
+                    {React.cloneElement(this.props.children, {})}
                 </div>
                 {this.state.showModal ?
                     <ApiKeyModal

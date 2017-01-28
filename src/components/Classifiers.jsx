@@ -35,12 +35,9 @@ export default class Classifiers extends React.Component {
         this.loadClassifiersFromServer()
     }
 
-    // Only reload the data if the apiKey has changed
-    // Will most likely need to change this down the road
+    // Important!
     componentWillReceiveProps(newProps) {
-        if (newProps.apiKey != this.props.apiKey) {
-            this.loadClassifiersFromServer()
-        }
+        this.loadClassifiersFromServer()
     }
 
     render() {
