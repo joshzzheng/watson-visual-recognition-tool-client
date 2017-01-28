@@ -7,23 +7,14 @@ import ApiKeyModal from './ApiKeyModal'
 export default class Base extends React.Component {
     constructor(props) {
         super(props)
-        if(this.props.route.getApiKey()) {
-            this.state = {
-                apiKey: this.props.route.getApiKey(),
-                showModal: false
-            }
-        } else {
-            this.state = {
-                apiKey: null,
-                showModal: true
-            }
+        this.state = {
+            showModal: localStorage.getItem('apiKey') == null
         }
     }
 
-    handleHideModal = () => {
-        this.setState({
-            showModal: false
-        })
+    setApiKey = (key) => {
+        localStorage.setItem('apiKey', key)
+        this.forceUpdate()
     }
 
     handleShowModal = () => {
@@ -32,27 +23,26 @@ export default class Base extends React.Component {
         })
     }
 
-    componentWillReceiveProps(nextProps) {
-        let apiKey = this.props.route.getApiKey()
-        if (nextProps.apiKey !== null) {
-            this.setState({apiKey: apiKey})
-        }
+    handleHideModal = () => {
+        this.setState({
+            showModal: false
+        })
     }
 
     render() {
         return (
             <div>
-                <TitleBar apiKey={this.state.apiKey}
-                    onClick={this.handleShowModal}/>
+                <TitleBar onClick={this.handleShowModal}/>
                 <TabBar/>
                 <div id="page-content-wrapper">
-                    {this.props.children}
+                    {/*This is to force an update*/}
+                    {React.cloneElement(this.props.children, { apiKey: localStorage.getItem('apiKey') })}
                 </div>
                 {this.state.showModal ?
                     <ApiKeyModal
                         showModal={this.state.showModal}
                         handleHideModal={this.handleHideModal}
-                        setApiKey={this.props.route.setApiKey}/>
+                        setApiKey={this.setApiKey}/>
                     : null
                 }
             </div>

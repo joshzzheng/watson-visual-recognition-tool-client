@@ -4,10 +4,8 @@ import Button from './Button'
 
 export default class ApiKeyModal extends React.Component {
     saveApiKey = () => {
-        console.log('save the key!')
         var key = ReactDOM.findDOMNode(this.refs.apiKey).value
         this.props.setApiKey(key)
-        localStorage.setItem('apiKey', key)
         this.props.handleHideModal()
         $(ReactDOM.findDOMNode(this)).modal('hide')
     }

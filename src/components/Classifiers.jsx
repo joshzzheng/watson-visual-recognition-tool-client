@@ -3,10 +3,11 @@ import request from 'superagent'
 import {browserHistory} from 'react-router'
 import ClassifierDetail from './ClassifierDetail'
 import Button from './Button'
+import Host from './host'
 import Radium from 'radium'
 
 @Radium
-export default class CustomClassifiersList extends React.Component {
+export default class Classifiers extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -16,12 +17,13 @@ export default class CustomClassifiersList extends React.Component {
 
     loadClassifiersFromServer = () => {
         var self = this
-        var req = request.get(this.props.route.host + "api/classifiers")
-
-        req.query({ apiKey: this.props.route.apiKey })
+        var req = request.get(Host.host + "api/classifiers")
+        req.query({ apiKey: localStorage.getItem('apiKey') })
 
         req.end(function(err, res) {
-            self.setState({ classifiers: res.body })
+            if (res.body != null) {
+                self.setState({ classifiers: res.body })
+            }
         })
     }
 
@@ -33,25 +35,24 @@ export default class CustomClassifiersList extends React.Component {
         this.loadClassifiersFromServer()
     }
 
-    componentWillReceiveProps(nextProps) {
-        if(nextProps.apiKey !== null){
-            this.setState({apiKey: nextProps.apiKey}, function(){
-                this.loadClassifiersFromServer()
-            })
+    // Only reload the data if the apiKey has changed
+    // Will most likely need to change this down the road
+    componentWillReceiveProps(newProps) {
+        if (newProps.apiKey != this.props.apiKey) {
+            this.loadClassifiersFromServer()
         }
     }
 
     render() {
         var self = this
-        var classifiers = this.state.classifiers.map(function(classifier){
+        var classifiers = this.state.classifiers.map(function(classifier) {
             return (
                 <ClassifierDetail
                     host={self.props.route.host}
                     classifierID={classifier.classifier_id}
                     name={classifier.name}
                     status={classifier.status}
-                    key={classifier.classifier_id}
-                    apiKey={self.props.route.apiKey}/>
+                    key={classifier.classifier_id}/>
             )
         })
         return (

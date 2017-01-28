@@ -6,23 +6,6 @@ import Radium from 'radium'
 
 @Radium
 export default class TitleBar extends React.Component {
-    static defaultProps = {
-        title: 'Title',
-    }
-
-    constructor(props) {
-        super(props)
-        this.state = {
-            apiKey: props.apiKey
-        }
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.apiKey !== null) {
-            this.setState({apiKey: nextProps.apiKey})
-        }
-    }
-
     render() {
         var filter = {
             position: 'absolute',
@@ -81,7 +64,7 @@ export default class TitleBar extends React.Component {
                     <img src="watson.png" style={logo}></img>
                     <div style={[title, lineHeight]}>Visual Recognition Tool</div>
                     <div style={[right, lineHeight]}>
-                        API Key: {this.state.apiKey || "Unknown"} &nbsp;&nbsp;
+                        API Key: {localStorage.getItem('apiKey') || "Unknown"} &nbsp;&nbsp;
                         <Button onClick={this.props.onClick} text={"Update key"}/>
                     </div>
                 </div>

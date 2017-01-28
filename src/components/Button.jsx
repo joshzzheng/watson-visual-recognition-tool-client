@@ -25,12 +25,6 @@ export default class Button extends React.Component {
                 height: '30px',
                 font: Styles.fontDefault,
                 padding: '0px 21px 0px 21px',
-
-                ':hover': {
-                    color: 'white',
-                    background: Styles.colorPrimary,
-                    borderColor: Styles.colorPrimary,
-                }
             },
             thin: {
                 color: Styles.colorPrimary,
@@ -75,7 +69,7 @@ export default class Button extends React.Component {
         return (
             <button
                 style = {
-                    this.props.icon ? [buttonStyle.base, buttonStyle[this.props.kind], buttonStyle.image] : [buttonStyle.base, buttonStyle[this.props.kind]]
+                    this.props.icon ? [buttonStyle.base, buttonStyle[this.props.kind], buttonStyle.image, this.props.style] : [buttonStyle.base, buttonStyle[this.props.kind], this.props.style]
                 }
                 onClick={this.props.onClick}>
                 <div style={textStyle}>{this.props.text}</div>
