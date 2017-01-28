@@ -70,8 +70,10 @@ export default class ClassifierDetail extends React.Component {
         var color
         if (this.props.status == 'ready') {
             color = '#64dd17'
-        } else {
+        } else if (this.props.status == 'training'){
             color = '#ffab00'
+        } else {
+            color = '#F44336'
         }
 
         return(
