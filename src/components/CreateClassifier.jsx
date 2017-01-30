@@ -13,17 +13,27 @@ export default class CreateClassifier extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            classifierName: 'testing',
+            classifierName: '',
             classes: [
-                {name: 'my_cool_class', file: null},
-                {name: 'this_is_fun', file: null}
+                {name: '', file: null},
+                {name: '', file: null}
             ]
         }
+    }
+
+    onTextChange = (text) => {
+        this.setState({ classifierName: text.target.value })
     }
 
     setClassFile = (file, key) => {
         var newClasses = $.extend([], this.state.classes)
         newClasses[key].file = file
+        this.setState({ classes: newClasses })
+    }
+
+    setClassName = (text, key) => {
+        var newClasses = $.extend([], this.state.classes)
+        newClasses[key].name = text.target.value
         this.setState({ classes: newClasses })
     }
 
@@ -91,7 +101,8 @@ export default class CreateClassifier extends React.Component {
                 </div>
                 <input type="text"
                     style={[textStyles.header, {marginTop: '12px', marginBottom: '5px'}]}
-                    placeholder='Classifier name' />
+                    placeholder='Classifier name'
+                    onChange={this.onTextChange} />
                 <Card>
                     <div style={textStyles.header}>
                         Classes
@@ -105,7 +116,8 @@ export default class CreateClassifier extends React.Component {
                                 style={{maxWidth:'30rem'}}
                                 key={i}
                                 id={i}
-                                setClassFile={self.setClassFile}/>
+                                setClassFile={self.setClassFile}
+                                setClassName={self.setClassName}/>
                         )
                     })}</div>
                     <div style={[{marginTop: '12px'}, {textAlign: 'right'}]}>

@@ -76,6 +76,7 @@ app.post('/api/detect_faces', function(req, res) {
 });
 
 // just make the request ourselves, sdk doesnt do much and isnt working as needed
+// TODO: add negatives support
 app.post('/api/create_classifier', function(req, res) {
     sa_req = request.post('https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classifiers');
 

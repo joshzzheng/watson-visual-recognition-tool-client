@@ -9,12 +9,17 @@ export default class Class extends React.Component {
         this.props.setClassFile(file, this.props.id)
     }
 
+    onTextChange = (text) => {
+        this.props.setClassName(text, this.props.id)
+    }
+
     render() {
         return (
             <div className="col-sm-4">
                 <div style={this.props.style}>
                     <input type="text" style={{marginTop: '12px', marginBottom: '5px'}}
-                        placeholder='Class name' />
+                        placeholder='Class name'
+                        onChange={this.onTextChange} />
                     <DropButton text='Drag .zip here to train class' subtext='choose your file' onDrop={this.onDrop}/>
                 </div>
             </div>
