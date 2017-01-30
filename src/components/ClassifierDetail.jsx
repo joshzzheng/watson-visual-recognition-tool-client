@@ -7,6 +7,7 @@ import ResultList from './ResultList'
 import DropButton from './DropButton'
 import Card from './Card'
 import Constants from './Constants'
+import DropDown from './DropDown'
 
 @Radium
 export default class ClassifierDetail extends React.Component {
@@ -90,6 +91,7 @@ export default class ClassifierDetail extends React.Component {
         return(
             <div className="col-sm-4">
                 <Card style={{maxWidth:'30rem'}}>
+                    <DropDown/>
                     <div style={titleStyle}>{this.props.name}</div>
                     <div style={textStyle}>{this.props.classifierID}</div>
                     <div style={textStyle}><div style={[status, {background: color}]}/>{this.props.status}</div>
