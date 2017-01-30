@@ -90,7 +90,7 @@ export default class CreateClassifier extends React.Component {
                     A classifier is a group of classes that are trained against each other. This allows you identify highly specialized subjects.
                 </div>
                 <input type="text"
-                    style={textStyles.header}
+                    style={[textStyles.header, {marginTop: '12px', marginBottom: '5px'}]}
                     placeholder='Classifier name' />
                 <Card>
                     <div style={textStyles.header}>
@@ -99,15 +99,17 @@ export default class CreateClassifier extends React.Component {
                     <div style={[textStyles.base, {maxWidth: '800px'}, margin]}>
                         A classifier named "fruit" may have a “pear”, “apple”, and “banana” class or just a “banana” class and a collection of negative examples. Negative examples are not used to create a class, but does define what the classifier is not.
                     </div>
-                    {this.state.classes.map(function(c, i) {
+                    <div className='row'>{this.state.classes.map(function(c, i) {
                         return (
-                            <Class key={i}
+                            <Class
+                                style={{maxWidth:'30rem'}}
+                                key={i}
                                 id={i}
                                 setClassFile={self.setClassFile}/>
                         )
-                    })}
-                    <Button onClick={this.addClass} text='Add class'/>
-                    <div style={{textAlign: 'right'}}>
+                    })}</div>
+                    <div style={[{marginTop: '12px'}, {textAlign: 'right'}]}>
+                        <Button onClick={this.addClass} text='Add class' style={{float: 'left'}}/>
                         <Button onClick={this.cancel} text='Cancel' style={{marginRight: '20px'}}/>
                         <Button onClick={this.create} text='Create' kind='bold'/>
                     </div>
