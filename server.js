@@ -75,27 +75,21 @@ app.post('/api/detect_faces', function(req, res) {
     });
 });
 
+// just make the request ourselves, sdk doesnt do much and isnt working as needed
 app.post('/api/create_classifier', function(req, res) {
     sa_req = request.post('https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classifiers');
 
-    sa_req.query({ api_key: '', version: '2016-05-19' })
+    sa_req.query({ api_key: req.query.api_key, version: req.query.version || '2016-05-19' })
 
     for (var file in req.files) {
         sa_req.attach(file + '_positive_examples', req.files[file].data, 'need_a_filename');
     }
 
-    sa_req.field('name', 'fake_name');
+    sa_req.field('name', req.query.name);
 
     sa_req.end(function(err, data) {
         res.send(data);
     });
-
-    // console.log(params)
-    //
-    // visual_recognition.createClassifier(params, function(err, data) {
-    //     console.log(err);
-    //     res.send(data);
-    // });
 });
 
 app.listen(PORT, function(error) {
