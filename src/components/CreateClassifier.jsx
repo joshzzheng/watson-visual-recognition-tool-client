@@ -93,21 +93,21 @@ export default class CreateClassifier extends React.Component {
         var self = this
         return (
             <div>
-                <div style={textStyles.header}>
+                <div style={[textStyles.header, {marginTop: '30px', marginBottom: '5px'}]}>
                     Create a new classifier
                 </div>
-                <div style={[textStyles.base, margin]}>
+                <div style={[textStyles.base, {marginTop: '5px', marginBottom: '18px'}]}>
                     A classifier is a group of classes that are trained against each other. This allows you identify highly specialized subjects.
                 </div>
                 <input type="text"
-                    style={[textStyles.header, {marginTop: '12px', marginBottom: '5px'}]}
+                    style={[textStyles.header, {marginTop: '12px', marginBottom: '10px'}]}
                     placeholder='Classifier name'
                     onChange={this.onTextChange} />
                 <Card>
                     <div style={textStyles.header}>
                         Classes
                     </div>
-                    <div style={[textStyles.base, {maxWidth: '800px'}, margin]}>
+                    <div style={[textStyles.base, {maxWidth: '800px'}, {marginTop: '5px', marginBottom: '20px'}]}>
                         A classifier named "fruit" may have a “pear”, “apple”, and “banana” class or just a “banana” class and a collection of negative examples. Negative examples are not used to create a class, but does define what the classifier is not.
                     </div>
                     <div className='row'>{this.state.classes.map(function(c, i) {
@@ -120,7 +120,7 @@ export default class CreateClassifier extends React.Component {
                                 setClassName={self.setClassName}/>
                         )
                     })}</div>
-                    <div style={[{marginTop: '12px'}, {textAlign: 'right'}]}>
+                <div style={[{marginTop: '30px'}, {textAlign: 'right'}]}>
                         <Button onClick={this.addClass} text='Add class' style={{float: 'left'}}/>
                         <Button onClick={this.cancel} text='Cancel' style={{marginRight: '20px'}}/>
                         <Button onClick={this.create} text='Create' kind='bold'/>
