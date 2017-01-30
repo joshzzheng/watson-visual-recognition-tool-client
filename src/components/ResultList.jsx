@@ -2,6 +2,10 @@ import React from 'react'
 import Styles from './Styles'
 import Radium from 'radium'
 
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+}
+
 @Radium
 export default class ResultList extends React.Component {
     render(){
@@ -66,22 +70,36 @@ export default class ResultList extends React.Component {
             }
         }
 
-        var resultList = this.props.results.map(function(result, index){
-            return (
-                <li key={result.class}>
-                    {index == 0 ?
-                        <div style={[imgStyle, topResult]}>
-                            <div style={[textStyles.topClass, {display: 'inline-block'}]}>{result.class}</div>
-                            <div style={[textStyles.topScore, {float: 'right', display: 'inline-block'}]}>{~~(result.score * 100)}%</div>
-                        </div> :
-                        <div style={resultStyle}>
-                            <div style={[textStyles.base, textStyles.dark, {display: 'inline-block'}]}><b>{result.class}</b></div>
-                            <div style={[textStyles.base, {float: 'right', display: 'inline-block'}]}>{~~(result.score * 100)}%</div>
-                        </div>
-                    }
-                </li>
-            )
-        })
+        var resultList
+        if (this.props.results.age != null) {
+            resultList = <div>
+                <div style={[imgStyle, topResult]}>
+                    <div style={[textStyles.topClass, {display: 'inline-block'}]}>Gender</div>
+                    <div style={[textStyles.topScore, {float: 'right', display: 'inline-block'}]}>{capitalizeFirstLetter(this.props.results.gender.gender)}</div>
+                </div>
+                <div style={[imgStyle, topResult]}>
+                    <div style={[textStyles.topClass, {display: 'inline-block'}]}>Age</div>
+                    <div style={[textStyles.topScore, {float: 'right', display: 'inline-block'}]}>{this.props.results.age.min} - {this.props.results.age.max}</div>
+                </div>
+            </div>
+        } else {
+            resultList = this.props.results.map(function(result, index){
+                return (
+                    <li key={result.class}>
+                        {index == 0 ?
+                            <div style={[imgStyle, topResult]}>
+                                <div style={[textStyles.topClass, {display: 'inline-block'}]}>{result.class}</div>
+                                <div style={[textStyles.topScore, {float: 'right', display: 'inline-block'}]}>{~~(result.score * 100)}%</div>
+                            </div> :
+                            <div style={resultStyle}>
+                                <div style={[textStyles.base, textStyles.dark, {display: 'inline-block'}]}><b>{result.class}</b></div>
+                                <div style={[textStyles.base, {float: 'right', display: 'inline-block'}]}>{~~(result.score * 100)}%</div>
+                            </div>
+                        }
+                    </li>
+                )
+            })
+        }
 
         return (
             <div>

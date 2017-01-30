@@ -12,25 +12,36 @@ import Constants from './Constants'
 export default class ClassifierDetail extends React.Component {
     onDrop = (files, onFinished) => {
         var self = this
-        var req = request.post(Constants.host + "api/classify")
+        var req
+        if (this.props.classifierID == null && this.props.name == 'Faces') {
+            req = request.post('/api/detect_faces')
+        } else {
+            req = request.post('/api/classify')
+            req.query({classifier_ids: [this.props.classifierID]})
+            req.query({threshold: 0.0})
+        }
 
         if (files[0]) {
             req.attach('file', files[0])
         }
 
-        req.field('classifier_id', this.props.classifierID)
-        req.field('api_key', localStorage.getItem('apiKey'))
+        req.query({api_key: localStorage.getItem('apiKey')})
 
         req.on('progress', function(e) {
             console.log(e.direction + ' Percentage done: ' + e.percent)
         })
 
         req.end(function(err, res) {
-            var results = res.body.images[0].classifiers[0].classes
-            results.sort(function(a, b) {
-                return b.score - a.score
-            })
-            console.log(results)
+            console.log(res)
+            var results
+            if (res.body.images[0].classifiers != null) {
+                results = res.body.images[0].classifiers[0].classes
+                results.sort(function(a, b) {
+                    return b.score - a.score
+                })
+            } else if (res.body.images[0].faces != null) {
+                results = res.body.images[0].faces[0]
+            }
             self.setState({ file: files[0], results: results })
             onFinished()
         })

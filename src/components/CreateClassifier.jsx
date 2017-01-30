@@ -13,10 +13,10 @@ export default class CreateClassifier extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            classifierName: "testing",
+            classifierName: 'testing',
             classes: [
-                {name: "my_cool_class", file: null},
-                {name: "this_is_fun", file: null}
+                {name: 'my_cool_class', file: null},
+                {name: 'this_is_fun', file: null}
             ]
         }
     }
@@ -32,23 +32,18 @@ export default class CreateClassifier extends React.Component {
     }
 
     create = () => {
-        var req = request.post(Constants.host + "api/classifiers")
+        var req = request.post('/api/create_classifier')
         var apiKey = localStorage.getItem('apiKey')
 
-        console.log('Api key: ' + apiKey)
-        console.log('Classifer name: ' + this.state.classifierName)
-
         this.state.classes.map(function(c) {
-            req.attach(c.name, c.file)
-            console.log('name: ' + c.name +', file: ' + c.file)
+            req.attach(c.name, c.file, c.name + '_posdsakoasd.zip')
         })
+        req.query({ apiKey: apiKey })
+        req.query({ name: this.state.classifierName })
 
-        req.field('api_key', apiKey)
-        req.field('classifier_name', this.state.classifierName)
+        console.log(req)
 
         req.then(function(res, err) {
-            console.log(res)
-            console.error(res.body.error)
             browserHistory.push('/')
         })
     }
