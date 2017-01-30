@@ -3,6 +3,8 @@ var express = require('express');
 var VisualRecognitionV3 = require('watson-developer-cloud/visual-recognition/v3');
 var fileUpload = require('express-fileupload');
 var fs = require('fs');
+var streamifier = require('streamifier');
+var request = require('superagent');
 var app = express();
 //var PORT = process.env.PORT || 8080 //heroku
 var PORT = process.env.VCAP_APP_PORT || 8080; //bluemix
@@ -32,7 +34,7 @@ app.get('*', function(req, response) {
 
 app.post('/api/list_classifiers', function(req, res) {
     var visual_recognition = new VisualRecognitionV3({
-        api_key: req.query.apiKey,
+        api_key: req.query.api_key,
         version_date: req.query.version || '2016-05-19'
     });
 
@@ -74,22 +76,26 @@ app.post('/api/detect_faces', function(req, res) {
 });
 
 app.post('/api/create_classifier', function(req, res) {
-    console.log(req.files);
+    sa_req = request.post('https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classifiers');
 
-    var visual_recognition = new VisualRecognitionV3({
-        api_key: req.query.apiKey,
-        version_date: req.query.version || '2016-05-19'
-    });
+    sa_req.query({ api_key: '', version: '2016-05-19' })
 
-    var params = req.query;
+    for (var file in req.files) {
+        sa_req.attach(file + '_positive_examples', req.files[file].data, 'need_a_filename');
+    }
 
-    //images_file: fs.createReadStream('./resources/car.png')
+    sa_req.field('name', 'fake_name');
 
-    visual_recognition.createClassifier(params, function(err, data) {
-        // console.log(data);
-        // console.log(err);
+    sa_req.end(function(err, data) {
         res.send(data);
     });
+
+    // console.log(params)
+    //
+    // visual_recognition.createClassifier(params, function(err, data) {
+    //     console.log(err);
+    //     res.send(data);
+    // });
 });
 
 app.listen(PORT, function(error) {

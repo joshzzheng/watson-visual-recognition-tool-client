@@ -18,7 +18,7 @@ export default class Classifiers extends React.Component {
         var self = this
 
         var req = request.post('/api/list_classifiers')
-        req.query({ apiKey: localStorage.getItem('apiKey') })
+        req.query({ api_key: localStorage.getItem('apiKey') })
         req.query({ verbose: true })
 
         req.end(function(err, res) {
@@ -56,7 +56,7 @@ export default class Classifiers extends React.Component {
                     classifierID={classifier.classifier_id}
                     name={classifier.name}
                     status={classifier.status}
-                    key={classifier.classifier_id}/>
+                    key={classifier.classifier_id || classifier.name}/>
             )
         })
         return (

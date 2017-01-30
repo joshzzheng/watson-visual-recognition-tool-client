@@ -33,17 +33,15 @@ export default class CreateClassifier extends React.Component {
 
     create = () => {
         var req = request.post('/api/create_classifier')
-        var apiKey = localStorage.getItem('apiKey')
 
         this.state.classes.map(function(c) {
-            req.attach(c.name, c.file, c.name + '_posdsakoasd.zip')
+            req.attach(c.name, c.file[0])
         })
-        req.query({ apiKey: apiKey })
+        req.query({ api_key: localStorage.getItem('apiKey') })
         req.query({ name: this.state.classifierName })
 
-        console.log(req)
-
         req.then(function(res, err) {
+            console.log(res)
             browserHistory.push('/')
         })
     }
@@ -55,6 +53,15 @@ export default class CreateClassifier extends React.Component {
         file: null
       })
       this.setState({classes: newClasses});
+    }
+
+    onDrop = (files) => {
+        var self = this
+        this.setState({ files: files }, function() {
+            this.props.onDrop(this.state.files, function() {
+                self.setState({ files: [] })
+            })
+        })
     }
 
     render() {
