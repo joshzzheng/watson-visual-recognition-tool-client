@@ -1,6 +1,6 @@
 ---
 applications:
-- name: watson-vr-tool
+- name: vr-tool
   path: .
   memory: 512M
   instances: 1
