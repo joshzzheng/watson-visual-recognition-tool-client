@@ -8,11 +8,8 @@ import LandingPage from './LandingPage'
 export default class Base extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            showModal: localStorage.getItem('apiKey') == null
-        }
+        this.state = {showModal: false}
     }
-
     setApiKey = (key) => {
         localStorage.setItem('apiKey', key)
         this.forceUpdate()
@@ -43,7 +40,6 @@ export default class Base extends React.Component {
                         </div>
                         {this.state.showModal ?
                             <ApiKeyModal
-                                showModal={this.state.showModal}
                                 handleHideModal={this.handleHideModal}
                                 setApiKey={this.setApiKey}/>
                             : null
