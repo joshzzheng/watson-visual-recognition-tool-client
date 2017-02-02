@@ -3,6 +3,7 @@ import Classifiers from './Classifiers'
 import TitleBar from './TitleBar'
 import TabBar from './TabBar'
 import ApiKeyModal from './ApiKeyModal'
+import LandingPage from './LandingPage'
 
 export default class Base extends React.Component {
     constructor(props) {
@@ -32,18 +33,22 @@ export default class Base extends React.Component {
     render() {
         return (
             <div>
-                <TitleBar onClick={this.handleShowModal}/>
-                <TabBar/>
-                <div id="page-content-wrapper">
-                    {/*This is to force an update*/}
-                    {React.cloneElement(this.props.children, {})}
-                </div>
-                {this.state.showModal ?
-                    <ApiKeyModal
-                        showModal={this.state.showModal}
-                        handleHideModal={this.handleHideModal}
-                        setApiKey={this.setApiKey}/>
-                    : null
+                {localStorage.getItem('apiKey') == null ? <LandingPage/> :
+                    <div>
+                        <TitleBar onClick={this.handleShowModal}/>
+                        <TabBar/>
+                        <div id="page-content-wrapper">
+                            {/*This is to force an update*/}
+                            {React.cloneElement(this.props.children, {})}
+                        </div>
+                        {this.state.showModal ?
+                            <ApiKeyModal
+                                showModal={this.state.showModal}
+                                handleHideModal={this.handleHideModal}
+                                setApiKey={this.setApiKey}/>
+                            : null
+                        }
+                    </div>
                 }
             </div>
         )
