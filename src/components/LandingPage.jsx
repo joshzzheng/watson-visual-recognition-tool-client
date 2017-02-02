@@ -13,6 +13,7 @@ export default class LandingPage extends React.Component {
     }
 
     setApiKey = () => {
+        console.log('pressed')
         this.props.setApiKey(this.state.key)
     }
 
@@ -32,6 +33,7 @@ export default class LandingPage extends React.Component {
                 width: '600px',
                 font: Styles.fontTitle,
                 padding: '0px 44px 0px 44px',
+                paddingRight: '85px',
                 color: Styles.colorTextLight,
                 background: 'white',
                 left: '50%',
@@ -60,7 +62,7 @@ export default class LandingPage extends React.Component {
             color: 'white',
             transform: 'translate(-245px, -20px)',
             opacity: '0',
-            zIndex: '11',
+            zIndex: '9',
             transition: 'all 200ms cubic-bezier(0.4, 0.0, 0.2, 1)',
         }
 
@@ -95,6 +97,10 @@ export default class LandingPage extends React.Component {
         }
 
         var picsNone = {
+            border: 'none',
+            cursor: 'pointer',
+            background: `url(${'btn_submit.png'})`,
+            backgroundSize: 'contain',
             position: 'fixed',
             height: '45px',
             width: '45px',
@@ -102,11 +108,15 @@ export default class LandingPage extends React.Component {
             top: '50%',
             transform: 'translate(220px, -50%)',
             opacity: '0',
-            zIndex: '11',
+            zIndex: '9',
             transition: 'all 200ms cubic-bezier(0.4, 0.0, 0.2, 1)',
         }
 
         var pics = {
+            border: 'none',
+            cursor: 'pointer',
+            background: `url(${'btn_submit.png'})`,
+            backgroundSize: 'contain',
             position: 'fixed',
             height: '45px',
             width: '45px',
@@ -168,6 +178,7 @@ export default class LandingPage extends React.Component {
                     transition: 'all 200ms cubic-bezier(0.4, 0.0, 0.2, 1)',
                     opacity: '0',
                 }} />
+                {this.state.focus ? <div style={key}>API Key</div> : <div style={keyNone}>API Key</div>}
                 <input type='text'
                     className='myInputs'
                     onFocus={this.onFocus}
@@ -175,8 +186,7 @@ export default class LandingPage extends React.Component {
                     style={buttonStyle.base}
                     placeholder='API Key'
                     onChange={this.onTextChange}/>
-                {this.state.focus ? <div style={key}>API Key</div> : <div style={keyNone}>API Key</div>}
-                {this.state.focus ? <button src='btn_submit.png' style={pics} onClick={this.setApiKey}/> : <button src='btn_submit.png' style={picsNone} onClick={this.setApiKey}/>}
+                {this.state.focus ? <button style={pics} onMouseDown={this.setApiKey}/> : <button style={picsNone}/>}
                 <div style={getKey}>Don’t have a key? Get one for free <a href='https://console.ng.bluemix.net/registration/?target=/catalog/services/visual-recognition/' target='_blank' style={link}><u>here</u></a></div>
             </div>
         )
