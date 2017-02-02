@@ -33,7 +33,7 @@ export default class Base extends React.Component {
     render() {
         return (
             <div>
-                {localStorage.getItem('apiKey') == null ? <LandingPage/> :
+                {localStorage.getItem('apiKey') == null || localStorage.getItem('apiKey') == ''? <LandingPage setApiKey={this.setApiKey}/> :
                     <div>
                         <TitleBar onClick={this.handleShowModal}/>
                         <TabBar/>

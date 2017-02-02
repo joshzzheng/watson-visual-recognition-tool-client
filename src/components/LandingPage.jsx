@@ -7,8 +7,17 @@ export default class LandingPage extends React.Component {
     onBlur = () => {
         this.setState({focus: false})
     }
+
     onFocus = () => {
         this.setState({focus: true})
+    }
+
+    setApiKey = () => {
+        this.props.setApiKey(this.state.key)
+    }
+
+    onTextChange = (e) => {
+        this.setState({key: e.target.value})
     }
 
     render() {
@@ -148,13 +157,16 @@ export default class LandingPage extends React.Component {
                     opacity: '0',
                 }} />
                 <Style scopeSelector='.myInputs:-moz-placeholder' rules={{
-                    opacity: '1',
+                    transition: 'all 200ms cubic-bezier(0.4, 0.0, 0.2, 1)',
+                    opacity: '0',
                 }} />
                 <Style scopeSelector='.myInputs::-moz-placeholder' rules={{
-                    opacity: '1',
+                    transition: 'all 200ms cubic-bezier(0.4, 0.0, 0.2, 1)',
+                    opacity: '0',
                 }} />
                 <Style scopeSelector='.myInputs:-ms-input-placeholder' rules={{
-                    opacity: '1',
+                    transition: 'all 200ms cubic-bezier(0.4, 0.0, 0.2, 1)',
+                    opacity: '0',
                 }} />
                 <input type='text'
                     className='myInputs'
@@ -164,7 +176,7 @@ export default class LandingPage extends React.Component {
                     placeholder='API Key'
                     onChange={this.onTextChange}/>
                 {this.state.focus ? <div style={key}>API Key</div> : <div style={keyNone}>API Key</div>}
-                {this.state.focus ? <img src='btn_submit.png' style={pics}></img> : <img src='btn_submit.png' style={picsNone}></img>}
+                {this.state.focus ? <button src='btn_submit.png' style={pics} onClick={this.setApiKey}/> : <button src='btn_submit.png' style={picsNone} onClick={this.setApiKey}/>}
                 <div style={getKey}>Don’t have a key? Get one for free <a href='https://console.ng.bluemix.net/registration/?target=/catalog/services/visual-recognition/' target='_blank' style={link}><u>here</u></a></div>
             </div>
         )
