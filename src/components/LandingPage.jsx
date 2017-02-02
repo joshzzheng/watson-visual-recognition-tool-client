@@ -79,6 +79,8 @@ export default class LandingPage extends React.Component {
             transition: 'all 200ms cubic-bezier(0.4, 0.0, 0.2, 1)',
         }
 
+
+
         var getKey = {
             position: 'fixed',
             left: '50%',
@@ -159,8 +161,25 @@ export default class LandingPage extends React.Component {
             transition: 'all 200ms cubic-bezier(0.4, 0.0, 0.2, 1)',
         }
 
+        var title = {
+            position: 'fixed',
+            right: '20px',
+            top: '10px',
+            font: Styles.fontTitle,
+            color: 'black',
+            opacity: '.3',
+            transition: 'all 200ms cubic-bezier(0.4, 0.0, 0.2, 1)',
+        }
+
+        var logo = {
+            marginRight: '5px',
+            marginTop: '-8px',
+            height: '60px',
+        }
+
         return(
             <div style={background}>
+                <div style={title}><img src="watson.png" style={logo}></img>Visual Recognition</div>
                 {this.state.focus ? <div style={skrim}/> : <div style={skrimNone}/>}
                 <Style scopeSelector='.myInputs:focus::-webkit-input-placeholder' rules={{
                     transition: 'all 200ms cubic-bezier(0.4, 0.0, 0.2, 1)',
@@ -179,6 +198,7 @@ export default class LandingPage extends React.Component {
                     opacity: '0',
                 }} />
                 {this.state.focus ? <div style={key}>API Key</div> : <div style={keyNone}>API Key</div>}
+                <form onSubmit={this.setApiKey}>
                 <input type='text'
                     className='myInputs'
                     onFocus={this.onFocus}
@@ -187,6 +207,7 @@ export default class LandingPage extends React.Component {
                     placeholder='API Key'
                     onChange={this.onTextChange}/>
                 {this.state.focus ? <button style={pics} onMouseDown={this.setApiKey}/> : <button style={picsNone}/>}
+                </form>
                 <div style={getKey}>Don’t have a key? Get one for free <a href='https://console.ng.bluemix.net/registration/?target=/catalog/services/visual-recognition/' target='_blank' style={link}><u>here</u></a></div>
             </div>
         )
