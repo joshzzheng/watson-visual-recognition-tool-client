@@ -10,9 +10,14 @@ export default class Base extends React.Component {
         super(props)
         this.state = {showModal: false}
     }
+
     setApiKey = (key) => {
         localStorage.setItem('apiKey', key)
         this.forceUpdate()
+    }
+
+    invalidApiKey = () => {
+        this.setApiKey('')
     }
 
     handleShowModal = () => {
@@ -36,7 +41,7 @@ export default class Base extends React.Component {
                         <TabBar/>
                         <div id="page-content-wrapper">
                             {/*This is to force an update*/}
-                            {React.cloneElement(this.props.children, {})}
+                            {React.cloneElement(this.props.children, {invalidApiKey: this.invalidApiKey})}
                         </div>
                         {this.state.showModal ?
                             <ApiKeyModal

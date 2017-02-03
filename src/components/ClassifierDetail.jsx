@@ -6,7 +6,6 @@ import Styles from './Styles'
 import ResultList from './ResultList'
 import DropButton from './DropButton'
 import Card from './Card'
-import Constants from './Constants'
 import DropDown from './DropDown'
 
 @Radium

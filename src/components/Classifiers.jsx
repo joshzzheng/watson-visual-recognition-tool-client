@@ -22,14 +22,25 @@ export default class Classifiers extends React.Component {
         req.query({ verbose: true })
 
         req.end(function(err, res) {
+            console.log(res)
             var classifiers = []
+            if (err != null) {
+                console.error('Server error')
+            }
             if (res.body != null) {
+                if (res.body.statusInfo == 'invalid-api-key') {
+                    console.error('Invalid API Key')
+                    self.props.invalidApiKey()
+                    return
+                } else if (res.body.status == 'ERROR') {
+                    console.error('There was an error fetching classifiers')
+                }
                 classifiers = res.body.classifiers
                 classifiers.sort(function(a, b) {
                     return new Date(b.created) - new Date(a.created)
                 })
+                classifiers.push({name: 'Default', status: 'ready'}, {name: 'Faces', status: 'ready'})
             }
-            classifiers.push({name: 'Default', status: 'ready'}, {name: 'Faces', status: 'ready'});
             self.setState({ classifiers: classifiers })
         })
     }

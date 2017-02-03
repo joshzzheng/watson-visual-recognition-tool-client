@@ -31,15 +31,13 @@ app.get('*', function(req, response) {
 });
 
 app.post('/api/list_classifiers', function(req, res) {
-    var visual_recognition = new VisualRecognitionV3({
-        api_key: req.query.api_key,
-        version_date: req.query.version || '2016-05-19'
-    });
+    sa_req = request.get('https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classifiers');
 
-    var params = req.query;
+    sa_req.query({ version: req.query.version || '2016-05-19' })
+    sa_req.query(req.query)
 
-    visual_recognition.listClassifiers(params, function(err, data) {
-        res.send(data);
+    sa_req.end(function(err, data) {
+        res.send(JSON.parse(data.text))
     });
 });
 

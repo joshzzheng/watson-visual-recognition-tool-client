@@ -64,7 +64,13 @@ export default class TitleBar extends React.Component {
                     <img src="watson.png" style={logo}></img>
                     <div style={[title, lineHeight]}>Visual Recognition Tool</div>
                     <div style={[right, lineHeight]}>
-                        API Key: {localStorage.getItem('apiKey') || "Unknown"} &nbsp;&nbsp;
+                        <div style={{maxWidth: '500px', textDecoration:'none',
+                        display:'block',
+                        whiteSpace:'nowrap',
+                        overflow:'hidden',
+                        textOverflow:'ellipsis'}}>
+                            API Key: {localStorage.getItem('apiKey') || "Unknown"} &nbsp;&nbsp;
+                        </div>
                         <Button onClick={this.props.onClick} text={"Update key"}/>
                     </div>
                 </div>
