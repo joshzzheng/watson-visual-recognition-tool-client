@@ -41,6 +41,31 @@ app.post('/api/list_classifiers', function(req, res) {
     });
 });
 
+// This isnt working for some reason
+// app.post('/api/classify', function(req, res) {
+//     sa_req = request.get('https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classify');
+//
+//     sa_req.query({ version: req.query.version || '2016-05-19' });
+//     sa_req.query({ api_key: req.query.api_key });
+//
+//     // sa_req.query({ threshold: 0.0 });
+//     // sa_req.query({ classifier_ids: req.query.classifier_ids });
+//     // sa_req.query({ owners: ['me','IBM'] });
+//
+//     sa_req.attach('images_file', req.files.file.data, 'images_file')
+//     params = {
+//         threshold: 0.0,
+//         classifier_ids: req.query.classifier_ids,
+//         owners: ['me','IBM'],
+//     }
+//
+//     sa_req.field('parameters', params);
+//
+//     sa_req.end(function(err, data) {
+//         res.send(JSON.parse(data.text))
+//     });
+// });
+
 app.post('/api/classify', function(req, res) {
     var visual_recognition = new VisualRecognitionV3({
         api_key: req.query.api_key,

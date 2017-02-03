@@ -10,7 +10,7 @@ import DropDown from './DropDown'
 
 @Radium
 export default class ClassifierDetail extends React.Component {
-    onDrop = (files, onFinished) => {
+    onDrop = (files, onFinished, onProgress) => {
         var self = this
         var req
         if (this.props.classifierID == null && this.props.name == 'Faces') {
@@ -29,18 +29,30 @@ export default class ClassifierDetail extends React.Component {
 
         req.on('progress', function(e) {
             console.log(e.direction + ' Percentage done: ' + e.percent)
+            if (e.direction == 'upload') {
+                onProgress(e.percent / 2)
+            } else if (e.direction == 'download') {
+                if (e.percent < 100) {
+                    onProgress(50 + e.percent / 2)
+                }
+            }
         })
 
         req.end(function(err, res) {
+            onProgress(100)
             console.log(res)
             var results
-            if (res.body.images[0].classifiers != null) {
-                results = res.body.images[0].classifiers[0].classes
-                results.sort(function(a, b) {
-                    return b.score - a.score
-                })
-            } else if (res.body.images[0].faces != null) {
-                results = res.body.images[0].faces[0]
+            if (res.body != null) {
+                if (res.body.images[0].classifiers != null) {
+                    results = res.body.images[0].classifiers[0].classes
+                    results.sort(function(a, b) {
+                        return b.score - a.score
+                    })
+                } else if (res.body.images[0].faces != null) {
+                    results = res.body.images[0].faces[0]
+                }
+            } else {
+                console.error('failed to classify')
             }
             self.setState({ file: files[0], results: results })
             onFinished()

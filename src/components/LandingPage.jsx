@@ -79,8 +79,6 @@ export default class LandingPage extends React.Component {
             transition: 'all 200ms cubic-bezier(0.4, 0.0, 0.2, 1)',
         }
 
-
-
         var getKey = {
             position: 'fixed',
             left: '50%',
