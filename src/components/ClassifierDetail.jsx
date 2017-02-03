@@ -13,6 +13,7 @@ export default class ClassifierDetail extends React.Component {
     onDrop = (files, onFinished, onProgress) => {
         var self = this
         var req
+        self.setState({ error: null })
         if (this.props.classifierID == null && this.props.name == 'Faces') {
             req = request.post('/api/detect_faces')
         } else {
@@ -50,9 +51,13 @@ export default class ClassifierDetail extends React.Component {
                     })
                 } else if (res.body.images[0].faces != null) {
                     results = res.body.images[0].faces[0]
+                } else if (res.body.images[0].error != null) {
+                    console.error('bears beats battlestar galactica')
+                    self.setState({ error: res.body.images[0].error.description })
                 }
             } else {
                 console.error('failed to classify')
+                self.setState({ error: 'Unknown error' })
             }
             self.setState({ file: files[0], results: results })
             onFinished()
@@ -90,6 +95,17 @@ export default class ClassifierDetail extends React.Component {
             borderRadius: '5px',
         }
 
+        var error = {
+            paddingBottom: '10px',
+            textDecoration:'none',
+            display:'block',
+            whiteSpace:'nowrap',
+            overflow:'hidden',
+            textOverflow:'ellipsis',
+            color: '#F44336',
+            font: Styles.fontDefault,
+        }
+
         var color
         if (this.props.status == 'ready') {
             color = '#64dd17'
@@ -108,7 +124,7 @@ export default class ClassifierDetail extends React.Component {
                     <div style={textStyle}><div style={[status, {background: color}]}/>{this.props.status}</div>
 
                     <div style={{width: '100%', height:'20px'}}></div>
-
+                    {this.state.error ? <div style={error}>{this.state.error}</div> : null}
                     <DropButton
                         onDrop={this.onDrop}
                         text={"Drag images here to classify them"}

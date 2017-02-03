@@ -1,7 +1,7 @@
 import React from 'react'
 import Dropzone from 'react-dropzone'
 import Styles from './Styles'
-import Radium from 'radium'
+import Radium, { StyleRoot } from 'radium'
 
 @Radium
 export default class DropButton extends React.Component {
@@ -69,6 +69,13 @@ export default class DropButton extends React.Component {
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap',
                 overflow: 'hidden',
+            },
+            clip: {
+                /* Required for text-overflow to do anything */
+                maxWidth: '200px',
+                textOverflow: 'clip',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
             }
         }
 
@@ -130,7 +137,30 @@ export default class DropButton extends React.Component {
             opacity: this.state.opacity
         }
 
+        var opacityKeyframes = Radium.keyframes({
+            '0%': {opacity: '.2'},
+            '20%': {opacity: '1'},
+            '80%': {opacity: '1'},
+            '100%': {opacity: '.2'},
+        }, 'opacity');
+
+        var dot = {
+            animationName: opacityKeyframes,
+            animationDuration: '1.4s',
+            animationIterationCount: 'infinite',
+            animationFillMode: 'both',
+        }
+
+        var two = {
+            animationDelay: '.2s',
+        }
+
+        var three = {
+            animationDelay: '.4s',
+        }
+
         return (
+
             <Dropzone ref="dropzone"
                 onDrop={this.onDrop}
                 multiple={false}
@@ -140,7 +170,14 @@ export default class DropButton extends React.Component {
                 {this.state.files.length > 0 ?
                     <div style={containerStyles.base}>
                         {this.state.files.map((file) => <div key={file.name} style={[containerStyles.base, containerStyles.image]}><img style={imgStyle} src={file.preview}/></div> )}
-                        <div style={[textStyles.base, textStyles.uploading]}><div style={textStyles.ellipsis}>Uploading {this.state.files[this.state.files.length - 1].name}...</div></div>
+                        <div id="loading-ellipsis" style={[textStyles.base, textStyles.uploading]}>
+                            <div style={textStyles.clip}>Uploading {this.state.files[this.state.files.length - 1].name}</div>
+                            <StyleRoot>
+                                <span style={dot}>.</span>
+                                <span style={[dot, two]}>.</span>
+                                <span style={[dot, three]}>.</span>
+                            </StyleRoot>
+                        </div>
                     </div> :
                     <div>
                         <div style={[textStyles.base, textStyles.header]}>
