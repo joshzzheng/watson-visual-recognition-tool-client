@@ -44,20 +44,25 @@ export default class ClassifierDetail extends React.Component {
             console.log(res)
             var results
             if (res.body != null) {
-                if (res.body.images[0].classifiers != null) {
+                if (res.body.images[0].classifiers != null && res.body.images[0].classifiers.length > 0 ) {
                     results = res.body.images[0].classifiers[0].classes
                     results.sort(function(a, b) {
                         return b.score - a.score
                     })
-                } else if (res.body.images[0].faces != null) {
+                } else if (res.body.images[0].faces != null && res.body.images[0].faces.length > 0) {
                     results = res.body.images[0].faces[0]
                 } else if (res.body.images[0].error != null) {
-                    console.error('bears beats battlestar galactica')
-                    self.setState({ error: res.body.images[0].error.description })
+                    console.error(res.body.images[0].error.description)
+                    if (res.body.images[0].error.description == 'Image size limit exceeded (2935034 bytes > 2097152 bytes [2 MiB]).') {
+                        self.setState({ error: 'Image size limit (2MB) exceeded' })
+                    } else {
+                        self.setState({ error: res.body.images[0].error.description })
+                    }
                 }
             } else {
                 console.error('failed to classify')
-                self.setState({ error: 'Unknown error' })
+                var error = 'Invalid image file (must be .jpg or .png)'
+                self.setState({ error: error })
             }
             self.setState({ file: files[0], results: results })
             onFinished()

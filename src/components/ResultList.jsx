@@ -79,7 +79,10 @@ export default class ResultList extends React.Component {
                 </div>
                 <div style={[imgStyle, topResult]}>
                     <div style={[textStyles.topClass, {display: 'inline-block'}]}>Age</div>
-                    <div style={[textStyles.topScore, {float: 'right', display: 'inline-block'}]}>{this.props.results.age.min} - {this.props.results.age.max}</div>
+                    {this.props.results.age.min == null || this.props.results.age.max == null ?
+                        <div style={[textStyles.topScore, {float: 'right', display: 'inline-block'}]}>{this.props.results.age.min || this.props.results.age.max}</div> :
+                        <div style={[textStyles.topScore, {float: 'right', display: 'inline-block'}]}>{this.props.results.age.min} - {this.props.results.age.max}</div>
+                    }
                 </div>
             </div>
         } else {
