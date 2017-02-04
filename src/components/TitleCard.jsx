@@ -39,8 +39,9 @@ export default class TitleCard extends React.Component {
         return (
             <div style={[cardStyle, this.props.style]}>
                 {this.props.negative ?
-                    <div style={[text, this.props.inputStyle]}>Negative <div style={[optional, {display: 'inline-block'}]}>(Optional)</div></div> :
+                    <div style={[text, this.props.inputStyle]}>Negative&nbsp;&nbsp;<div style={[optional, {display: 'inline-block'}]}>(Optional)</div></div> :
                     <input type="text" style={[text, this.props.inputStyle]}
+                        value={this.props.default}
                         placeholder={this.props.placeholder}
                         onChange={this.props.onChange} />
                 }

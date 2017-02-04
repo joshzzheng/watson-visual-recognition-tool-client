@@ -36,6 +36,13 @@ export default class CreateClassifier extends React.Component {
         this.setState({ classes: newClasses })
     }
 
+    deleteClass = (key) => {
+        var newClasses = $.extend([], this.state.classes)
+        newClasses.splice(key, 1)
+        this.setState({classes: newClasses})
+    }
+
+
     cancel = () => {
         browserHistory.push('/')
     }
@@ -112,11 +119,13 @@ export default class CreateClassifier extends React.Component {
                         return (
                             <Class
                                 negative={c.negative}
+                                default={c.name}
                                 style={{maxWidth:'30rem'}}
                                 key={i}
                                 id={i}
                                 setClassFile={self.setClassFile}
-                                setClassName={self.setClassName}/>
+                                setClassName={self.setClassName}
+                                delete={self.deleteClass}/>
                         )
                     })}</div>
                     <div style={{textAlign: 'right'}}>
