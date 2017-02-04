@@ -103,6 +103,8 @@ export default class DropButton extends React.Component {
             padding: '25px 0px',
         }
 
+        dropzoneStyle = Object.assign(dropzoneStyle, this.props.style)
+
         var imgStyle = {
             display: 'inline-flex',
             margin: 'auto',
@@ -160,7 +162,6 @@ export default class DropButton extends React.Component {
         }
 
         return (
-
             <Dropzone ref="dropzone"
                 onDrop={this.onDrop}
                 multiple={false}
