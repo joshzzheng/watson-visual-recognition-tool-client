@@ -131,6 +131,7 @@ export default class ClassifierDetail extends React.Component {
                     <div style={{width: '100%', height:'20px'}}></div>
                     {this.state.error ? <div style={error}>{this.state.error}</div> : null}
                     <DropButton
+                        upload={true}
                         onDrop={this.onDrop}
                         text={"Drag images here to classify them"}
                         subtext={"choose your files"} />

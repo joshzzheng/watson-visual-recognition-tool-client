@@ -171,14 +171,19 @@ export default class DropButton extends React.Component {
                 {this.state.files.length > 0 ?
                     <div style={containerStyles.base}>
                         {this.state.files.map((file) => <div key={file.name} style={[containerStyles.base, containerStyles.image]}><img style={imgStyle} src={file.preview}/></div> )}
-                        <div id="loading-ellipsis" style={[textStyles.base, textStyles.uploading]}>
-                            <div style={textStyles.clip}>Uploading {this.state.files[this.state.files.length - 1].name}</div>
-                            <StyleRoot>
-                                <span style={dot}>.</span>
-                                <span style={[dot, two]}>.</span>
-                                <span style={[dot, three]}>.</span>
-                            </StyleRoot>
-                        </div>
+                        {this.props.upload ?
+                            <div id="loading-ellipsis" style={[textStyles.base, textStyles.uploading]}>
+                                <div style={textStyles.clip}>Uploading {this.state.files[this.state.files.length - 1].name}</div>
+                                <StyleRoot>
+                                    <span style={dot}>.</span>
+                                    <span style={[dot, two]}>.</span>
+                                    <span style={[dot, three]}>.</span>
+                                </StyleRoot>
+                            </div> :
+                            <div id="loading-ellipsis" style={[textStyles.base, textStyles.uploading]}>
+                                <div style={textStyles.ellipsis}>{this.state.files[this.state.files.length - 1].name}</div>
+                            </div>
+                        }
                     </div> :
                     <div>
                         <div style={[textStyles.base, textStyles.header]}>
