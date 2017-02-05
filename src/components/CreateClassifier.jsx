@@ -51,7 +51,11 @@ export default class CreateClassifier extends React.Component {
         var req = request.post('/api/create_classifier')
 
         this.state.classes.map(function(c) {
-            req.attach(c.name, c.file[0])
+            name = c.name
+            if (c.negative) {
+                name = 'NEGATIVE_EXAMPLES'
+            }
+            req.attach('files', c.file[0], name)
         })
         req.query({ api_key: localStorage.getItem('apiKey') })
         req.query({ name: this.state.classifierName })

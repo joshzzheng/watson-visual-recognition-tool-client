@@ -47,7 +47,7 @@ app.post('/api/list_classifiers', function(req, res) {
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join('.tmp', 'uploads'))
+    cb(null, '.tmp/uploads/')
   },
   filename: function (req, file, cb) {
     crypto.pseudoRandomBytes(16, function (err, raw) {
@@ -90,6 +90,14 @@ app.post('/api/classify', function(req, res) {
 
         params.images_file = fs.createReadStream(req.file.path);
 
+        console.log(req.file.path)
+
+        fs.readdir('.tmp/uploads/', (err, files) => {
+            files.forEach(file => {
+                console.log(file);
+            });
+        })
+
         visual_recognition.classify(params, function(err, data) {
             fs.unlinkSync(req.file.path);
             res.send(data);
@@ -121,21 +129,53 @@ app.post('/api/detect_faces', function(req, res) {
     });
 });
 
-// just make the request ourselves, sdk doesnt do much and isnt working as needed
-// TODO: add negatives support
+const zipUpload = multer({
+    limits: {
+        fileSize: 100 * 1024 * 1024 // 100mb
+    },
+    fileFilter: function(req, file, cb) {
+        var type = file.mimetype;
+        if (type !== 'application/zip') {
+            cb(new Error('Invalid zip file'));
+        } else {
+            cb(null, true);
+        }
+    },
+    storage: storage
+});
+
+var filesUpload = zipUpload.array('files')
 app.post('/api/create_classifier', function(req, res) {
-    sa_req = request.post('https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classifiers');
+    filesUpload(req, res, function (err) {
+        if (err) {
+            res.send(err);
+            return;
+        }
 
-    sa_req.query({ api_key: req.query.api_key, version: req.query.version || '2016-05-19' })
+        var visual_recognition = new VisualRecognitionV3({
+            api_key: req.query.api_key,
+            version_date: req.query.version || '2016-05-19'
+        });
 
-    for (var file in req.files) {
-        sa_req.attach(file + '_positive_examples', req.files[file].data, 'need_a_filename');
-    }
+        var params = {
+            name: req.query.name
+        }
 
-    sa_req.field('name', req.query.name);
+        for (var file in req.files) {
+            console.log(req.files[file])
+            if (req.files[file].originalname == 'NEGATIVE_EXAMPLES') {
+                params['negative_examples'] = fs.createReadStream(req.files[file].path);
+            } else {
+                params[req.files[file].originalname + '_positive_examples'] = fs.createReadStream(req.files[file].path);
+            }
+        }
 
-    sa_req.end(function(err, data) {
-        res.send(data);
+        visual_recognition.createClassifier(params, function(err, data) {
+            for (var file in req.files) {
+                fs.unlinkSync(req.files[file].path);
+            }
+            res.send(data);
+        });
     });
 });
 
