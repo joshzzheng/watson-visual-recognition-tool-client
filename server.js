@@ -3,6 +3,10 @@ var express = require('express');
 var VisualRecognitionV3 = require('watson-developer-cloud/visual-recognition/v3');
 var fileUpload = require('express-fileupload');
 var request = require('superagent');
+var multer = require('multer');
+var fs = require('fs');
+var crypto = require('crypto');
+var mime = require('mime-types')
 var app = express();
 //var PORT = process.env.PORT || 8080 //heroku
 var PORT = process.env.VCAP_APP_PORT || 8080; //bluemix
@@ -20,7 +24,7 @@ if(process.env.NODE_ENV !== 'production') {
 }
 
 app.use(express.static(path.join(__dirname, 'dist')));
-app.use(fileUpload());
+// app.use(fileUpload());
 
 app.get('/', function(request, response) {
   response.sendFile(__dirname + '/dist/index.html')
@@ -41,58 +45,79 @@ app.post('/api/list_classifiers', function(req, res) {
     });
 });
 
-// This isnt working for some reason
-// app.post('/api/classify', function(req, res) {
-//     sa_req = request.get('https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classify');
-//
-//     sa_req.query({ version: req.query.version || '2016-05-19' });
-//     sa_req.query({ api_key: req.query.api_key });
-//
-//     // sa_req.query({ threshold: 0.0 });
-//     // sa_req.query({ classifier_ids: req.query.classifier_ids });
-//     // sa_req.query({ owners: ['me','IBM'] });
-//
-//     sa_req.attach('images_file', req.files.file.data, 'images_file')
-//     params = {
-//         threshold: 0.0,
-//         classifier_ids: req.query.classifier_ids,
-//         owners: ['me','IBM'],
-//     }
-//
-//     sa_req.field('parameters', params);
-//
-//     sa_req.end(function(err, data) {
-//         res.send(JSON.parse(data.text))
-//     });
-// });
-
-app.post('/api/classify', function(req, res) {
-    var visual_recognition = new VisualRecognitionV3({
-        api_key: req.query.api_key,
-        version_date: req.query.version || '2016-05-19'
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join('.tmp', 'uploads'))
+  },
+  filename: function (req, file, cb) {
+    crypto.pseudoRandomBytes(16, function (err, raw) {
+      cb(null, raw.toString('hex') + Date.now() + '.' + mime.extension(file.mimetype));
     });
+  }
+});
 
-    var params = req.query;
+// Multer config
+const upload = multer({
+    limits: {
+        files: 1,
+        fileSize: 2 * 1024 * 1024 // 2mb
+    },
+    fileFilter: function(req, file, cb) {
+        var type = file.mimetype;
+        if (type !== 'image/png' && type !== 'image/jpg' && type !== 'image/jpeg') {
+            cb(new Error('Invalid image type'));
+        } else {
+            cb(null, true);
+        }
+    },
+    storage: storage
+});
 
-    params.images_file = req.files.file.data;
+var fileUpload = upload.single('file')
+app.post('/api/classify', function(req, res) {
+    fileUpload(req, res, function (err) {
+        if (err) {
+            res.send(err);
+            return;
+        }
 
-    visual_recognition.classify(params, function(err, data) {
-        res.send(data);
+        var visual_recognition = new VisualRecognitionV3({
+            api_key: req.query.api_key,
+            version_date: req.query.version || '2016-05-19'
+        });
+
+        var params = req.query;
+
+        params.images_file = fs.createReadStream(req.file.path);
+
+        visual_recognition.classify(params, function(err, data) {
+            fs.unlinkSync(req.file.path);
+            res.send(data);
+        });
+
     });
 });
 
 app.post('/api/detect_faces', function(req, res) {
-    var visual_recognition = new VisualRecognitionV3({
-        api_key: req.query.api_key,
-        version_date: req.query.version || '2016-05-19'
-    });
+    fileUpload(req, res, function (err) {
+        if (err) {
+            res.send(err);
+            return;
+        }
 
-    var params = req.query;
+        var visual_recognition = new VisualRecognitionV3({
+            api_key: req.query.api_key,
+            version_date: req.query.version || '2016-05-19'
+        });
 
-    params.images_file = req.files.file.data;
+        var params = req.query;
 
-    visual_recognition.detectFaces(params, function(err, data) {
-        res.send(data);
+        params.images_file = fs.createReadStream(req.file.path);
+
+        visual_recognition.detectFaces(params, function(err, data) {
+            fs.unlinkSync(req.file.path);
+            res.send(data);
+        });
     });
 });
 

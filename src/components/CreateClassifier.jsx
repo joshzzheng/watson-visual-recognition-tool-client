@@ -56,6 +56,17 @@ export default class CreateClassifier extends React.Component {
         req.query({ api_key: localStorage.getItem('apiKey') })
         req.query({ name: this.state.classifierName })
 
+        req.on('progress', function(e) {
+            console.log(e.direction + ' Percentage done: ' + e.percent)
+            // if (e.direction == 'upload') {
+            //     onProgress(e.percent / 2)
+            // } else if (e.direction == 'download') {
+            //     if (e.percent < 100) {
+            //         onProgress(50 + e.percent / 2)
+            //     }
+            // }
+        })
+
         req.then(function(res, err) {
             console.log(res)
             browserHistory.push('/')

@@ -43,7 +43,7 @@ export default class ClassifierDetail extends React.Component {
             onProgress(100)
             console.log(res)
             var results
-            if (res.body != null) {
+            if (res.body != null && res.body.images != null) {
                 if (res.body.images[0].classifiers != null && res.body.images[0].classifiers.length > 0 ) {
                     results = res.body.images[0].classifiers[0].classes
                     results.sort(function(a, b) {
@@ -59,7 +59,10 @@ export default class ClassifierDetail extends React.Component {
                         self.setState({ error: res.body.images[0].error.description })
                     }
                 }
+            } else if (res.body.code == 'LIMIT_FILE_SIZE') {
+                self.setState({ error: 'Image size limit (2MB) exceeded' })
             } else {
+                console.error(err)
                 console.error('failed to classify')
                 var error = 'Invalid image file (must be .jpg or .png)'
                 self.setState({ error: error })
