@@ -20,15 +20,20 @@ export default class TitleCard extends React.Component {
         }
 
         var text = {
-            background: 'none',
-            border: 'none',
-            borderBottom: '1px solid #dedede',
-            outline: 'none',
-            width: '100%',
-            padding: '10px',
-            paddingRight: '45px',
-            ':focus': {
-                borderBottom: `1px solid ${Styles.colorPrimary}`,
+            base: {
+                background: 'none',
+                border: 'none',
+                borderBottom: '1px solid #dedede',
+                outline: 'none',
+                width: '100%',
+                padding: '10px',
+                paddingRight: '45px',
+                ':focus': {
+                    borderBottom: `1px solid ${Styles.colorPrimary}`,
+                }
+            },
+            error: {
+                borderBottom: '2px solid #F44336',
             }
         }
 
@@ -47,8 +52,8 @@ export default class TitleCard extends React.Component {
                     right: '0',
                 }} />
                 {this.props.negative ?
-                    <div style={[text, this.props.inputStyle]}>Negative&nbsp;&nbsp;<div style={[optional, {display: 'inline-block'}]}>(Optional)</div></div> :
-                    <input type='text' style={[text, this.props.inputStyle]}
+                    <div style={[text.base, this.props.inputStyle]}>Negative&nbsp;&nbsp;<div style={[optional, {display: 'inline-block'}]}>(Optional)</div></div> :
+                    <input type='text' style={[text.base, this.props.inputStyle, this.props.errors && this.props.default == '' ? text.error : null]}
                         value={this.props.default}
                         placeholder={this.props.placeholder}
                         onChange={this.props.onChange} />

@@ -16,7 +16,8 @@ export default class CreateClassifier extends React.Component {
             classes: [
                 {negative: true, file: null},
                 {name: '', file: null},
-            ]
+            ],
+            errors: false
         }
     }
 
@@ -49,15 +50,38 @@ export default class CreateClassifier extends React.Component {
 
     create = () => {
         var req = request.post('/api/create_classifier')
+        var self = this
 
+        if (this.state.classifierName == null) {
+            self.setState({errors: true})
+            return
+        }
+
+        var validClasses = 0
         this.state.classes.map(function(c) {
-            name = c.name
-            if (c.negative) {
-                name = 'NEGATIVE_EXAMPLES'
+            if (c.file != null) {
+                name = c.name
+                if (c.negative) {
+                    name = 'NEGATIVE_EXAMPLES'
+                } else if (name == null) {
+                    self.setState({errors: true})
+                    return
+                }
+                req.attach('files', c.file[0], name)
+            } else {
+                self.setState({errors: true})
+                return
             }
-            req.attach('files', c.file[0], name)
+            validClasses++
         })
+
+        if (validClasses < 2) {
+            self.setState({errors: true})
+            return
+        }
+
         req.query({ api_key: localStorage.getItem('apiKey') })
+
         req.query({ name: this.state.classifierName })
 
         req.on('progress', function(e) {
@@ -121,18 +145,15 @@ export default class CreateClassifier extends React.Component {
                     A classifier is a group of classes that are trained against each other. This allows you identify highly specialized subjects.
                 </div>
                 <TitleCard
+                    errors={self.state.errors}
+                    default={this.state.classifierName}
                     placeholder='Classifier name'
                     onChange={this.onTextChange}
                     inputStyle={textStyles.header}>
-                    {/*<div style={textStyles.header}>
-                        Classes
-                    </div>
-                    <div style={[textStyles.base, {maxWidth: '800px'}, {marginTop: '5px', marginBottom: '4rem'}]}>
-                        A classifier named "fruit" may have a “pear”, “apple”, and “banana” class or just a “banana” class and a collection of negative examples. Negative examples are not used to create a class, but does define what the classifier is not.
-                    </div>*/}
                     <div className='row' style={{marginTop: '10px'}}>{this.state.classes.map(function(c, i) {
                         return (
                             <Class
+                                errors={self.state.errors}
                                 negative={c.negative}
                                 default={c.name}
                                 style={{maxWidth:'30rem'}}

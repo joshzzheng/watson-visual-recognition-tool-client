@@ -35,6 +35,7 @@ export default class Class extends React.Component {
             <div className="col-sm-4">
                 <div style={this.props.style}>
                     <TitleCard
+                        errors={this.props.errors}
                         default={this.props.default}
                         negative={this.props.negative}
                         inputStyle={textStyles.header}
