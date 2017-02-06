@@ -6,6 +6,8 @@ import Styles from './Styles'
 import TitleCard from './TitleCard'
 import Button from './Button'
 import Class from './Class'
+import ProgressModal from './ProgressModal'
+import ReactDOM from 'react-dom'
 
 @Radium
 export default class CreateClassifier extends React.Component {
@@ -17,7 +19,8 @@ export default class CreateClassifier extends React.Component {
                 {negative: true, file: null},
                 {name: '', file: null},
             ],
-            errors: false
+            errors: false,
+            upload: false,
         }
     }
 
@@ -43,13 +46,11 @@ export default class CreateClassifier extends React.Component {
         this.setState({classes: newClasses})
     }
 
-
     cancel = () => {
         browserHistory.push('/')
     }
 
-    create = () => {
-        var req = request.post('/api/create_classifier')
+    errorCheck = () => {
         var self = this
 
         if (this.state.classifierName == null) {
@@ -67,7 +68,6 @@ export default class CreateClassifier extends React.Component {
                     self.setState({errors: true})
                     return
                 }
-                req.attach('files', c.file[0], name)
             } else {
                 self.setState({errors: true})
                 return
@@ -80,23 +80,36 @@ export default class CreateClassifier extends React.Component {
             return
         }
 
+        self.setState({upload: true})
+    }
+
+    // This is kind of messy but helps show progress faster
+    create = (onProgress, onFinished) => {
+        var req = request.post('/api/create_classifier')
+        var self = this
+
+        this.state.classes.map(function(c) {
+            name = c.name
+            if (c.negative) {
+                name = 'NEGATIVE_EXAMPLES'
+            }
+            req.attach('files', c.file[0], name)
+        })
+
         req.query({ api_key: localStorage.getItem('apiKey') })
 
         req.query({ name: this.state.classifierName })
 
         req.on('progress', function(e) {
-            console.log(e.direction + ' Percentage done: ' + e.percent)
-            // if (e.direction == 'upload') {
-            //     onProgress(e.percent / 2)
-            // } else if (e.direction == 'download') {
-            //     if (e.percent < 100) {
-            //         onProgress(50 + e.percent / 2)
-            //     }
-            // }
+            if (e.direction == 'upload') {
+                onProgress(e.percent)
+            }
         })
 
         req.then(function(res, err) {
             console.log(res)
+            onFinished()
+            self.setState({upload: false})
             browserHistory.push('/')
         })
     }
@@ -167,9 +180,14 @@ export default class CreateClassifier extends React.Component {
                     <div style={{textAlign: 'right'}}>
                         <Button onClick={this.addClass} text='Add class' style={{float: 'left'}}/>
                         <Button onClick={this.cancel} text='Cancel' style={{marginRight: '20px'}}/>
-                        <Button onClick={this.create} text='Create' kind='bold'/>
+                        <Button onClick={this.errorCheck} text='Create' kind='bold'/>
                     </div>
                 </TitleCard>
+                {this.state.upload ?
+                    <ProgressModal
+                        load={this.create}/>
+                    : null
+                }
             </div>
         )
     }
