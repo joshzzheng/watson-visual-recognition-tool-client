@@ -62,26 +62,22 @@ export default class ProgressModal extends React.Component {
             width: '100%',
             alignSelf: 'center',
             borderRadius: '5px',
-            borderColor: '#959595',
+            borderColor: '#dedede',
             borderWidth: 'thin',
-            borderStyle: 'dashed',
+            borderStyle: 'solid',
             background:  '#fcfcfc',
             padding: '25px 0px',
         }
-
-        const RGB=Styles.colorPrimary;
-        const A='0.2';
-        const RGBA='rgba('+parseInt(RGB.substring(1,3),16)+','+parseInt(RGB.substring(3,5),16)+','+parseInt(RGB.substring(5,7),16)+','+A+')';
 
         var cover = {
             position: 'absolute',
             top: '0',
             left: '0',
-            width: `${this.state.progress}%`,
+            width: this.state.progress + '%',
             height: '100%',
-            backgroundColor: RGBA,
+            backgroundColor: Styles.colorPrimary,
             transition: 'all 200ms cubic-bezier(0.4, 0.0, 0.2, 1)',
-            borderRadius: '5px'
+            borderRadius: '2px'
         }
 
         var opacityKeyframes = Radium.keyframes({
@@ -106,6 +102,29 @@ export default class ProgressModal extends React.Component {
             animationDelay: '.4s',
         }
 
+        var moveKeyframes = Radium.keyframes({
+            '0%': {backgroundPosition: '0 0'},
+            '100%': {backgroundPosition: '50px 50px'},
+        }, 'move');
+
+        var processing = {
+            position: 'absolute',
+            top: '0',
+            left: '0',
+            width: '100%',
+            height: '100%',
+        	backgroundColor: Styles.colorPrimary,
+        	borderRadius:'3px',
+        	boxSizing:'border-box',
+        	backgroundImage:`linear-gradient(-45deg, ${Styles.colorDarkPrimary} 25%, transparent 25%, transparent 50%, ${Styles.colorDarkPrimary} 50%, ${Styles.colorDarkPrimary} 75%, transparent 75%, transparent)`,
+        	backgroundSize: '100px 100px',
+            animationName: moveKeyframes,
+            animationDuration: '1.5s',
+            animationIterationCount: 'infinite',
+            animationTimingFunction: 'linear',
+        	overflow: 'hidden',
+        }
+
         return (
             <div className="modal fade">
                 <div className="modal-dialog">
@@ -115,16 +134,13 @@ export default class ProgressModal extends React.Component {
                             <div style={textStyles.base}>This may take several minutes to complete.</div>
                         </div>
                         <div className="modal-body">
-                            <div id="loading-ellipsis" style={[textStyles.base, textStyles.uploading]}>
-                                <div style={textStyles.clip}>{this.state.progress >= 100 ? 'Processing' : 'Uploading'}{this.state.progress}</div>
-                                <StyleRoot>
-                                    <span style={dot}>.</span>
-                                    <span style={[dot, two]}>.</span>
-                                    <span style={[dot, three]}>.</span>
-                                </StyleRoot>
-                            </div>
                             <div style={dropzoneStyle}>
-                                <div style={cover}></div>
+                                {this.state.progress >= 100 ?
+                                    <StyleRoot>
+                                        <div style={processing}></div>
+                                    </StyleRoot> :
+                                    <div style={cover}></div>
+                                }
                             </div>
                         </div>
                     </div>
