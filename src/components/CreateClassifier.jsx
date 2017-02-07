@@ -169,6 +169,7 @@ export default class CreateClassifier extends React.Component {
                                 errors={self.state.errors}
                                 negative={c.negative}
                                 default={c.name}
+                                files={c.file}
                                 style={{maxWidth:'30rem'}}
                                 key={i}
                                 id={i}

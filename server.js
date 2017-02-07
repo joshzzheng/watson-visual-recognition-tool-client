@@ -40,7 +40,9 @@ app.post('/api/list_classifiers', function(req, res) {
     sa_req.query(req.query)
 
     sa_req.end(function(err, data) {
-        res.send(JSON.parse(data.text))
+        if (data != null) {
+            res.send(JSON.parse(data.text))
+        }
     });
 });
 
