@@ -65,7 +65,7 @@ export default class Class extends React.Component {
                                 </div>
                             </div>
                         }
-                        <DropButton style={extraPadding} text='Drag .zip here to train class' subtext='choose your file' onDrop={this.onDrop}/>
+                        <DropButton style={extraPadding} errors={this.props.errors} text='Drag .zip here to train class' subtext='choose your file' onDrop={this.onDrop}/>
                     </TitleCard>
                 </div>
             </div>
