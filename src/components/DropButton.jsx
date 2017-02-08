@@ -13,7 +13,7 @@ export default class DropButton extends React.Component {
             opacity: 0
          }
     }
-    
+
     onDrop = (files) => {
         var self = this
         this.setState({ files: files }, function() {
@@ -183,8 +183,6 @@ export default class DropButton extends React.Component {
                                 </StyleRoot>
                             </div> :
                             <div id="loading-ellipsis" style={[textStyles.base, textStyles.uploading]}>
-                                {console.log(imgStyle)}
-                                {console.log('redrawing: ' + this.state.files[this.state.files.length - 1].name)}
                                 <div style={textStyles.ellipsis}>{this.state.files[this.state.files.length - 1].name}</div>
                             </div>
                         }

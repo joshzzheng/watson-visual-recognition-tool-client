@@ -27,7 +27,6 @@ export default class CreateClassifier extends React.Component {
         }
     }
 
-
     onTextChange = (text) => {
         this.setState({ classifierName: text.target.value })
     }
@@ -45,11 +44,9 @@ export default class CreateClassifier extends React.Component {
     }
 
     deleteClass = (key) => {
-        console.log('deleting class')
         var newClasses = $.extend([], this.state.classes)
         newClasses.splice(key, 1)
         this.setState({classes: newClasses})
-        console.log('state set with new classes')
     }
 
     cancel = () => {
@@ -59,7 +56,7 @@ export default class CreateClassifier extends React.Component {
     errorCheck = () => {
         var self = this
 
-        if (this.state.classifierName == null) {
+        if (this.state.classifierName == null || this.state.classifierName == '') {
             self.setState({errors: true})
             return
         }
@@ -70,7 +67,7 @@ export default class CreateClassifier extends React.Component {
                 name = c.name
                 if (c.negative) {
                     name = 'NEGATIVE_EXAMPLES'
-                } else if (name == null) {
+                } else if (name == null || name == '') {
                     self.setState({errors: true})
                     return
                 }
@@ -86,7 +83,9 @@ export default class CreateClassifier extends React.Component {
             return
         }
 
-        self.setState({upload: true})
+        if (!this.state.errors) {
+            self.setState({upload: true})
+        }
     }
 
     // This is kind of messy but helps show progress faster
@@ -159,6 +158,7 @@ export default class CreateClassifier extends React.Component {
                 <TitleCard
                     errors={self.state.errors}
                     placeholder='Classifier name'
+                    title={self.state.classifierName}
                     onChange={this.onTextChange}
                     inputStyle={textStyles.header}>
                     <StackGrid columnWidth={292} gutterWidth={40} style={{marginTop: '10px'}}>{this.state.classes.map(function(c, i) {
@@ -166,6 +166,7 @@ export default class CreateClassifier extends React.Component {
                             <Class
                                 errors={self.state.errors}
                                 negative={c.negative}
+                                title={c.name}
                                 style={{maxWidth:'30rem'}}
                                 key={c.id}
                                 id={i}

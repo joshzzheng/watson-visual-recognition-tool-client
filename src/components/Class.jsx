@@ -15,7 +15,6 @@ export default class Class extends React.Component {
     }
 
     delete = () => {
-        console.log('delete button has been pressed')
         this.props.delete(this.props.id)
     }
 
@@ -32,11 +31,27 @@ export default class Class extends React.Component {
             padding: '44px 0px'
         }
 
+        var deleteStyle = {
+            backgroundColor: 'transparent',
+            backgroundImage: `url(${'btn_delete.png'})`,
+            height: '25px',
+            width: '25px',
+            backgroundSize: 'contain',
+            border: 'none',
+            ':hover': {
+                backgroundImage: `url(${'btn_delete_hover.png'})`,
+            },
+            ':active': {
+                backgroundImage: `url(${'btn_delete_pressed.png'})`,
+            }
+        }
+
         return (
             <div className="grid-item">
                 <div style={this.props.style}>
                     <TitleCard
                         errors={this.props.errors}
+                        title={this.props.title}
                         negative={this.props.negative}
                         inputStyle={textStyles.header}
                         placeholder='Class name'
@@ -44,7 +59,7 @@ export default class Class extends React.Component {
                         {this.props.negative ? null :
                             <div style={{position: 'relative', width: '100%', minWidth: '100%'}}>
                                 <div style={{position: 'absolute', top: '-43px', right: '0'}}>
-                                    <button style={{background: `url(${'btn_delete.png'})`, height: '25px', width: '25px', backgroundSize: 'contain', border: 'none'}}
+                                    <button key={this.props.id} style={deleteStyle}
                                         onClick={this.delete}>
                                     </button>
                                 </div>
