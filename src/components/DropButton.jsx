@@ -14,13 +14,13 @@ export default class DropButton extends React.Component {
          }
     }
 
-    componentWillReceiveProps = (nextProps) => {
-        if (nextProps.files != null) {
-            this.setState({ files: nextProps.files})
-        } else {
-            this.setState({ files: []})
-        }
-    }
+    // componentWillReceiveProps = (nextProps) => {
+    //     if (nextProps.files != null) {
+    //         this.setState({ files: nextProps.files})
+    //     } else {
+    //         this.setState({ files: []})
+    //     }
+    // }
 
     onDrop = (files) => {
         var self = this

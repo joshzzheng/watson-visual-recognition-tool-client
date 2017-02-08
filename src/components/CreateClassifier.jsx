@@ -129,15 +129,6 @@ export default class CreateClassifier extends React.Component {
       this.setState({classes: newClasses})
     }
 
-    onDrop = (files) => {
-        var self = this
-        this.setState({ files: files }, function() {
-            this.props.onDrop(this.state.files, function() {
-                self.setState({ files: [] })
-            })
-        })
-    }
-
     render() {
         var textStyles = {
             base: {
@@ -165,7 +156,6 @@ export default class CreateClassifier extends React.Component {
                 </div>
                 <TitleCard
                     errors={self.state.errors}
-                    default={this.state.classifierName}
                     placeholder='Classifier name'
                     onChange={this.onTextChange}
                     inputStyle={textStyles.header}>
@@ -174,8 +164,6 @@ export default class CreateClassifier extends React.Component {
                             <Class
                                 errors={self.state.errors}
                                 negative={c.negative}
-                                default={c.name}
-                                files={c.file}
                                 style={{maxWidth:'30rem'}}
                                 key={c.id}
                                 id={i}

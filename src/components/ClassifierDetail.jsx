@@ -134,6 +134,9 @@ export default class ClassifierDetail extends React.Component {
                 <div style={textStyle}>{this.props.classifierID}</div>
                 <div style={textStyle}><div style={[status, {background: color}]}/>{this.props.status}</div>
 
+                {/*To soothe my pain*/}
+                {this.props.classifierID ? null : <div style={{height: '1em', marginTop: '2px'}}></div>}
+
                 <div style={{width: '100%', height:'20px'}}></div>
                 {this.state.error ? <div style={error}>{this.state.error}</div> : null}
                 <DropButton
