@@ -7,7 +7,7 @@ export default class TitleCard extends React.Component {
     render() {
         var cardStyle = {
             width: '100%',
-            marginBottom:'4rem',
+            marginBottom:'40px',
             borderRadius: '5px',
             borderColor: '#dedede',
             borderWidth: 'thin',

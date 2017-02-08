@@ -71,6 +71,7 @@ export default class Button extends React.Component {
                 style = {
                     this.props.icon ? [buttonStyle.base, buttonStyle[this.props.kind], buttonStyle.image, this.props.style] : [buttonStyle.base, buttonStyle[this.props.kind], this.props.style]
                 }
+                data-dismiss={this.props.dataDismiss}
                 onClick={this.props.onClick}>
                 <div style={textStyle}>{this.props.text}</div>
                 {this.props.icon ? <img src={this.props.icon} style={imgStyle}></img> : ''}
