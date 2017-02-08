@@ -45,9 +45,11 @@ export default class CreateClassifier extends React.Component {
     }
 
     deleteClass = (key) => {
+        console.log('deleting class')
         var newClasses = $.extend([], this.state.classes)
         newClasses.splice(key, 1)
         this.setState({classes: newClasses})
+        console.log('state set with new classes')
     }
 
     cancel = () => {

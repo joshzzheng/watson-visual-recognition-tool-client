@@ -15,6 +15,7 @@ export default class Class extends React.Component {
     }
 
     delete = () => {
+        console.log('delete button has been pressed')
         this.props.delete(this.props.id)
     }
 

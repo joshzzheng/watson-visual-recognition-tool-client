@@ -98,6 +98,7 @@ export default class DropButton extends React.Component {
         const RGBA='rgba('+parseInt(RGB.substring(1,3),16)+','+parseInt(RGB.substring(3,5),16)+','+parseInt(RGB.substring(5,7),16)+','+A+')';
 
 
+        // Tempory fix of setting the maxHeight
         var dropzoneStyle = {
             position: 'relative',
             width: '100%',
@@ -109,6 +110,7 @@ export default class DropButton extends React.Component {
             borderStyle: 'dashed',
             background:  '#fcfcfc',
             padding: '25px 0px',
+            maxHeight: '135px',
         }
 
         dropzoneStyle = Object.assign(dropzoneStyle, this.props.style)
@@ -189,6 +191,8 @@ export default class DropButton extends React.Component {
                                 </StyleRoot>
                             </div> :
                             <div id="loading-ellipsis" style={[textStyles.base, textStyles.uploading]}>
+                                {console.log(imgStyle)}
+                                {console.log('redrawing: ' + this.state.files[this.state.files.length - 1].name)}
                                 <div style={textStyles.ellipsis}>{this.state.files[this.state.files.length - 1].name}</div>
                             </div>
                         }
