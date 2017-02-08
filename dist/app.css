@@ -23,3 +23,7 @@ body {
     width: 100%;
     margin: auto;
 }
+
+*:focus {
+    outline: none !important
+}
