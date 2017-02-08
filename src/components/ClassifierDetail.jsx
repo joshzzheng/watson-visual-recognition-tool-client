@@ -10,10 +10,14 @@ import DropDown from './DropDown'
 
 @Radium
 export default class ClassifierDetail extends React.Component {
+    stateChanged = () => {
+        this.props.reDraw()
+    }
+
     onDrop = (files, onFinished, onProgress) => {
         var self = this
         var req
-        self.setState({ error: null })
+        self.setState({ error: null }, self.stateChanged)
         if (this.props.classifierID == null && this.props.name == 'Faces') {
             req = request.post('/api/detect_faces')
         } else {
@@ -54,20 +58,20 @@ export default class ClassifierDetail extends React.Component {
                 } else if (res.body.images[0].error != null) {
                     console.error(res.body.images[0].error.description)
                     if (res.body.images[0].error.description == 'Image size limit exceeded (2935034 bytes > 2097152 bytes [2 MiB]).') {
-                        self.setState({ error: 'Image size limit (2MB) exceeded' })
+                        self.setState({ error: 'Image size limit (2MB) exceeded' }, self.stateChanged)
                     } else {
-                        self.setState({ error: res.body.images[0].error.description })
+                        self.setState({ error: res.body.images[0].error.description }, self.stateChanged)
                     }
                 }
             } else if (res.body.code == 'LIMIT_FILE_SIZE') {
-                self.setState({ error: 'Image size limit (2MB) exceeded' })
+                self.setState({ error: 'Image size limit (2MB) exceeded' }, self.stateChanged)
             } else {
                 console.error(err)
                 console.error('failed to classify')
                 var error = 'Invalid image file (must be .jpg or .png)'
-                self.setState({ error: error })
+                self.setState({ error: error }, self.stateChanged)
             }
-            self.setState({ file: files[0], results: results })
+            self.setState({ file: files[0], results: results }, self.stateChanged)
             onFinished()
         })
     }
@@ -124,23 +128,21 @@ export default class ClassifierDetail extends React.Component {
         }
 
         return(
-            <div className="col-sm-4">
-                <Card style={{maxWidth:'30rem'}}>
-                    <DropDown/>
-                    <div style={titleStyle}>{this.props.name}</div>
-                    <div style={textStyle}>{this.props.classifierID}</div>
-                    <div style={textStyle}><div style={[status, {background: color}]}/>{this.props.status}</div>
+            <Card style={{maxWidth:'30rem'}}>
+                <DropDown/>
+                <div style={titleStyle}>{this.props.name}</div>
+                <div style={textStyle}>{this.props.classifierID}</div>
+                <div style={textStyle}><div style={[status, {background: color}]}/>{this.props.status}</div>
 
-                    <div style={{width: '100%', height:'20px'}}></div>
-                    {this.state.error ? <div style={error}>{this.state.error}</div> : null}
-                    <DropButton
-                        upload={true}
-                        onDrop={this.onDrop}
-                        text={"Drag images here to classify them"}
-                        subtext={"choose your files"} />
-                    {this.state.results ? <ResultList file={this.state.file} results={this.state.results}/> : null}
-                </Card>
-            </div>
+                <div style={{width: '100%', height:'20px'}}></div>
+                {this.state.error ? <div style={error}>{this.state.error}</div> : null}
+                <DropButton
+                    upload={true}
+                    onDrop={this.onDrop}
+                    text={"Drag images here to classify them"}
+                    subtext={"choose your files"} />
+                {this.state.results ? <ResultList file={this.state.file} results={this.state.results}/> : null}
+            </Card>
         )
     }
 }

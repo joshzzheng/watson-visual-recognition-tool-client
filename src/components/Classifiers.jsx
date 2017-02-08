@@ -4,6 +4,7 @@ import {browserHistory} from 'react-router'
 import ClassifierDetail from './ClassifierDetail'
 import Button from './Button'
 import Radium from 'radium'
+import StackGrid from 'react-stack-grid'
 
 @Radium
 export default class Classifiers extends React.Component {
@@ -58,6 +59,10 @@ export default class Classifiers extends React.Component {
         this.loadClassifiersFromServer()
     }
 
+    reDraw = () => {
+        this.forceUpdate()
+    }
+
     render() {
         var self = this
         var classifiers = this.state.classifiers.map(function(classifier) {
@@ -67,6 +72,7 @@ export default class Classifiers extends React.Component {
                     classifierID={classifier.classifier_id}
                     name={classifier.name}
                     status={classifier.status}
+                    reDraw={self.reDraw}
                     key={classifier.classifier_id || classifier.name}/>
             )
         })
@@ -75,7 +81,7 @@ export default class Classifiers extends React.Component {
                 <div style={{margin: '21px 0px'}}>
                     <Button text={"Create classifier"} kind={"bold"} icon={"btn_create.png"} onClick={this.onClick}/>
                 </div>
-                <div className='row'>{classifiers}</div>
+                <StackGrid columnWidth={300} gutterWidth={40}>{classifiers}</StackGrid>
             </div>
         )
     }

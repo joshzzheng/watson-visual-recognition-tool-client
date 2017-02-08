@@ -1,5 +1,6 @@
 import React from 'react'
 import Radium from 'radium'
+import ReactDOM from 'react-dom'
 import {browserHistory} from 'react-router'
 import request from 'superagent'
 import Styles from './Styles'
@@ -7,7 +8,7 @@ import TitleCard from './TitleCard'
 import Button from './Button'
 import Class from './Class'
 import ProgressModal from './ProgressModal'
-import ReactDOM from 'react-dom'
+import StackGrid from 'react-stack-grid';
 
 @Radium
 export default class CreateClassifier extends React.Component {
@@ -163,7 +164,7 @@ export default class CreateClassifier extends React.Component {
                     placeholder='Classifier name'
                     onChange={this.onTextChange}
                     inputStyle={textStyles.header}>
-                    <div className='row' style={{marginTop: '10px'}}>{this.state.classes.map(function(c, i) {
+                    <StackGrid columnWidth={292} gutterWidth={40} style={{marginTop: '10px'}}>{this.state.classes.map(function(c, i) {
                         return (
                             <Class
                                 errors={self.state.errors}
@@ -177,7 +178,7 @@ export default class CreateClassifier extends React.Component {
                                 setClassName={self.setClassName}
                                 delete={self.deleteClass}/>
                         )
-                    })}</div>
+                    })}</StackGrid>
                     <div style={{textAlign: 'right'}}>
                         <Button onClick={this.addClass} text='Add class' style={{float: 'left'}}/>
                         <Button onClick={this.cancel} text='Cancel' style={{marginRight: '20px'}}/>

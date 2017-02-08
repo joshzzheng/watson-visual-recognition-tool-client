@@ -32,7 +32,7 @@ export default class Class extends React.Component {
         }
 
         return (
-            <div className="col-sm-4">
+            <div className="grid-item">
                 <div style={this.props.style}>
                     <TitleCard
                         errors={this.props.errors}
