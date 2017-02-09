@@ -148,7 +148,7 @@ export default class ClassifierDetail extends React.Component {
         var color
         if (this.props.status == 'ready') {
             color = '#64dd17'
-        } else if (this.props.status == 'training'){
+        } else if (this.props.status == 'training'  || this.props.status == 'retraining'){
             color = '#ffab00'
         } else {
             color = '#F44336'

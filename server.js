@@ -55,17 +55,6 @@ app.post('/api/list_collections', function(req, res) {
 	});
 });
 
-app.post('/api/update_classifier', function(req, res) {
-    // var visual_recognition = new VisualRecognitionV3({
-    //     api_key: req.query.api_key,
-    //     version_date: req.query.version || '2016-05-19'
-    // });
-    //
-    // visual_recognition.retrainClassifier(req.query, function(err, data) {
-    //     res.send(data);
-	// });
-});
-
 app.post('/api/delete_classifier', function(req, res) {
     // var visual_recognition = new VisualRecognitionV3({
     //     api_key: req.query.api_key,
@@ -214,6 +203,40 @@ app.post('/api/create_classifier', function(req, res) {
         }
 
         visual_recognition.createClassifier(params, function(err, data) {
+            for (var file in req.files) {
+                fs.unlinkSync(req.files[file].path);
+            }
+            res.send(data);
+        });
+    });
+});
+
+app.post('/api/update_classifier', function(req, res) {
+    filesUpload(req, res, function (err) {
+        if (err) {
+            res.send(err);
+            return;
+        }
+
+        var visual_recognition = new VisualRecognitionV3({
+            api_key: req.query.api_key,
+            version_date: req.query.version || '2016-05-19'
+        });
+
+        var params = {
+            classifier_id: req.query.classifier_id
+        }
+
+        for (var file in req.files) {
+            console.log(req.files[file])
+            if (req.files[file].originalname == 'NEGATIVE_EXAMPLES') {
+                params['negative_examples'] = fs.createReadStream(req.files[file].path);
+            } else {
+                params[req.files[file].originalname + '_positive_examples'] = fs.createReadStream(req.files[file].path);
+            }
+        }
+
+        visual_recognition.retrainClassifier(params, function(err, data) {
             for (var file in req.files) {
                 fs.unlinkSync(req.files[file].path);
             }

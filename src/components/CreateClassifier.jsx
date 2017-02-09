@@ -56,36 +56,45 @@ export default class CreateClassifier extends React.Component {
     errorCheck = () => {
         var self = this
         self.setState({errors: false}, function() {
+            var errors = this.state.errors
             if (this.state.classifierName == null || this.state.classifierName == '') {
-                self.setState({errors: true})
+                errors = true
+                self.setState({errors: errors})
                 return
             }
 
             var validClasses = 0
+
+            // State takes time, so we can just take a tally here
             this.state.classes.map(function(c) {
-                if (c.file != null) {
-                    name = c.name
-                    if (c.negative) {
-                        name = 'NEGATIVE_EXAMPLES'
-                    } else if (name == null || name == '') {
-                        self.setState({errors: true})
-                        return
-                    }
-                } else {
-                    if (!c.negative) {
-                        self.setState({errors: true})
-                        return
-                    }
+                if (c.negative) {
+                     if (c.file != null) {
+                         validClasses++
+                     }
+                     return
+                }
+                if (c.name == null || c.name == '') {
+                    errors = true
+                    self.setState({errors: errors})
+                    return
+                }
+                if (c.file == null) {
+                    errors = true
+                    self.setState({errors: errors})
+                    return
                 }
                 validClasses++
             })
 
+            console.log('valid: ' + validClasses)
+
             if (validClasses < 2) {
-                self.setState({errors: true})
+                errors = true
+                self.setState({errors: errors})
                 return
             }
 
-            if (!this.state.errors) {
+            if (!errors) {
                 self.setState({upload: true})
             }
         })

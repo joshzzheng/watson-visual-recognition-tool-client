@@ -81,12 +81,76 @@ export default class UpdateClassifier extends React.Component {
     }
 
     errorCheck = () => {
-        alert('This feature is not yet available')
+        var self = this
+        self.setState({errors: false}, function() {
+            var errors = this.state.errors
+            var validClasses = 0
+            this.state.classes.map(function(c) {
+                if (c.negative || c.defaultClass) {
+                     if (c.file != null) {
+                         validClasses++
+                     }
+                     return
+                }
+                if (c.name == null || c.name == '') {
+                    errors = true
+                    self.setState({errors: errors})
+                    return
+                }
+                if (c.file == null) {
+                    errors = true
+                    self.setState({errors: errors})
+                    return
+                }
+                validClasses++
+            })
+
+            console.log('valid: ' + validClasses)
+
+            if (validClasses < 1) {
+                errors = true
+                self.setState({errors: errors})
+                return
+            }
+
+            if (!this.state.errors) {
+                self.setState({upload: true})
+            }
+        })
     }
 
     // This is kind of messy but helps show progress faster
     create = (onProgress, onFinished) => {
+        var req = request.post('/api/update_classifier')
+        var self = this
 
+        this.state.classes.map(function(c) {
+            if (c.file != null) {
+                name = c.name
+                if (c.negative) {
+                    name = 'NEGATIVE_EXAMPLES'
+                }
+                req.attach('files', c.file[0], name)
+            }
+        })
+
+        req.query({ api_key: localStorage.getItem('apiKey') })
+
+        req.query({ classifier_id: this.props.params.classifierID })
+
+        req.on('progress', function(e) {
+            if (e.direction == 'upload') {
+                console.log(e.percent)
+                onProgress(e.percent)
+            }
+        })
+
+        req.then(function(res, err) {
+            console.log(res)
+            onFinished()
+            self.setState({upload: false})
+            browserHistory.push('/')
+        })
     }
 
     addClass = (e) => {
