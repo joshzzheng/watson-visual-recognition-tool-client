@@ -108,7 +108,6 @@ export default class DropButton extends React.Component {
         dropzoneStyle = Object.assign(dropzoneStyle, this.props.style)
 
         if (this.props.errors && this.state.files.length == 0) {
-            console.error('errroooosss')
             dropzoneStyle = Object.assign(dropzoneStyle, {
                 borderColor: '#F44336',
                 background:  '#feeceb',

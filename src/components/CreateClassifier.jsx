@@ -55,37 +55,38 @@ export default class CreateClassifier extends React.Component {
 
     errorCheck = () => {
         var self = this
-
-        if (this.state.classifierName == null || this.state.classifierName == '') {
-            self.setState({errors: true})
-            return
-        }
-
-        var validClasses = 0
-        this.state.classes.map(function(c) {
-            if (c.file != null) {
-                name = c.name
-                if (c.negative) {
-                    name = 'NEGATIVE_EXAMPLES'
-                } else if (name == null || name == '') {
-                    self.setState({errors: true})
-                    return
-                }
-            } else {
+        self.setState({errors: false}, function() {
+            if (this.state.classifierName == null || this.state.classifierName == '') {
                 self.setState({errors: true})
                 return
             }
-            validClasses++
+
+            var validClasses = 0
+            this.state.classes.map(function(c) {
+                if (c.file != null) {
+                    name = c.name
+                    if (c.negative) {
+                        name = 'NEGATIVE_EXAMPLES'
+                    } else if (name == null || name == '') {
+                        self.setState({errors: true})
+                        return
+                    }
+                } else {
+                    self.setState({errors: true})
+                    return
+                }
+                validClasses++
+            })
+
+            if (validClasses < 2) {
+                self.setState({errors: true})
+                return
+            }
+
+            if (!this.state.errors) {
+                self.setState({upload: true})
+            }
         })
-
-        if (validClasses < 2) {
-            self.setState({errors: true})
-            return
-        }
-
-        if (!this.state.errors) {
-            self.setState({upload: true})
-        }
     }
 
     // This is kind of messy but helps show progress faster
@@ -107,6 +108,7 @@ export default class CreateClassifier extends React.Component {
 
         req.on('progress', function(e) {
             if (e.direction == 'upload') {
+                console.log(e.percent)
                 onProgress(e.percent)
             }
         })
