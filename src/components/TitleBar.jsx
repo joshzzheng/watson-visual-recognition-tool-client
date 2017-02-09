@@ -61,7 +61,7 @@ export default class TitleBar extends React.Component {
             <div style={shadowWrapper}>
                 <div style={contentWrapper}>
                     <div style={filter}></div>
-                    <img src="watson.png" style={logo}></img>
+                    <img src="/watson.png" style={logo}></img>
                     <div style={[title, lineHeight]}>Visual Recognition Tool</div>
                     <div style={[right, lineHeight]}>
                         <div style={{maxWidth: '500px', textDecoration:'none',

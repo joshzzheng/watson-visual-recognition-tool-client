@@ -21,16 +21,16 @@ export default class ApiKeyModal extends React.Component {
     render() {
         var deleteStyle = {
             backgroundColor: 'transparent',
-            backgroundImage: `url(${'btn_delete.png'})`,
+            backgroundImage: `url(${'/btn_delete.png'})`,
             height: '25px',
             width: '25px',
             backgroundSize: 'contain',
             border: 'none',
             ':hover': {
-                backgroundImage: `url(${'btn_delete_hover.png'})`,
+                backgroundImage: `url(${'/btn_delete_hover.png'})`,
             },
             ':active': {
-                backgroundImage: `url(${'btn_delete_pressed.png'})`,
+                backgroundImage: `url(${'/btn_delete_pressed.png'})`,
             }
         }
         return (

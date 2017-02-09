@@ -11,7 +11,7 @@ export default class DropDown extends React.Component {
     render() {
 
         var dropbtn = {
-            background: `url(${'btn_dropdown.png'})`,
+            background: `url(${'/btn_dropdown.png'})`,
             backgroundSize: 'contain',
             width: '15px',
             height: '15px',
@@ -77,8 +77,7 @@ export default class DropDown extends React.Component {
                 onMouseLeave={this.toggleHover}>
                 <button style={dropbtn}></button>
                 <div style={dropdownContent}>
-                    <a style={[aStyle, aa]} key='0' href="#">View code</a>
-                    <a style={[aStyle, ab]} key='1' href="#">Update</a>
+                    <a style={[aStyle, aa]} key='1' href="#" onClick={this.props.update}>Update</a>
                     <a style={[aStyle, ac, {color: '#f44336'}]} key='2' href="#" onClick={this.props.delete}>Delete</a>
                 </div>
             </div>

@@ -27,6 +27,11 @@ export default class ClassifierDetail extends React.Component {
         }
     }
 
+    updateClassifier = (e) => {
+        e.preventDefault()
+        browserHistory.push('/update/'+this.props.classifierID)
+    }
+
     onDrop = (files, onFinished, onProgress) => {
         var self = this
         var req
@@ -142,7 +147,7 @@ export default class ClassifierDetail extends React.Component {
 
         return(
             <Card style={{maxWidth:'30rem'}}>
-                <DropDown delete={this.deleteClassifier}/>
+                <DropDown delete={this.deleteClassifier} update={this.updateClassifier}/>
                 <div style={titleStyle}>{this.props.name}</div>
                 <div style={textStyle}>{this.props.classifierID}</div>
                 <div style={textStyle}><div style={[status, {background: color}]}/>{this.props.status}</div>

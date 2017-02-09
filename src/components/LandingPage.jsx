@@ -99,7 +99,7 @@ export default class LandingPage extends React.Component {
         var picsNone = {
             border: 'none',
             cursor: 'pointer',
-            background: `url(${'btn_submit.png'})`,
+            background: `url(${'/btn_submit.png'})`,
             backgroundSize: 'contain',
             position: 'fixed',
             height: '45px',
@@ -115,7 +115,7 @@ export default class LandingPage extends React.Component {
         var pics = {
             border: 'none',
             cursor: 'pointer',
-            background: `url(${'btn_submit.png'})`,
+            background: `url(${'/btn_submit.png'})`,
             backgroundSize: 'contain',
             position: 'fixed',
             height: '45px',
@@ -134,7 +134,7 @@ export default class LandingPage extends React.Component {
             bottom: '0',
             left: '0',
             right: '0',
-            background: `url(${'splashscreen.png'})`,
+            background: `url(${'/splashscreen.png'})`,
             backgroundSize: 'cover',
             backgroundPosition: 'bottom',
         }
@@ -177,7 +177,7 @@ export default class LandingPage extends React.Component {
 
         return(
             <div style={background}>
-                <div style={title}><img src="watson.png" style={logo}></img>Visual Recognition</div>
+                <div style={title}><img src="/watson.png" style={logo}></img>Visual Recognition</div>
                 {this.state.focus ? <div style={skrim}/> : <div style={skrimNone}/>}
                 <Style scopeSelector='.myInputs:focus::-webkit-input-placeholder' rules={{
                     transition: 'all 200ms cubic-bezier(0.4, 0.0, 0.2, 1)',

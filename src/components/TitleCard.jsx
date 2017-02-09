@@ -51,8 +51,15 @@ export default class TitleCard extends React.Component {
                     position: 'absolute',
                     right: '0',
                 }} />
-                {this.props.negative ?
-                    <div style={[text.base, this.props.inputStyle]}>Negative&nbsp;&nbsp;<div style={[optional, {display: 'inline-block'}]}>(Optional)</div></div> :
+                {this.props.negative || this.props.fixedTitle ?
+                    this.props.negative ?
+                        <div style={[text.base, this.props.inputStyle]}>
+                            Negative&nbsp;&nbsp;<div style={[optional, {display: 'inline-block'}]}>(Optional)</div>
+                        </div> :
+                        <div style={[text.base, this.props.inputStyle]}>
+                            {this.props.title}
+                        </div>
+                    :
                     <input type='text' style={[text.base, this.props.inputStyle, this.props.errors && this.props.title == '' ? text.error : null]}
                         placeholder={this.props.placeholder}
                         onChange={this.props.onChange} />

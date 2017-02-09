@@ -33,16 +33,16 @@ export default class Class extends React.Component {
 
         var deleteStyle = {
             backgroundColor: 'transparent',
-            backgroundImage: `url(${'btn_delete.png'})`,
+            backgroundImage: `url(${'/btn_delete.png'})`,
             height: '25px',
             width: '25px',
             backgroundSize: 'contain',
             border: 'none',
             ':hover': {
-                backgroundImage: `url(${'btn_delete_hover.png'})`,
+                backgroundImage: `url(${'/btn_delete_hover.png'})`,
             },
             ':active': {
-                backgroundImage: `url(${'btn_delete_pressed.png'})`,
+                backgroundImage: `url(${'/btn_delete_pressed.png'})`,
             }
         }
 
@@ -53,10 +53,11 @@ export default class Class extends React.Component {
                         errors={this.props.errors}
                         title={this.props.title}
                         negative={this.props.negative}
+                        fixedTitle={this.props.fixedTitle}
                         inputStyle={textStyles.header}
                         placeholder='Class name'
                         onChange={this.onTextChange}>
-                        {this.props.negative ? null :
+                        {this.props.negative || this.props.fixedTitle ? null :
                             <div style={{position: 'relative', width: '100%', minWidth: '100%'}}>
                                 <div style={{position: 'absolute', top: '-43px', right: '0'}}>
                                     <button key={this.props.id} style={deleteStyle}

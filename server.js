@@ -57,6 +57,17 @@ app.post('/api/delete_classifier', function(req, res) {
     // });
 });
 
+app.post('/api/classifier_details', function(req, res) {
+    var visual_recognition = new VisualRecognitionV3({
+        api_key: req.query.api_key,
+        version_date: req.query.version || '2016-05-19'
+    });
+
+    visual_recognition.getClassifier({classifier_id: req.query.classifier_id }, function(err, data) {
+        res.send(data);
+	});
+});
+
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, '.tmp/uploads/')
