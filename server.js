@@ -47,14 +47,14 @@ app.post('/api/list_classifiers', function(req, res) {
 });
 
 app.post('/api/delete_classifier', function(req, res) {
-    var visual_recognition = new VisualRecognitionV3({
-        api_key: req.query.api_key,
-        version_date: req.query.version || '2016-05-19'
-    });
-
-    visual_recognition.deleteClassifier({classifier_id: req.query.classifier_id }, function(err, data) {
-        res.send(data);
-    });
+    // var visual_recognition = new VisualRecognitionV3({
+    //     api_key: req.query.api_key,
+    //     version_date: req.query.version || '2016-05-19'
+    // });
+    //
+    // visual_recognition.deleteClassifier({classifier_id: req.query.classifier_id }, function(err, data) {
+    //     res.send(data);
+    // });
 });
 
 var storage = multer.diskStorage({
