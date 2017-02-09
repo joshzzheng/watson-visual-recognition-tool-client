@@ -17,10 +17,8 @@ export default class ProgressModal extends React.Component {
             backdrop: 'static',
             keyboard: false
         })
-        $(ReactDOM.findDOMNode(this)).modal('show')
         var self = this
         this.props.load(function(p) {
-            console.log(p)
             self.setState({ progress: p })
         },
         function() {

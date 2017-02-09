@@ -1,6 +1,7 @@
 import React from 'react'
 import request from 'superagent'
 import Radium from 'radium'
+import {browserHistory} from 'react-router'
 
 import Styles from './Styles'
 import ResultList from './ResultList'
@@ -12,6 +13,18 @@ import DropDown from './DropDown'
 export default class ClassifierDetail extends React.Component {
     stateChanged = () => {
         this.props.reDraw()
+    }
+
+    deleteClassifier = (e) => {
+        e.preventDefault()
+        if (confirm('Delete ' + this.props.name + '?') == true) {
+            var req = request.post('/api/delete_classifier')
+            req.query({classifier_id: this.props.classifierID})
+            req.query({api_key: localStorage.getItem('apiKey')})
+            req.end(function(err, res) {
+                browserHistory.push('/')
+            })
+        }
     }
 
     onDrop = (files, onFinished, onProgress) => {
@@ -129,7 +142,7 @@ export default class ClassifierDetail extends React.Component {
 
         return(
             <Card style={{maxWidth:'30rem'}}>
-                <DropDown/>
+                <DropDown delete={this.deleteClassifier}/>
                 <div style={titleStyle}>{this.props.name}</div>
                 <div style={textStyle}>{this.props.classifierID}</div>
                 <div style={textStyle}><div style={[status, {background: color}]}/>{this.props.status}</div>

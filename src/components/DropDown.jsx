@@ -79,7 +79,7 @@ export default class DropDown extends React.Component {
                 <div style={dropdownContent}>
                     <a style={[aStyle, aa]} key='0' href="#">View code</a>
                     <a style={[aStyle, ab]} key='1' href="#">Update</a>
-                    <a style={[aStyle, ac, {color: '#f44336'}]} key='2' href="#">Delete</a>
+                    <a style={[aStyle, ac, {color: '#f44336'}]} key='2' href="#" onClick={this.props.delete}>Delete</a>
                 </div>
             </div>
         )
