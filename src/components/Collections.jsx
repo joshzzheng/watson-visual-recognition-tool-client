@@ -45,7 +45,8 @@ export default class Collections extends React.Component {
     }
 
     onClick = () => {
-        browserHistory.push('/create_collection')
+        alert('This feature is not yet available')
+        // browserHistory.push('/create_collection')
     }
 
     componentDidMount() {

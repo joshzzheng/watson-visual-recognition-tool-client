@@ -72,8 +72,10 @@ export default class CreateClassifier extends React.Component {
                         return
                     }
                 } else {
-                    self.setState({errors: true})
-                    return
+                    if (!c.negative) {
+                        self.setState({errors: true})
+                        return
+                    }
                 }
                 validClasses++
             })
@@ -95,11 +97,13 @@ export default class CreateClassifier extends React.Component {
         var self = this
 
         this.state.classes.map(function(c) {
-            name = c.name
-            if (c.negative) {
-                name = 'NEGATIVE_EXAMPLES'
+            if (c.file != null) {
+                name = c.name
+                if (c.negative) {
+                    name = 'NEGATIVE_EXAMPLES'
+                }
+                req.attach('files', c.file[0], name)
             }
-            req.attach('files', c.file[0], name)
         })
 
         req.query({ api_key: localStorage.getItem('apiKey') })

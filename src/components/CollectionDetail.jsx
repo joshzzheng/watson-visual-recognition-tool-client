@@ -18,18 +18,20 @@ export default class CollectionDetail extends React.Component {
     deleteClassifier = (e) => {
         e.preventDefault()
         if (confirm('Delete ' + this.props.name + '?') == true) {
-            var req = request.post('/api/delete_classifier')
-            req.query({classifier_id: this.props.collectionID})
-            req.query({api_key: localStorage.getItem('apiKey')})
-            req.end(function(err, res) {
-                browserHistory.push('/collections')
-            })
+            alert('This feature is not yet available')
+            // var req = request.post('/api/delete_classifier')
+            // req.query({classifier_id: this.props.collectionID})
+            // req.query({api_key: localStorage.getItem('apiKey')})
+            // req.end(function(err, res) {
+            //     browserHistory.push('/collections')
+            // })
         }
     }
 
     updateClassifier = (e) => {
         e.preventDefault()
-        browserHistory.push('/update_collection/'+this.props.collectionID)
+        alert('This feature is not yet available')
+        // browserHistory.push('/update_collection/'+this.props.collectionID)
     }
 
     onDrop = (files, onFinished, onProgress) => {
