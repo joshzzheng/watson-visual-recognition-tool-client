@@ -22,14 +22,14 @@ export default class CollectionDetail extends React.Component {
             req.query({classifier_id: this.props.collectionID})
             req.query({api_key: localStorage.getItem('apiKey')})
             req.end(function(err, res) {
-                browserHistory.push('/')
+                browserHistory.push('/collections')
             })
         }
     }
 
     updateClassifier = (e) => {
         e.preventDefault()
-        browserHistory.push('/update/'+this.props.collectionID)
+        browserHistory.push('/update_collection/'+this.props.collectionID)
     }
 
     onDrop = (files, onFinished, onProgress) => {

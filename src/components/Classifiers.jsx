@@ -47,7 +47,7 @@ export default class Classifiers extends React.Component {
     }
 
     onClick = () => {
-        browserHistory.push('/create')
+        browserHistory.push('/create_classifier')
     }
 
     componentDidMount() {

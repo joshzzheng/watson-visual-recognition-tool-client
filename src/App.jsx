@@ -4,21 +4,32 @@ import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 
 import Base from './components/Base'
 import Classifiers from './components/Classifiers'
-import Collections from './components/Collections'
 import CreateClassifier from './components/CreateClassifier'
 import UpdateClassifier from './components/UpdateClassifier'
+import Collections from './components/Collections'
+// import CreateCollection from './components/CreateCollection'
+// import UpdateCollection from './components/UpdateCollection'
 
 class App extends React.Component {
     render() {
         return (
             <Router history={browserHistory}>
                 <Route path="/" component={Base}>
+
+                    {/*Classifiers*/}
                     <IndexRoute component={Classifiers}/>
-                    <Route path="/collections" component={Collections}/>
-                    <Route path="/create" component={CreateClassifier}/>
-                    <Route path="/update">
-                        <Route path="/update/:classifierID" component={UpdateClassifier}/>
+                    <Route path="/create_classifier" component={CreateClassifier}/>
+                    <Route path="/update_classifier">
+                        <Route path="/update_classifier/:classifierID" component={UpdateClassifier}/>
                     </Route>
+
+                    {/*Collections*/}
+                    <Route path="/collections" component={Collections}/>
+                    <Route path="/create_collection" component={CreateClassifier}/>
+                    <Route path="/update_collection">
+                        <Route path="/update_collection/:collectionID" component={UpdateClassifier}/>
+                    </Route>
+
                 </Route>
             </Router>
         )
