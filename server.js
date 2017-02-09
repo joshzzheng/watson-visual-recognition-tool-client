@@ -34,16 +34,36 @@ app.get('*', function(req, response) {
 });
 
 app.post('/api/list_classifiers', function(req, res) {
-    sa_req = request.get('https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classifiers');
-
-    sa_req.query({ version: req.query.version || '2016-05-19' })
-    sa_req.query(req.query)
-
-    sa_req.end(function(err, data) {
-        if (data != null) {
-            res.send(JSON.parse(data.text))
-        }
+    var visual_recognition = new VisualRecognitionV3({
+        api_key: req.query.api_key,
+        version_date: req.query.version || '2016-05-19'
     });
+
+    visual_recognition.listClassifiers(req.query, function(err, data) {
+        res.send(data);
+	});
+});
+
+app.post('/api/list_collections', function(req, res) {
+    var visual_recognition = new VisualRecognitionV3({
+        api_key: req.query.api_key,
+        version_date: req.query.version || '2016-05-19'
+    });
+
+    visual_recognition.listCollections(req.query, function(err, data) {
+        res.send(data);
+	});
+});
+
+app.post('/api/update_classifier', function(req, res) {
+    // var visual_recognition = new VisualRecognitionV3({
+    //     api_key: req.query.api_key,
+    //     version_date: req.query.version || '2016-05-19'
+    // });
+    //
+    // visual_recognition.retrainClassifier(req.query, function(err, data) {
+    //     res.send(data);
+	// });
 });
 
 app.post('/api/delete_classifier', function(req, res) {

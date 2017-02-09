@@ -75,7 +75,7 @@ export default class TabBar extends React.Component {
                 <div style={contentWrapper}>
                     <ul style={[topBar, unordered]}>
                         <li style={item}><Link style={link} to="/" activeStyle={active} onlyActiveOnIndex={true}>Classifiers</Link></li>
-                        <li style={item}><Link style={link} to="/collections" activeStyle={active}>Collections (Coming Soon)</Link></li>
+                        <li style={item}><Link style={link} to="/collections" activeStyle={active}>Collections</Link></li>
                     </ul>
                 </div>
             </div>

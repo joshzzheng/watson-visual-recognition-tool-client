@@ -81,7 +81,7 @@ export default class UpdateClassifier extends React.Component {
     }
 
     errorCheck = () => {
-
+        alert('This feature is not yet available')
     }
 
     // This is kind of messy but helps show progress faster
