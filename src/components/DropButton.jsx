@@ -14,10 +14,10 @@ export default class DropButton extends React.Component {
          }
     }
 
-    onDrop = (files) => {
+    onDrop = (files, rejects) => {
         var self = this
         this.setState({ files: files }, function() {
-            this.props.onDrop(this.state.files, function() {
+            this.props.onDrop(this.state.files, rejects, function() {
                 self.setState({ files: [] })
                 setTimeout(function() {
                     self.setState({ opacity: 0 })
@@ -172,6 +172,8 @@ export default class DropButton extends React.Component {
 
         return (
             <Dropzone ref="dropzone"
+                accept={this.props.accept}
+                maxSize={this.props.maxSize}
                 onDrop={this.onDrop}
                 multiple={false}
                 style={dropzoneStyle}

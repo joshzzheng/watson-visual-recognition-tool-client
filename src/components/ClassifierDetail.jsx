@@ -33,10 +33,18 @@ export default class ClassifierDetail extends React.Component {
         browserHistory.push('/update_classifier/'+this.props.classifierID)
     }
 
-    onDrop = (files, onFinished, onProgress) => {
+    onDrop = (files, rejects, onFinished, onProgress) => {
         var self = this
         var req
         self.setState({ error: null }, self.stateChanged)
+        if (files == null || files.length <= 0) {
+            if (rejects != null && rejects[0].size > 2 * 1024 * 1024 && (rejects[0].type == 'image/jpeg' || rejects[0].type == 'image/png') ) {
+                self.setState({ error: 'Image size limit (2MB) exceeded' }, self.stateChanged)
+                return
+            }
+            self.setState({ error: 'Invalid image file (must be .jpg or .png)' }, self.stateChanged)
+            return
+        }
         if (this.props.classifierID == null && this.props.name == 'Faces') {
             req = request.post('/api/detect_faces')
         } else {
@@ -159,6 +167,8 @@ export default class ClassifierDetail extends React.Component {
                 <div style={{width: '100%', height:'20px'}}></div>
                 {this.state.error ? <div style={error}>{this.state.error}</div> : null}
                 <DropButton
+                    accept={"image/jpeg, image/png"}
+                    maxSize={2 * 1024 * 1024}
                     upload={true}
                     onDrop={this.onDrop}
                     text={"Drag images here to classify them"}
