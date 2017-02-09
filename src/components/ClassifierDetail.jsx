@@ -156,7 +156,11 @@ export default class ClassifierDetail extends React.Component {
 
         return(
             <Card style={{maxWidth:'30rem'}}>
-                <DropDown delete={this.deleteClassifier} update={this.updateClassifier}/>
+                {this.props.classifierID ?
+                    <DropDown delete={this.deleteClassifier} update={this.updateClassifier}/>:
+                    null
+                }
+
                 <div style={titleStyle}>{this.props.name}</div>
                 <div style={textStyle}>{this.props.classifierID}</div>
                 <div style={textStyle}><div style={[status, {background: color}]}/>{this.props.status}</div>
