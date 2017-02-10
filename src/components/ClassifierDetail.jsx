@@ -81,7 +81,7 @@ export default class ClassifierDetail extends React.Component {
                         return b.score - a.score
                     })
                 } else if (res.body.images[0].faces != null && res.body.images[0].faces.length > 0) {
-                    results = res.body.images[0].faces[0]
+                    results = res.body.images[0].faces
                 } else if (res.body.images[0].error != null) {
                     console.error(res.body.images[0].error.description)
                     if (res.body.images[0].error.description == 'Image size limit exceeded (2935034 bytes > 2097152 bytes [2 MiB]).') {

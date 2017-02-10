@@ -10,40 +10,35 @@ function capitalizeFirstLetter(string) {
 export default class ResultList extends React.Component {
     drawFace = () => {
         var self = this
-        if (this.props.results.age != null) {
+        if (this.props.results[0].age != null) {
             var fr = new FileReader
             fr.onload = function() {
                 var img = new Image
                 img.onload = function() {
-                    var loc = self.props.results.face_location
-                    console.log(loc)
-                    var facesThing = {
-                        display: 'block',
-                        position: 'absolute',
-                        marginTop: '10px',
-                        zIndex: '2',
-                        left: (loc.left/img.width)*100 + '%',
-                        top: (loc.top/img.height)*100 + '%',
-                        width: (loc.width/img.width)*100 + '%',
-                        height: 'calc(' + (loc.height/img.height)*100 + '% - 10px)',
-                        border: '2px solid ' + Styles.colorPrimary,
-                        boxShadow: '0px 0px 1px 1px rgba(255,255,255,.6)',
-                        marginRight: '10px',
-                    }
+                    var facesBox = []
+                    self.props.results.map(function(face) {
+                        var faceBox = {
+                            display: 'block',
+                            position: 'absolute',
+                            marginTop: '10px',
+                            zIndex: '2',
+                            left: (face.face_location.left/img.width)*100 + '%',
+                            top: (face.face_location.top/img.height)*100 + '%',
+                            width: (face.face_location.width/img.width)*100 + '%',
+                            height: 'calc(' + (face.face_location.height/img.height)*100 + '% - 10px)',
+                            border: '2px solid ' + Styles.colorPrimary,
+                            boxShadow: '0px 0px 1px 1px rgba(255,255,255,.6)',
+                            marginRight: '10px',
+                        }
+                        facesBox.push(faceBox)
+                    })
                     self.setState({
-                        face: facesThing
+                        faces: facesBox
                     })
                 }
                 img.src = fr.result
             }
             fr.readAsDataURL(this.props.file)
-        } else {
-            var facesThing = {
-                display: 'none'
-            }
-            self.setState({
-                face: facesThing
-            })
         }
     }
 
@@ -123,17 +118,17 @@ export default class ResultList extends React.Component {
         }
 
         var resultList
-        if (this.props.results.age != null) {
+        if (this.props.results[0].age != null) {
             resultList = <div>
                 <div style={[imgStyle, topResult]}>
                     <div style={[textStyles.topClass, {display: 'inline-block'}]}>Gender</div>
-                    <div style={[textStyles.topScore, {float: 'right', display: 'inline-block'}]}>{capitalizeFirstLetter(this.props.results.gender.gender)}</div>
+                    <div style={[textStyles.topScore, {float: 'right', display: 'inline-block'}]}>{capitalizeFirstLetter(this.props.results[0].gender.gender)}</div>
                 </div>
                 <div style={[imgStyle, topResult]}>
                     <div style={[textStyles.topClass, {display: 'inline-block'}]}>Age</div>
-                    {this.props.results.age.min == null || this.props.results.age.max == null ?
-                        <div style={[textStyles.topScore, {float: 'right', display: 'inline-block'}]}>{this.props.results.age.min || this.props.results.age.max}</div> :
-                        <div style={[textStyles.topScore, {float: 'right', display: 'inline-block'}]}>{this.props.results.age.min} - {this.props.results.age.max}</div>
+                    {this.props.results[0].age.min == null || this.props.results[0].age.max == null ?
+                        <div style={[textStyles.topScore, {float: 'right', display: 'inline-block'}]}>{this.props.results[0].age.min || this.props.results[0].age.max}</div> :
+                        <div style={[textStyles.topScore, {float: 'right', display: 'inline-block'}]}>{this.props.results[0].age.min} - {this.props.results[0].age.max}</div>
                     }
                 </div>
             </div>
@@ -155,12 +150,19 @@ export default class ResultList extends React.Component {
                 )
             })
         }
-
+        if (this.state.faces != null) {
+            var faces = this.state.faces.map(function(faceStyle) {
+                console.log(faceStyle)
+                return (
+                    <div style={faceStyle} />
+                )
+            })
+        }
         return (
+
             <div>
                 <div style={{position: 'relative'}}>
-                    {console.log(this.state.face)}
-                    <div style={this.state.face || facesThing} />
+                    {faces}
                     <img style={imgStyle} src={this.props.file.preview}/>
                 </div>
                 <ul style={list}> {resultList} </ul>
