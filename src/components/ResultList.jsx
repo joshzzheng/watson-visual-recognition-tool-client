@@ -8,6 +8,53 @@ function capitalizeFirstLetter(string) {
 
 @Radium
 export default class ResultList extends React.Component {
+    drawFace = () => {
+        var self = this
+        if (this.props.results.age != null) {
+            var fr = new FileReader
+            fr.onload = function() {
+                var img = new Image
+                img.onload = function() {
+                    var loc = self.props.results.face_location
+                    console.log(loc)
+                    var facesThing = {
+                        display: 'block',
+                        position: 'absolute',
+                        marginTop: '10px',
+                        zIndex: '2',
+                        left: (loc.left/img.width)*100 + '%',
+                        top: (loc.top/img.height)*100 + '%',
+                        width: (loc.width/img.width)*100 + '%',
+                        height: 'calc(' + (loc.height/img.height)*100 + '% - 10px)',
+                        border: '2px solid ' + Styles.colorPrimary,
+                        boxShadow: '0px 0px 1px 1px rgba(255,255,255,.6)',
+                        marginRight: '10px',
+                    }
+                    self.setState({
+                        face: facesThing
+                    })
+                }
+                img.src = fr.result
+            }
+            fr.readAsDataURL(this.props.file)
+        } else {
+            var facesThing = {
+                display: 'none'
+            }
+            self.setState({
+                face: facesThing
+            })
+        }
+    }
+
+    componentDidMount() {
+        this.drawFace()
+    }
+
+    componentWillReceiveProps(newProps) {
+        this.drawFace()
+    }
+
     render(){
         var textStyles = {
             base: {
@@ -63,11 +110,16 @@ export default class ResultList extends React.Component {
                 overflow: 'hidden',
             },
             image: {
+                position: 'absolute',
                 width: '100px',
                 height: '100px',
                 border: '1px solid #dedede',
                 marginRight: '10px',
             }
+        }
+
+        var facesThing = {
+            display: 'none'
         }
 
         var resultList
@@ -106,7 +158,11 @@ export default class ResultList extends React.Component {
 
         return (
             <div>
-                <img style={imgStyle} src={this.props.file.preview}/>
+                <div style={{position: 'relative'}}>
+                    {console.log(this.state.face)}
+                    <div style={this.state.face || facesThing} />
+                    <img style={imgStyle} src={this.props.file.preview}/>
+                </div>
                 <ul style={list}> {resultList} </ul>
             </div>
         )
