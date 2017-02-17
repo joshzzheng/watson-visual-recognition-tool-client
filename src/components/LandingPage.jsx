@@ -134,7 +134,7 @@ export default class LandingPage extends React.Component {
             bottom: '0',
             left: '0',
             right: '0',
-            background: `url(${'/splashscreen.png'})`,
+            background: '#2fc2d8',
             backgroundSize: 'cover',
             backgroundPosition: 'bottom',
         }

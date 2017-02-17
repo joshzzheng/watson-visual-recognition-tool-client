@@ -2,6 +2,7 @@ import React from 'react'
 import request from 'superagent'
 import Radium from 'radium'
 import {browserHistory} from 'react-router'
+import { Tooltip } from 'reactstrap'
 
 import Styles from './Styles'
 import ResultList from './ResultList'
@@ -11,7 +12,23 @@ import DropDown from './DropDown'
 
 @Radium
 export default class ClassifierDetail extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            tooltipOpen: false
+        }
+    }
+
+    toggle = () => {
+        this.setState({
+            tooltipOpen: !this.state.tooltipOpen
+        })
+    }
+
     stateChanged = () => {
+        this.setState({
+            tooltipOpen: false
+        })
         this.props.reDraw()
     }
 
@@ -82,7 +99,10 @@ export default class ClassifierDetail extends React.Component {
                     })
                 } else if (res.body.images[0].faces != null && res.body.images[0].faces.length > 0) {
                     results = res.body.images[0].faces
-                } else if (res.body.images[0].error != null) {
+                } else if (res.body.images[0].faces != null) {
+                    self.setState({ error: 'No faces found' }, self.stateChanged)
+                }
+                else if (res.body.images[0].error != null) {
                     console.error(res.body.images[0].error.description)
                     if (res.body.images[0].error.description == 'Image size limit exceeded (2935034 bytes > 2097152 bytes [2 MiB]).') {
                         self.setState({ error: 'Image size limit (2MB) exceeded' }, self.stateChanged)
@@ -101,6 +121,10 @@ export default class ClassifierDetail extends React.Component {
             self.setState({ file: files[0], results: results }, self.stateChanged)
             onFinished()
         })
+    }
+
+    clearClassifier = () => {
+        this.setState({ file: null, results: null }, this.stateChanged)
     }
 
     render() {
@@ -171,13 +195,17 @@ export default class ClassifierDetail extends React.Component {
                 <div style={{width: '100%', height:'20px'}}></div>
                 {this.state.error ? <div style={error}>{this.state.error}</div> : null}
                 <DropButton
+                    id={this.props.classifierID || this.props.name}
                     accept={"image/jpeg, image/png"}
                     maxSize={2 * 1024 * 1024}
                     upload={true}
                     onDrop={this.onDrop}
                     text={"Drag images here to classify them"}
                     subtext={"choose your files"} />
-                {this.state.results ? <ResultList file={this.state.file} results={this.state.results}/> : null}
+                <Tooltip placement="top" isOpen={this.state.tooltipOpen} delay={{show: 200, hide: 100}} autohide={false} target={this.props.classifierID || this.props.name} toggle={this.toggle}>
+                    <a style={{color: 'white'}} href='https://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?node#classify_an_image' target='_blank'>How do I add this to my app?</a>
+                </Tooltip>
+                {this.state.results ? <ResultList clearClassifier={this.clearClassifier} file={this.state.file} results={this.state.results}/> : null}
             </Card>
         )
     }

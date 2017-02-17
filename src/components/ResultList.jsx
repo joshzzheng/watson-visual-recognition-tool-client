@@ -1,6 +1,7 @@
 import React from 'react'
 import Styles from './Styles'
 import Radium from 'radium'
+import { Tooltip } from 'reactstrap'
 
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
@@ -8,6 +9,19 @@ function capitalizeFirstLetter(string) {
 
 @Radium
 export default class ResultList extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            tooltipOpen: false
+        }
+    }
+
+    toggle = () => {
+        this.setState({
+            tooltipOpen: !this.state.tooltipOpen
+        })
+    }
+
     drawFace = () => {
         var self = this
         if (this.props.results[0].age != null) {
@@ -117,7 +131,26 @@ export default class ResultList extends React.Component {
             display: 'none'
         }
 
+        var deleteStyle = {
+            position: 'absolute',
+            top: '15px',
+            right: '5px',
+            backgroundColor: 'transparent',
+            backgroundImage: `url(${'/btn_delete.png'})`,
+            height: '25px',
+            width: '25px',
+            backgroundSize: 'contain',
+            border: 'none',
+            ':hover': {
+                backgroundImage: `url(${'/btn_delete_hover2.png'})`,
+            },
+            ':active': {
+                backgroundImage: `url(${'/btn_delete_pressed2.png'})`,
+            }
+        }
+
         var resultList
+        var self = this
         if (this.props.results[0].age != null) {
             resultList = <div>
                 <div style={[imgStyle, topResult]}>
@@ -140,7 +173,8 @@ export default class ResultList extends React.Component {
                             <div style={[imgStyle, topResult]}>
                                 <div style={[textStyles.topClass, {display: 'inline-block'}]}>{result.class}</div>
                                 <div style={[textStyles.topScore, {float: 'right', display: 'inline-block'}]}>{~~(result.score * 100)}%</div>
-                            </div> :
+                            </div>
+                            :
                             <div style={resultStyle}>
                                 <div style={[textStyles.base, textStyles.dark, {display: 'inline-block'}]}><b>{result.class}</b></div>
                                 <div style={[textStyles.base, {float: 'right', display: 'inline-block'}]}>{~~(result.score * 100)}%</div>
@@ -164,8 +198,16 @@ export default class ResultList extends React.Component {
                 <div style={{position: 'relative'}}>
                     {faces}
                     <img style={imgStyle} src={this.props.file.preview}/>
+                        <button style={deleteStyle}
+                            onClick={this.props.clearClassifier}>
+                        </button>
                 </div>
-                <ul style={list}> {resultList} </ul>
+                <ul style={list} id='tooltipid'> {resultList} </ul>
+                <Tooltip placement="right" isOpen={self.state.tooltipOpen} delay={{show: 200, hide: 100}} autohide={false} target='tooltipid' toggle={self.toggle}>
+                    <a style={{color: 'white'}} href='https://www.ibm.com/blogs/bluemix/2016/10/watson-visual-recognition-training-best-practices/' target='_blank'>
+                        What does this score mean?
+                    </a>
+                </Tooltip>
             </div>
         )
     }

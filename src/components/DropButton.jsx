@@ -172,6 +172,7 @@ export default class DropButton extends React.Component {
 
         return (
             <Dropzone ref="dropzone"
+                id={this.props.id}
                 accept={this.props.accept}
                 maxSize={this.props.maxSize}
                 onDrop={this.onDrop}
