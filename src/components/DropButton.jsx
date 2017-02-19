@@ -10,7 +10,9 @@ export default class DropButton extends React.Component {
         this.state = {
             files: [],
             progress: 0,
-            opacity: 0
+            opacity: 0,
+            hover: false,
+            clearHover: false
          }
     }
 
@@ -29,14 +31,40 @@ export default class DropButton extends React.Component {
                 self.setState({ progress: p, opacity: 1 })
             })
         })
+        this.setState({hover: true, clearHover: false})
     }
 
     onOpenClick = () => {
         this.refs.dropzone.open()
+        this.setState({hover: true, clearHover: false})
     }
 
-    toggleHover = () => {
-        this.setState({hover: !this.state.hover})
+    isHover = () => {
+        this.setState({hover: true})
+    }
+
+    notHover = () => {
+        this.setState({hover: false, clearHover: false})
+    }
+
+    isClearHover = () => {
+        this.setState({clearHover: true})
+    }
+
+    notClearHover = () => {
+        this.setState({clearHover: false})
+    }
+
+    clear = (e) => {
+        e.stopPropagation()
+        this.props.onDrop(null)
+        this.setState({
+            files: [],
+            progress: 0,
+            opacity: 0,
+            hover: false,
+            clearHover: false
+        })
     }
 
     render() {
@@ -170,6 +198,27 @@ export default class DropButton extends React.Component {
             animationDelay: '.4s',
         }
 
+        var deleteStyle = {
+            position: 'absolute',
+            top: '5px',
+            right: '5px',
+            backgroundColor: 'transparent',
+            backgroundImage: `url(${'/btn_delete.png'})`,
+            height: '25px',
+            width: '25px',
+            backgroundSize: 'contain',
+            border: 'none',
+            ':active': {
+                backgroundImage: `url(${'/btn_delete_pressed2.png'})`,
+            }
+        }
+
+        if (this.state.clearHover) {
+            deleteStyle.backgroundImage = `url(${'/btn_delete_hover2.png'})`
+        } else {
+            deleteStyle.backgroundImage = `url(${'/btn_delete.png'})`
+        }
+
         return (
             <Dropzone ref="dropzone"
                 id={this.props.id}
@@ -178,10 +227,18 @@ export default class DropButton extends React.Component {
                 onDrop={this.onDrop}
                 multiple={false}
                 style={dropzoneStyle}
-                onMouseEnter={this.toggleHover}
-                onMouseLeave={this.toggleHover}>
+                onMouseEnter={this.isHover}
+                onMouseLeave={this.notHover}>
                 {this.state.files.length > 0 ?
                     <div style={containerStyles.base}>
+                        {this.state.hover && this.props.clear ?
+                            <button style={deleteStyle}
+                                onMouseEnter={this.isClearHover}
+                                onMouseLeave={this.notClearHover}
+                                onClick={this.clear}>
+                            </button> :
+                            null
+                        }
                         {this.state.files.map((file) => <div key={file.name} style={[containerStyles.base, containerStyles.image]}><img style={imgStyle} src={file.preview}/></div> )}
                         {this.props.upload ?
                             <div id="loading-ellipsis" style={[textStyles.base, textStyles.uploading]}>

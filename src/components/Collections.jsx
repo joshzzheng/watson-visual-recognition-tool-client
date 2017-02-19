@@ -16,6 +16,7 @@ export default class Collections extends React.Component {
     }
 
     loadCollectionsFromServer = () => {
+        alert('This feature is incomplete and not yet live')
         var self = this
 
         var req = request.post('/api/list_collections')

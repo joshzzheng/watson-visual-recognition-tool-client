@@ -39,10 +39,10 @@ export default class Class extends React.Component {
             backgroundSize: 'contain',
             border: 'none',
             ':hover': {
-                backgroundImage: `url(${'/btn_delete_hover.png'})`,
+                backgroundImage: `url(${'/btn_delete_hover2.png'})`,
             },
             ':active': {
-                backgroundImage: `url(${'/btn_delete_pressed.png'})`,
+                backgroundImage: `url(${'/btn_delete_pressed2.png'})`,
             }
         }
 
@@ -73,7 +73,8 @@ export default class Class extends React.Component {
                             errors={this.props.errors}
                             text='Drag .zip here to train class'
                             subtext='choose your file'
-                            onDrop={this.onDrop}/>
+                            onDrop={this.onDrop}
+                            clear={true}/>
                     </TitleCard>
                 </div>
             </div>
