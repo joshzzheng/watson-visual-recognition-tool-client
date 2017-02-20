@@ -15,6 +15,50 @@ export default class Classifiers extends React.Component {
         }
     }
 
+    reloadTraining = (timeout) => {
+        var self = this
+        if (this.state.training != null && this.state.training.length == 1) {
+            console.log('reload training data in ' + timeout + ' seconds')
+            setTimeout(function() {
+                self.loadClassifier(self.state.training[0])
+            }, timeout * 1000)
+        } else if (this.state.training != null && this.state.training.length > 0) {
+            setTimeout(function() {
+                self.loadClassifiersFromServer()
+            }, timeout * 1000)
+        }
+    }
+
+    loadClassifier = (classifier_id) => {
+        var self = this
+        console.log('reloading: ' + classifier_id)
+
+        var req = request.post('/api/classifier_details')
+
+        req.query({ api_key: localStorage.getItem('apiKey') })
+        req.query({ classifier_id: classifier_id})
+
+        req.end(function(err, res) {
+            if (err != null) {
+                console.error('Server error')
+            }
+            if (res.body != null) {
+                console.log(res.body.status)
+                if (res.body.status == 'ready') {
+                    var newClassifiers = $.extend([], self.state.classifiers)
+                    for (var i in newClassifiers) {
+                        if (newClassifiers[i].classifier_id == classifier_id) {
+                            newClassifiers[i].status = res.body.status
+                        }
+                    }
+                    self.setState({ classifiers: newClassifiers, training: null })
+                } else {
+                    self.reloadTraining(30)
+                }
+            }
+        })
+    }
+
     loadClassifiersFromServer = () => {
         var self = this
 
@@ -24,6 +68,7 @@ export default class Classifiers extends React.Component {
 
         req.end(function(err, res) {
             console.log(res)
+            var training = []
             var classifiers = []
             if (err != null) {
                 console.error('Server error')
@@ -42,7 +87,16 @@ export default class Classifiers extends React.Component {
                 })
                 classifiers.push({name: 'Default', status: 'ready'}, {name: 'Faces', status: 'ready'})
             }
-            self.setState({ classifiers: classifiers })
+            for (var i in classifiers) {
+                if (classifiers[i].status == 'training') {
+                    training.push(classifiers[i].classifier_id)
+                }
+            }
+            self.setState({ classifiers: classifiers, training: training }, function() {
+                if (this.state.training != null) {
+                    self.reloadTraining(30)
+                }
+            })
         })
     }
 

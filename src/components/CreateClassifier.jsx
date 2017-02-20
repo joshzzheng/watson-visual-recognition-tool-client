@@ -129,8 +129,9 @@ export default class CreateClassifier extends React.Component {
         req.then(function(res, err) {
             console.log(res)
             onFinished()
-            self.setState({upload: false})
-            browserHistory.push('/')
+            self.setState({upload: false}, function() {
+                browserHistory.push('/')
+            })
         })
     }
 
