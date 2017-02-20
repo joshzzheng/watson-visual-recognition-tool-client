@@ -27,15 +27,14 @@ export default class LandingPage extends React.Component {
                 position: 'fixed',
                 lineHeight: '0px',
                 alignSelf: 'center',
-                borderRadius: '30px',
+                borderRadius: '23px',
                 border: 'none',
-                height: '60px',
-                width: '620px',
-                font: Styles.fontTitle,
-                padding: '0px 44px 0px 44px',
-                paddingRight: '85px',
+                height: '46px',
+                width: '318px',
+                font: Styles.fontHeader,
+                padding: '0px 22px 0px 22px',
                 color: Styles.colorTextLight,
-                background: 'white',
+                background: Styles.colorPrimary,
                 left: '50%',
                 top: '50%',
                 transform: 'translate(-50%, -50%)',
@@ -45,7 +44,7 @@ export default class LandingPage extends React.Component {
 
                 ':hover': {
                     boxShadow: '0 3px 9px 0px rgba(0,0,0,.2), 0 0 0 1px rgba(0,0,0,.08)',
-                    transition: 'box-shadow 200ms cubic-bezier(0.4, 0.0, 0.2, 1)',
+                    transition: 'all 200ms cubic-bezier(0.4, 0.0, 0.2, 1)',
                 },
                 ':focus': {
                     outline: 'none',
@@ -53,14 +52,29 @@ export default class LandingPage extends React.Component {
             }
         }
 
+        if (this.state.focus) {
+            buttonStyle.base.color = Styles.colorTextLight
+            buttonStyle.base.background = 'white'
+            buttonStyle.base.width = '550px'
+            buttonStyle.base.padding = '0px 50px 0px 25px'
+        } else {
+            buttonStyle.base.color = 'white'
+            buttonStyle.base.background = Styles.colorPrimary
+            buttonStyle.base.width = '318px'
+            buttonStyle.base.padding = '0px 25px 0px 25px'
+            buttonStyle.base.whiteSpace = 'nowrap'
+            buttonStyle.base.overflow = 'hidden'
+            buttonStyle.base.textOverflow = 'ellipsis'
+        }
+
         var keyNone = {
             position: 'fixed',
             left: '50%',
             top: '50%',
-            font: Styles.fontTitle,
+            font: Styles.fontHeader,
             fontWeight: 'normal',
             color: 'white',
-            transform: 'translate(-255px, -20px)',
+            transform: 'translate(-225px, -15px)',
             opacity: '0',
             zIndex: '9',
             transition: 'all 200ms cubic-bezier(0.4, 0.0, 0.2, 1)',
@@ -70,11 +84,11 @@ export default class LandingPage extends React.Component {
             position: 'fixed',
             left: '50%',
             top: '50%',
-            font: Styles.fontTitle,
+            font: Styles.fontHeader,
             fontWeight: 'normal',
             color: 'white',
-            transform: 'translate(-255px, -70px)',
-            opacity: '1',
+            transform: 'translate(-225px, -60px)',
+            opacity: '0',
             zIndex: '11',
             transition: 'all 200ms cubic-bezier(0.4, 0.0, 0.2, 1)',
         }
@@ -83,9 +97,7 @@ export default class LandingPage extends React.Component {
             position: 'fixed',
             left: '50%',
             top: '50%',
-            font: Styles.fontHeader,
-            fontWeight: 'normal',
-            color: 'white',
+            font: Styles.fontDefault,
             transform: 'translate(-50%, 55px)',
             opacity: '1',
             zIndex: '11',
@@ -93,7 +105,13 @@ export default class LandingPage extends React.Component {
         }
 
         var link = {
-            color: 'white'
+            color: Styles.colorTextLight
+        }
+
+        if (this.state.focus) {
+            link.color = 'white'
+        } else {
+            link.color = Styles.colorTextLight
         }
 
         var picsNone = {
@@ -102,11 +120,11 @@ export default class LandingPage extends React.Component {
             background: `url(${'/btn_submit.png'})`,
             backgroundSize: 'contain',
             position: 'fixed',
-            height: '45px',
-            width: '45px',
+            height: '40px',
+            width: '40px',
             left: '50%',
             top: '50%',
-            transform: 'translate(230px, -50%)',
+            transform: 'translate(120px, -50%)',
             opacity: '0',
             zIndex: '9',
             transition: 'all 200ms cubic-bezier(0.4, 0.0, 0.2, 1)',
@@ -118,11 +136,11 @@ export default class LandingPage extends React.Component {
             background: `url(${'/btn_submit.png'})`,
             backgroundSize: 'contain',
             position: 'fixed',
-            height: '45px',
-            width: '45px',
+            height: '40px',
+            width: '40px',
             left: '50%',
             top: '50%',
-            transform: 'translate(257.5px, -50%)',
+            transform: 'translate(232px, -50%)',
             opacity: '1',
             zIndex: '11',
             transition: 'all 200ms cubic-bezier(0.4, 0.0, 0.2, 1)',
@@ -134,7 +152,7 @@ export default class LandingPage extends React.Component {
             bottom: '0',
             left: '0',
             right: '0',
-            background: '#2fc2d8',
+            background: 'white',
             backgroundSize: 'cover',
             backgroundPosition: 'bottom',
         }
@@ -161,37 +179,69 @@ export default class LandingPage extends React.Component {
 
         var title = {
             position: 'fixed',
-            right: '20px',
-            top: '10px',
+            left: '50%',
+            top: '50%',
+            transform: 'translate(-50%, -90px)',
             font: Styles.fontTitle,
-            color: 'black',
-            opacity: '.3',
+            color: Styles.colorTextDark,
             transition: 'all 200ms cubic-bezier(0.4, 0.0, 0.2, 1)',
         }
 
         var logo = {
-            marginRight: '5px',
-            marginTop: '-8px',
-            height: '60px',
+            position: 'fixed',
+            left: '50%',
+            top: '50%',
+            transform: 'translate(-50%, -190px)',
+            height: '80px',
+            zIndex: '-10',
+        }
+
+        var filter = {
+            position: 'fixed',
+            left: '50%',
+            top: '50%',
+            transform: 'translate(-50%, -190px)',
+            background: Styles.colorPrimary,
+            mixBlendMode: 'screen',
+            width: '80px',
+            height: '80px',
         }
 
         return(
             <div style={background}>
-                <div style={title}><img src="/watson.png" style={logo}></img>Visual Recognition</div>
+                <div style={filter}></div>
+                <img src="/watson.png" style={logo}></img>
+                <div style={title}>Visual Recognition Tool</div>
                 {this.state.focus ? <div style={skrim}/> : <div style={skrimNone}/>}
+                <Style scopeSelector='.myInputs::-webkit-input-placeholder' rules={{
+                    transition: 'all 200ms cubic-bezier(0.4, 0.0, 0.2, 1)',
+                    color: 'white',
+                    textAlign: 'center',
+                    opacity: '1',
+                }} />
                 <Style scopeSelector='.myInputs:focus::-webkit-input-placeholder' rules={{
                     transition: 'all 200ms cubic-bezier(0.4, 0.0, 0.2, 1)',
                     opacity: '0',
                 }} />
-                <Style scopeSelector='.myInputs:-moz-placeholder' rules={{
-                    transition: 'all 200ms cubic-bezier(0.4, 0.0, 0.2, 1)',
-                    opacity: '0',
-                }} />
+
                 <Style scopeSelector='.myInputs::-moz-placeholder' rules={{
                     transition: 'all 200ms cubic-bezier(0.4, 0.0, 0.2, 1)',
+                    color: 'white',
+                    textAlign: 'center',
+                    opacity: '1',
+                }} />
+                <Style scopeSelector='.myInputs:focus::-moz-placeholder' rules={{
+                    transition: 'all 200ms cubic-bezier(0.4, 0.0, 0.2, 1)',
                     opacity: '0',
                 }} />
-                <Style scopeSelector='.myInputs:-ms-input-placeholder' rules={{
+
+                <Style scopeSelector='.myInputs::-ms-input-placeholder' rules={{
+                    transition: 'all 200ms cubic-bezier(0.4, 0.0, 0.2, 1)',
+                    color: 'white',
+                    textAlign: 'center',
+                    opacity: '1',
+                }} />
+                <Style scopeSelector='.myInputs:focus::-ms-input-placeholder' rules={{
                     transition: 'all 200ms cubic-bezier(0.4, 0.0, 0.2, 1)',
                     opacity: '0',
                 }} />
@@ -206,7 +256,7 @@ export default class LandingPage extends React.Component {
                     onChange={this.onTextChange}/>
                 {this.state.focus ? <button style={pics} onMouseDown={this.setApiKey}/> : <button style={picsNone}/>}
                 </form>
-                <div style={getKey}>Don’t have a key? Get one for free <a href='https://console.ng.bluemix.net/registration/?target=/catalog/services/visual-recognition/' target='_blank' style={link}><u>here</u></a></div>
+                <div style={getKey}><a href='https://console.ng.bluemix.net/registration/?target=/catalog/services/visual-recognition/' target='_blank' style={link}>Sign up for bluemix to get your free key</a></div>
             </div>
         )
     }
