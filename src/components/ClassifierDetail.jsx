@@ -35,13 +35,12 @@ export default class ClassifierDetail extends React.Component {
     deleteClassifier = (e) => {
         e.preventDefault()
         if (confirm('Delete ' + this.props.name + '?') == true) {
-            alert('This feature is not yet available')
-            // var req = request.post('/api/delete_classifier')
-            // req.query({classifier_id: this.props.classifierID})
-            // req.query({api_key: localStorage.getItem('apiKey')})
-            // req.end(function(err, res) {
-            //     browserHistory.push('/')
-            // })
+            var req = request.post('/api/delete_classifier')
+            req.query({classifier_id: this.props.classifierID})
+            req.query({api_key: localStorage.getItem('apiKey')})
+            req.end(function(err, res) {
+                browserHistory.push('/')
+            })
         }
     }
 
