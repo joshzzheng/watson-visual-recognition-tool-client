@@ -1,11 +1,26 @@
 import React from 'react'
 import Radium from 'radium'
+import { Tooltip } from 'reactstrap'
+
 import Styles from './Styles'
 import DropButton from './DropButton'
 import TitleCard from './TitleCard'
 
 @Radium
 export default class Class extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            tooltipOpen: false
+        }
+    }
+
+    toggle = () => {
+        this.setState({
+            tooltipOpen: !this.state.tooltipOpen
+        })
+    }
+
     onDrop = (file) => {
         this.props.setClassFile(file, this.props.id)
     }
@@ -50,6 +65,7 @@ export default class Class extends React.Component {
             <div className="grid-item">
                 <div style={this.props.style}>
                     <TitleCard
+                        id={this.props.negative ? 'neg' : null}
                         errors={this.props.errors}
                         title={this.props.title}
                         negative={this.props.negative}
@@ -75,6 +91,11 @@ export default class Class extends React.Component {
                             subtext='choose your file'
                             onDrop={this.onDrop}
                             clear={true}/>
+                        {this.props.negative ?
+                            <Tooltip placement='left' isOpen={this.state.tooltipOpen} delay={{show: 200, hide: 100}} autohide={false} target='neg' toggle={this.toggle}>
+                                <div style={{textAlign: 'left'}}>Negative examples define what the classifier is not. They should be images that are visually similar to the positive examples, but do not depict any class.</div>
+                            </Tooltip> :
+                        null}
                     </TitleCard>
                 </div>
             </div>

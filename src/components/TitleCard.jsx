@@ -43,7 +43,7 @@ export default class TitleCard extends React.Component {
         }
 
         return (
-            <div style={[cardStyle, this.props.style]}>
+            <div id={this.props.id} style={[cardStyle, this.props.style]}>
                 <Style scopeSelector='input::-webkit-contacts-auto-fill-button' rules={{
                     visibility: 'hidden',
                     display: 'none !important',

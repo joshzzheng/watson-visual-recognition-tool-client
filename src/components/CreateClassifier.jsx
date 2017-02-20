@@ -161,6 +161,12 @@ export default class CreateClassifier extends React.Component {
             marginTop: '5px',
         }
 
+        const RGB=Styles.colorPrimary
+        const A='0.1'
+        const RGBA='rgba('+parseInt(RGB.substring(1,3),16)+','+parseInt(RGB.substring(3,5),16)+','+parseInt(RGB.substring(5,7),16)+','+A+')'
+        const A2='0.3'
+        const RGBA2='rgba('+parseInt(RGB.substring(1,3),16)+','+parseInt(RGB.substring(3,5),16)+','+parseInt(RGB.substring(5,7),16)+','+A2+')'
+
         var self = this
         return (
             <div>
@@ -170,12 +176,27 @@ export default class CreateClassifier extends React.Component {
                 <div style={[textStyles.base, {marginTop: '5px', marginBottom: '18px'}]}>
                     A classifier is a group of classes that are trained against each other. This allows you identify highly specialized subjects.
                 </div>
+
                 <TitleCard
                     errors={self.state.errors}
                     placeholder='Classifier name'
                     title={self.state.classifierName}
                     onChange={this.onTextChange}
                     inputStyle={textStyles.header}>
+                    <div style={{display: 'inline-block', backgroundColor: RGBA, borderRadius: '5px', borderColor: RGBA2, borderWidth: 'thin', borderStyle: 'solid', padding: '10px', paddingLeft: '10px', paddingRight: '20px', margin: '10px', marginBottom: '30px'}}>
+                        <div style={[textStyles.base, {color: Styles.colorTextDark, marginTop: '0px', marginBottom: '0px'}]}>
+                            <b>Requirements:</b>
+                        </div>
+                        <div style={[textStyles.base, {marginTop: '5px', marginLeft: '-15px', marginBottom: '-5px'}]}>
+                            <ul style={{listStyleType: 'circle'}}>
+                                <li>Classifiers require a minimum of 2 classes</li>
+                                <li style={{marginTop: '5px'}}>Classes require at least 10 images</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div style={[textStyles.header, {margin: '10px', marginTop: '0px', marginBottom: '5px'}]}>
+                        Classes
+                    </div>
                     <StackGrid columnWidth={292} gutterWidth={40} style={{marginTop: '10px'}}>{this.state.classes.map(function(c, i) {
                         return (
                             <Class
