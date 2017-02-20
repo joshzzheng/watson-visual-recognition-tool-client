@@ -31,7 +31,7 @@
     <div id="main"></div>
     <script src="/bundle.js"></script>
     <script>
-        if (detectIE() < 11) {
+        if (detectIE() && detectIE() < 11) {
             document.getElementById('main').innerHTML ='<div style="text-align: center">Please don\'t use Internet Explorer</div>';
         }
         /**
