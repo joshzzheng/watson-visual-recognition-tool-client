@@ -59,17 +59,20 @@ export default class CreateClassifier extends React.Component {
             var errors = this.state.errors
             if (this.state.classifierName == null || this.state.classifierName == '') {
                 errors = true
-                self.setState({errors: errors})
-                return
+                self.setState({errors: errors, titleError: true})
+            } else {
+                self.setState({titleError: false})
             }
 
             var validClasses = 0
+            var hasNeg = false
 
             // State takes time, so we can just take a tally here
             this.state.classes.map(function(c) {
                 if (c.negative) {
                      if (c.file != null) {
                          validClasses++
+                         hasNeg = true
                      }
                      return
                 }
@@ -90,8 +93,18 @@ export default class CreateClassifier extends React.Component {
 
             if (validClasses < 2) {
                 errors = true
-                self.setState({errors: errors})
+                var error = null
+                if (hasNeg) {
+                    error = 'Add at least one more class'
+                } else if (validClasses == 1) {
+                    error = 'Add another class, or supply negative examples'
+                } else {
+                    error = 'You need a minimum of 2 classes'
+                }
+                self.setState({errors: errors, error: error})
                 return
+            } else {
+                self.setState({error: null})
             }
 
             if (!errors) {
@@ -155,11 +168,38 @@ export default class CreateClassifier extends React.Component {
             header: {
                 color: Styles.colorTextDark,
                 font: Styles.fontHeader,
+            },
+            title: {
+                color: Styles.colorTextDark,
+                font: Styles.fontTitle,
             }
         }
 
         var margin = {
             marginTop: '5px',
+        }
+
+        var titleError = {
+            paddingBottom: '10px',
+            textDecoration:'none',
+            display:'block',
+            whiteSpace:'nowrap',
+            overflow:'hidden',
+            textOverflow:'ellipsis',
+            color: '#F44336',
+            font: Styles.fontDefault,
+        }
+
+        var error = {
+            paddingTop: '5px',
+            paddingLeft: '10px',
+            textDecoration:'none',
+            display:'block',
+            whiteSpace:'nowrap',
+            overflow:'hidden',
+            textOverflow:'ellipsis',
+            color: '#F44336',
+            font: Styles.fontDefault,
         }
 
         const RGB=Styles.colorPrimary
@@ -178,12 +218,13 @@ export default class CreateClassifier extends React.Component {
                     A classifier is a group of classes that are trained against each other. This allows you identify highly specialized subjects.
                 </div>
 
+                {self.state.titleError ? <div style={titleError}>Classifier name is required</div> : null}
                 <TitleCard
                     errors={self.state.errors}
                     placeholder='Classifier name'
                     title={self.state.classifierName}
                     onChange={this.onTextChange}
-                    inputStyle={textStyles.header}>
+                    inputStyle={textStyles.title}>
                     <div style={{display: 'inline-block', backgroundColor: RGBA, borderRadius: '5px', borderColor: RGBA2, borderWidth: 'thin', borderStyle: 'solid', padding: '10px', paddingLeft: '10px', paddingRight: '20px', margin: '10px', marginBottom: '30px'}}>
                         <div style={[textStyles.base, {color: Styles.colorTextDark, marginTop: '0px', marginBottom: '0px'}]}>
                             <b>Requirements:</b>
@@ -198,6 +239,7 @@ export default class CreateClassifier extends React.Component {
                     <div style={[textStyles.header, {margin: '10px', marginTop: '0px', marginBottom: '5px'}]}>
                         Classes
                     </div>
+                    {self.state.error ? <div style={error}>{self.state.error}</div> : null}
                     <StackGrid columnWidth={292} gutterWidth={40} style={{marginTop: '10px'}}>{this.state.classes.map(function(c, i) {
                         return (
                             <Class

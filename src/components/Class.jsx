@@ -86,7 +86,7 @@ export default class Class extends React.Component {
                             accept={'application/zip'}
                             maxSize={100 * 1024 * 1024}
                             style={extraPadding}
-                            errors={this.props.errors}
+                            errors={this.props.negative ? false : this.props.errors}
                             text='Drag .zip here to train class'
                             subtext='choose your file'
                             onDrop={this.onDrop}
