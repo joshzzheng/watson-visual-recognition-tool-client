@@ -189,7 +189,7 @@ export default class CreateClassifier extends React.Component {
                         </div>
                         <div style={[textStyles.base, {marginTop: '5px', marginLeft: '-15px', marginBottom: '-5px'}]}>
                             <ul style={{listStyleType: 'circle'}}>
-                                <li>Classifiers require a minimum of 2 classes</li>
+                                <li>You need a minimum of 2 classes</li>
                                 <li style={{marginTop: '5px'}}>Classes require at least 10 images</li>
                             </ul>
                         </div>

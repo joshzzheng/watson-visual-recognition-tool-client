@@ -43,8 +43,8 @@ export default class ApiKeyModal extends React.Component {
                     </button>
                   </div>
                   <div className="modal-body">
-                      <p>This app needs a Watson Visual Recognition API key</p>
-                      <p>Don’t have an API key? <a href='https://console.ng.bluemix.net/registration/?target=/catalog/services/visual-recognition/'>Click here!</a></p>
+                      <p>This tool needs a Watson Visual Recognition API key.</p>
+                      <p><a href='https://console.ng.bluemix.net/registration/?target=/catalog/services/visual-recognition/'>Sign up for bluemix to get your free key</a></p>
                       <form id="api-key-form" role="form" action="#">
                           <div className="form-group">
                               <input
