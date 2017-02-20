@@ -203,9 +203,12 @@ export default class ResultList extends React.Component {
                         </button>
                 </div>
                 <ul style={list} id={'results_' + this.props.id}> {resultList} </ul>
-                <Tooltip placement="right" isOpen={self.state.tooltipOpen} delay={{show: 200, hide: 100}} autohide={false} target={'results_' + this.props.id} toggle={self.toggle}>
+                <Tooltip placement='top' isOpen={self.state.tooltipOpen} delay={{show: 200, hide: 100}} autohide={false} target={'results_' + this.props.id} toggle={self.toggle}>
+                    <div style={{textAlign: 'left'}}>
+                        This number does not represent a percentage of accuracy, but instead indicates Watson’s confidence.
+                    </div>
                     <a style={{color: 'white'}} href='https://www.ibm.com/blogs/bluemix/2016/10/watson-visual-recognition-training-best-practices/' target='_blank'>
-                        What does this score mean?
+                        <u>Improve this score</u>
                     </a>
                 </Tooltip>
             </div>
