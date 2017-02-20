@@ -92,7 +92,7 @@ export default class Class extends React.Component {
                             onDrop={this.onDrop}
                             clear={true}/>
                         {this.props.negative ?
-                            <Tooltip placement='left' isOpen={this.state.tooltipOpen} delay={{show: 200, hide: 100}} autohide={false} target='neg' toggle={this.toggle}>
+                            <Tooltip placement='top' isOpen={this.state.tooltipOpen} delay={{show: 200, hide: 100}} autohide={false} target='neg' toggle={this.toggle}>
                                 <div style={{textAlign: 'left'}}>Negative examples define what the classifier is not. They should be images that are visually similar to the positive examples, but do not depict any class.</div>
                             </Tooltip> :
                         null}

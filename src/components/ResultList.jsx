@@ -202,8 +202,8 @@ export default class ResultList extends React.Component {
                             onClick={this.props.clearClassifier}>
                         </button>
                 </div>
-                <ul style={list} id='tooltipid'> {resultList} </ul>
-                <Tooltip placement="right" isOpen={self.state.tooltipOpen} delay={{show: 200, hide: 100}} autohide={false} target='tooltipid' toggle={self.toggle}>
+                <ul style={list} id={'results_' + this.props.id}> {resultList} </ul>
+                <Tooltip placement="right" isOpen={self.state.tooltipOpen} delay={{show: 200, hide: 100}} autohide={false} target={'results_' + this.props.id} toggle={self.toggle}>
                     <a style={{color: 'white'}} href='https://www.ibm.com/blogs/bluemix/2016/10/watson-visual-recognition-training-best-practices/' target='_blank'>
                         What does this score mean?
                     </a>
