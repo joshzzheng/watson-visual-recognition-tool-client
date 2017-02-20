@@ -193,17 +193,27 @@ export default class ClassifierDetail extends React.Component {
 
                 <div style={{width: '100%', height:'20px'}}></div>
                 {this.state.error ? <div style={error}>{this.state.error}</div> : null}
-                <DropButton
-                    id={this.props.classifierID || this.props.name}
-                    accept={"image/jpeg, image/png"}
-                    maxSize={2 * 1024 * 1024}
-                    upload={true}
-                    onDrop={this.onDrop}
-                    text={"Drag images here to classify them"}
-                    subtext={"choose your files"} />
-                <Tooltip placement="top" isOpen={this.state.tooltipOpen} delay={{show: 200, hide: 100}} autohide={false} target={this.props.classifierID || this.props.name} toggle={this.toggle}>
-                    <a style={{color: 'white'}} href='https://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?node#classify_an_image' target='_blank'>How do I add this to my app?</a>
-                </Tooltip>
+                {this.props.status == 'ready' ?
+                    <div>
+                        <DropButton
+                            id={this.props.classifierID || this.props.name}
+                            accept={"image/jpeg, image/png"}
+                            maxSize={2 * 1024 * 1024}
+                            upload={true}
+                            onDrop={this.onDrop}
+                            text={"Drag images here to classify them"}
+                            subtext={"choose your files"} />
+                        <Tooltip placement="top" isOpen={this.state.tooltipOpen} delay={{show: 200, hide: 100}} autohide={false} target={this.props.classifierID || this.props.name} toggle={this.toggle}>
+                            <a style={{color: 'white'}} href='https://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?node#classify_an_image' target='_blank'>How do I add this to my app?</a>
+                        </Tooltip>
+                    </div>
+                    :
+                    <DropButton
+                        id={this.props.classifierID || this.props.name}
+                        text={"Drag images here to classify them"}
+                        subtext={"choose your files"}
+                        disabled={true}/>
+                }
                 {this.state.results ? <ResultList clearClassifier={this.clearClassifier} file={this.state.file} results={this.state.results}/> : null}
             </Card>
         )

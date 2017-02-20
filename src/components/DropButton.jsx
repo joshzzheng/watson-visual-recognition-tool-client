@@ -220,51 +220,64 @@ export default class DropButton extends React.Component {
         }
 
         return (
-            <Dropzone ref="dropzone"
-                id={this.props.id}
-                accept={this.props.accept}
-                maxSize={this.props.maxSize}
-                onDrop={this.onDrop}
-                multiple={false}
-                style={dropzoneStyle}
-                onMouseEnter={this.isHover}
-                onMouseLeave={this.notHover}>
-                {this.state.files.length > 0 ?
-                    <div style={containerStyles.base}>
-                        {this.state.hover && this.props.clear ?
-                            <button style={deleteStyle}
-                                onMouseEnter={this.isClearHover}
-                                onMouseLeave={this.notClearHover}
-                                onClick={this.clear}>
-                            </button> :
-                            null
-                        }
-                        {this.state.files.map((file) => <div key={file.name} style={[containerStyles.base, containerStyles.image]}><img style={imgStyle} src={file.preview}/></div> )}
-                        {this.props.upload ?
-                            <div id="loading-ellipsis" style={[textStyles.base, textStyles.uploading]}>
-                                <div style={textStyles.clip}>Uploading {this.state.files[this.state.files.length - 1].name}</div>
-                                <StyleRoot>
-                                    <span style={dot}>.</span>
-                                    <span style={[dot, two]}>.</span>
-                                    <span style={[dot, three]}>.</span>
-                                </StyleRoot>
-                            </div> :
-                            <div id="loading-ellipsis" style={[textStyles.base, textStyles.uploading]}>
-                                <div style={textStyles.ellipsis}>{this.state.files[this.state.files.length - 1].name}</div>
-                            </div>
-                        }
-                    </div> :
-                    <div>
-                        <div style={[textStyles.base, textStyles.header]}>
-                            {this.props.text}
-                        </div>
-                        <div style={[textStyles.base, textStyles.subheader]}>
-                            Or <span style={[textStyles.base, textStyles.link]}>{this.props.subtext}</span>
-                        </div>
+            <div>
+            {this.props.disabled ?
+                <div id={this.props.id} style={[dropzoneStyle, {opacity: '0.4', cursor: 'default'}]}>
+                    <div style={[textStyles.base, textStyles.header]}>
+                        {this.props.text}
                     </div>
-                }
-                <div style={cover}></div>
-            </Dropzone>
+                    <div style={[textStyles.base, textStyles.subheader]}>
+                        Or <span style={[textStyles.base, textStyles.link]}>{this.props.subtext}</span>
+                    </div>
+                </div>
+                :
+                <Dropzone ref="dropzone"
+                    id={this.props.id}
+                    accept={this.props.accept}
+                    maxSize={this.props.maxSize}
+                    onDrop={this.onDrop}
+                    multiple={false}
+                    style={dropzoneStyle}
+                    onMouseEnter={this.isHover}
+                    onMouseLeave={this.notHover}>
+                    {this.state.files.length > 0 ?
+                        <div style={containerStyles.base}>
+                            {this.state.hover && this.props.clear ?
+                                <button style={deleteStyle}
+                                    onMouseEnter={this.isClearHover}
+                                    onMouseLeave={this.notClearHover}
+                                    onClick={this.clear}>
+                                </button> :
+                                null
+                            }
+                            {this.state.files.map((file) => <div key={file.name} style={[containerStyles.base, containerStyles.image]}><img style={imgStyle} src={file.preview}/></div> )}
+                            {this.props.upload ?
+                                <div id="loading-ellipsis" style={[textStyles.base, textStyles.uploading]}>
+                                    <div style={textStyles.clip}>Uploading {this.state.files[this.state.files.length - 1].name}</div>
+                                    <StyleRoot>
+                                        <span style={dot}>.</span>
+                                        <span style={[dot, two]}>.</span>
+                                        <span style={[dot, three]}>.</span>
+                                    </StyleRoot>
+                                </div> :
+                                <div id="loading-ellipsis" style={[textStyles.base, textStyles.uploading]}>
+                                    <div style={textStyles.ellipsis}>{this.state.files[this.state.files.length - 1].name}</div>
+                                </div>
+                            }
+                        </div> :
+                        <div>
+                            <div style={[textStyles.base, textStyles.header]}>
+                                {this.props.text}
+                            </div>
+                            <div style={[textStyles.base, textStyles.subheader]}>
+                                Or <span style={[textStyles.base, textStyles.link]}>{this.props.subtext}</span>
+                            </div>
+                        </div>
+                    }
+                    <div style={cover}></div>
+                </Dropzone>
+            }
+            </div>
         )
     }
 }
