@@ -1,5 +1,7 @@
+require('dotenv').config()
 var path = require('path');
 var express = require('express');
+var request = require('superagent');
 var VisualRecognitionV3 = require('watson-developer-cloud/visual-recognition/v3');
 var fileUpload = require('express-fileupload');
 var request = require('superagent');
@@ -8,7 +10,7 @@ var fs = require('fs');
 var crypto = require('crypto');
 var mime = require('mime-types')
 var app = express();
-//var PORT = process.env.PORT || 8080 //heroku
+
 var PORT = process.env.VCAP_APP_PORT || 8080; //bluemix
 
 // using webpack-dev-server and middleware in development environment
@@ -27,6 +29,45 @@ app.use(express.static(path.join(__dirname, 'dist')));
 
 app.get('/', function(request, response) {
   response.sendFile(__dirname + '/dist/index.html')
+});
+
+app.get('/token-redirect', function(req, res) {
+    var access_token
+    console.log('received temporary code')
+    console.log('ask for access_token')
+    request.post('https://github.com/login/oauth/access_token')
+    .query({client_id: process.env.CLIENT_ID})
+    .query({client_secret: process.env.CLIENT_SECRET})
+    .query({code: req.query.code})
+    .end(function(err, response) {
+        console.log('received access_token')
+        console.log(response.body.access_token)
+        access_token = response.body.access_token
+        console.log('create new repo')
+        request.post('https://api.github.com/user/repos')
+        .set('Authorization', 'token ' + response.body.access_token)
+        .send({ name: 'My Test Repo Created By A Robot2' })
+        .end(function(err, response) {
+            console.log('repo created')
+            console.log('add new file')
+            fs.readFile('.tmp/uploads/badge.jpg', function (err, data) {
+                request.put('https://api.github.com/repos/bourdakos1/My-Test-Repo-Created-By-A-Robot/contents/badge.jpg')
+                .set('Authorization', 'token ' + access_token)
+                .send({ message: 'initial commit' })
+                .send({ path: 'badge.jpg' })
+                .send({ content: new Buffer(data, 'binary').toString('base64') })
+                .end(function(err, response) {
+                    console.log('success')
+                });
+            });
+        });
+    });
+    res.redirect('/')
+});
+
+app.get('/new-repo', function(req, res) {
+    console.log('redirecting to github.com...')
+    return res.redirect('https://github.com/login/oauth/authorize?scope=public_repo&client_id=' + process.env.CLIENT_ID);
 });
 
 app.get('*', function(req, response) {
