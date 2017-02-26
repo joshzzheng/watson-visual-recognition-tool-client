@@ -12,8 +12,8 @@ export default class LandingPage extends React.Component {
         this.setState({focus: true})
     }
 
-    setApiKey = () => {
-        console.log('pressed')
+    setApiKey = (e) => {
+        e.preventDefault()
         this.props.setApiKey(this.state.key)
     }
 
