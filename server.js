@@ -84,6 +84,17 @@ app.post('/check_key', function(req, res) {
     });
 });
 
+app.post('/api/list_repos', function(req, res) {
+    MongoClient.connect(url, function(err, db) {
+        db.collection('repos').find(function(err, cursor){
+            cursor.toArray(function(err, items) {
+                console.log(items)
+                res.send(items)
+             });
+        });
+    });
+});
+
 app.post('/api/list_classifiers', function(req, res) {
     var visual_recognition = new VisualRecognitionV3({
         api_key: req.query.api_key,
@@ -235,6 +246,19 @@ app.post('/api/create_classifier', function(req, res) {
             return;
         }
 
+        var githubDone = false;
+        var watsonDone = false;
+
+        function ready() {
+            console.log('GitHub: ' + githubDone + ', Watson: ' + watsonDone);
+            if (githubDone && watsonDone) {
+                console.log('unlinking');
+                for (var file in req.files) {
+                    fs.unlinkSync(req.files[file].path);
+                }
+            }
+        }
+
         var api_key = req.query.api_key;
         var name = req.query.name;
         MongoClient.connect(url, function(err, db) {
@@ -243,41 +267,60 @@ app.post('/api/create_classifier', function(req, res) {
                     if (items[0] != null) {
                         var access_token = items[0].access_token
                         console.log('create new repo ' + name + ', with: ' + access_token)
-
                         request.post('https://api.github.com/user/repos')
                         .set('Authorization', 'token ' + access_token)
                         .send({ name: name })
                         .end(function(err, response) {
-                            console.log(response.body.message)
-                            var name = response.body.full_name
-                            console.log('repo ' + name + ' created')
-                            console.log('add new file')
+                            console.log(response.body.message);
+                            var repo_url = response.body.url;
+                            var temp_url = response.body.html_url;
+                            console.log(repo_url + ' created');
+                            var classes = [];
                             for (var file in req.files) {
-                                console.log(req.files[file])
                                 if (req.files[file].originalname == 'NEGATIVE_EXAMPLES') {
-                                    fs.readFile(req.files[file].path, function (err, data) {
-                                        request.put('https://api.github.com/repos/' + name + '/contents/negative_examples.zip')
-                                        .set('Authorization', 'token ' + access_token)
-                                        .send({ message: 'initial commit' })
-                                        .send({ path: 'negative_examples.zip' })
-                                        .send({ content: new Buffer(data, 'binary').toString('base64') })
-                                        .end(function(err, response) {
-                                            console.log('success')
-                                        });
-                                    });
                                 } else {
-                                    fs.readFile(req.files[file].path, function (err, data) {
-                                        request.put('https://api.github.com/repos/' + name + '/contents/' + req.files[file].originalname + '_positive_examples.zip')
-                                        .set('Authorization', 'token ' + access_token)
-                                        .send({ message: 'initial commit' })
-                                        .send({ path: req.files[file].originalname + '_positive_examples.zip' })
-                                        .send({ content: new Buffer(data, 'binary').toString('base64') })
-                                        .end(function(err, response) {
-                                            console.log('success')
-                                        });
-                                    });
+                                    classes.push(req.files[file].originalname);
                                 }
                             }
+                            MongoClient.connect(url, function(err, db) {
+                                db.collection('repos').insertOne({
+                                    temp: temp_url,
+                                    repo: repo_url,
+                                    name: name,
+                                    classes: classes
+                                });
+                            });
+                            console.log('add new file')
+                            for (var file in req.files) {
+                                // This is a little wonky
+                                setTimeout(function(file) {
+                                    if (req.files[file].originalname == 'NEGATIVE_EXAMPLES') {
+                                        console.log(repo_url + '/contents/negative_examples.zip');
+                                        fs.readFile(req.files[file].path, function (err, data) {
+                                            request.put(repo_url + '/contents/negative_examples.zip')
+                                            .set('Authorization', 'token ' + access_token)
+                                            .send({ message: 'negative' })
+                                            .send({ content: new Buffer(data, 'binary').toString('base64') })
+                                            .end(function(err, response) {
+                                                console.log('success');
+                                            });
+                                        });
+                                    } else {
+                                        console.log(repo_url + '/contents/' + req.files[file].originalname + '_positive_examples.zip');
+                                        fs.readFile(req.files[file].path, function (err, data) {
+                                            request.put(repo_url + '/contents/' + req.files[file].originalname + '_positive_examples.zip')
+                                            .set('Authorization', 'token ' + access_token)
+                                            .send({ message: req.files[file].originalname })
+                                            .send({ content: new Buffer(data, 'binary').toString('base64') })
+                                            .end(function(err, response) {
+                                                console.log('success');
+                                            });
+                                        });
+                                    }
+                                }, file * 5000, file);
+                            }
+                            githubDone = true;
+                            ready();
                         });
                     }
                 });
@@ -303,10 +346,8 @@ app.post('/api/create_classifier', function(req, res) {
         }
 
         visual_recognition.createClassifier(params, function(err, data) {
-            for (var file in req.files) {
-                // This could be dangereous but it should be fine for proof of concept
-                fs.unlinkSync(req.files[file].path);
-            }
+            watsonDone = true;
+            ready();
             res.send(data);
         });
     });

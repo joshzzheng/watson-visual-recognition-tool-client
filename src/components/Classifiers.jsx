@@ -11,7 +11,8 @@ export default class Classifiers extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            classifiers: []
+            classifiers: [],
+            results: []
         }
     }
 
@@ -30,9 +31,7 @@ export default class Classifiers extends React.Component {
     }
 
     loadClassifier = (classifier_id) => {
-        var self = this
         console.log('reloading: ' + classifier_id)
-
         var req = request.post('/api/classifier_details')
 
         req.query({ api_key: localStorage.getItem('apiKey') })
@@ -61,6 +60,12 @@ export default class Classifiers extends React.Component {
 
     loadClassifiersFromServer = () => {
         var self = this
+
+        var self = this
+        request.post('/api/list_repos')
+        .end(function(err, res) {
+            self.setState({ results: res.body })
+        })
 
         var req = request.post('/api/list_classifiers')
         req.query({ api_key: localStorage.getItem('apiKey') })
@@ -130,11 +135,19 @@ export default class Classifiers extends React.Component {
                     key={classifier.classifier_id || classifier.name}/>
             )
         })
+        var searchResults = this.state.results.map(function(result, index){
+            return (
+                <li key={index}>
+                    <a href={result.temp} target='_blank'>{result.name}</a>
+                </li>
+            )
+        })
         return (
             <div>
                 <div style={{margin: '21px 0px'}}>
                     <Button text={"Create classifier"} kind={"bold"} icon={"/btn_create.png"} onClick={this.onClick}/>
                 </div>
+                <ul>{searchResults}</ul>
                 <StackGrid columnWidth={300} gutterWidth={40}>{classifiers}</StackGrid>
             </div>
         )
