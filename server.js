@@ -222,7 +222,10 @@ app.post('/api/create_collection', function(req, res) {
 
         console.log(req.query.name);
 
-        fs.createReadStream(req.files[0].path).pipe(unzip.Extract({ path: '.tmp/uploads/unzipped' }));
+        crypto.pseudoRandomBytes(16, function (err, raw) {
+            fs.createReadStream(req.files[0].path).pipe(unzip.Extract({ path: '.tmp/uploads/' + raw.toString('hex') + Date.now() }));
+        });
+        res.send(null);
     });
 });
 
