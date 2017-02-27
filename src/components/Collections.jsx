@@ -16,7 +16,6 @@ export default class Collections extends React.Component {
     }
 
     loadCollectionsFromServer = () => {
-        alert('This feature is incomplete and not yet live')
         var self = this
 
         var req = request.post('/api/list_collections')
@@ -46,8 +45,7 @@ export default class Collections extends React.Component {
     }
 
     onClick = () => {
-        alert('This feature is not yet available')
-        // browserHistory.push('/create_collection')
+        browserHistory.push('/create_collection')
     }
 
     componentDidMount() {

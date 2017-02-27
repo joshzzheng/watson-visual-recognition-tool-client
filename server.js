@@ -6,7 +6,8 @@ var request = require('superagent');
 var multer = require('multer');
 var fs = require('fs');
 var crypto = require('crypto');
-var mime = require('mime-types')
+var unzip = require('unzip2');
+var mime = require('mime-types');
 var app = express();
 //var PORT = process.env.PORT || 8080 //heroku
 var PORT = process.env.VCAP_APP_PORT || 8080; //bluemix
@@ -208,6 +209,20 @@ app.post('/api/create_classifier', function(req, res) {
             }
             res.send(data);
         });
+    });
+});
+
+
+app.post('/api/create_collection', function(req, res) {
+    filesUpload(req, res, function (err) {
+        if (err) {
+            res.send(err);
+            return;
+        }
+
+        console.log(req.query.name);
+
+        fs.createReadStream(req.files[0].path).pipe(unzip.Extract({ path: '.tmp/uploads/unzipped' }));
     });
 });
 

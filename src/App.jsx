@@ -7,8 +7,8 @@ import Classifiers from './components/Classifiers'
 import CreateClassifier from './components/CreateClassifier'
 import UpdateClassifier from './components/UpdateClassifier'
 import Collections from './components/Collections'
-// import CreateCollection from './components/CreateCollection'
-// import UpdateCollection from './components/UpdateCollection'
+import CreateCollection from './components/CreateCollection'
+import UpdateCollection from './components/UpdateClassifier'
 
 class App extends React.Component {
     render() {
@@ -25,9 +25,9 @@ class App extends React.Component {
 
                     {/*Collections*/}
                     <Route path="/collections" component={Collections}/>
-                    <Route path="/create_collection" component={CreateClassifier}/>
+                    <Route path="/create_collection" component={CreateCollection}/>
                     <Route path="/update_collection">
-                        <Route path="/update_collection/:collectionID" component={UpdateClassifier}/>
+                        <Route path="/update_collection/:collectionID" component={UpdateCollection}/>
                     </Route>
 
                 </Route>
