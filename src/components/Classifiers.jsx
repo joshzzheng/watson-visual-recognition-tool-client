@@ -85,7 +85,7 @@ export default class Classifiers extends React.Component {
                 classifiers.sort(function(a, b) {
                     return new Date(b.created) - new Date(a.created)
                 })
-                classifiers.push({name: 'Default', status: 'ready'}, {name: 'Faces', status: 'ready'})
+                classifiers.push({name: 'Default', status: 'ready'}, {name: 'Faces', status: 'ready'}, {name: 'Text', status: 'ready'})
             }
             for (var i in classifiers) {
                 if (classifiers[i].status == 'training') {
