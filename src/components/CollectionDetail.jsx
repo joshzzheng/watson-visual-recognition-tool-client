@@ -18,13 +18,12 @@ export default class CollectionDetail extends React.Component {
     deleteClassifier = (e) => {
         e.preventDefault()
         if (confirm('Delete ' + this.props.name + '?') == true) {
-            alert('This feature is not yet available')
-            // var req = request.post('/api/delete_classifier')
-            // req.query({classifier_id: this.props.collectionID})
-            // req.query({api_key: localStorage.getItem('apiKey')})
-            // req.end(function(err, res) {
-            //     browserHistory.push('/collections')
-            // })
+            var req = request.post('/api/delete_collection')
+            req.query({collection_id: this.props.collectionID})
+            req.query({api_key: localStorage.getItem('apiKey')})
+            req.end(function(err, res) {
+                browserHistory.push('/collections')
+            })
         }
     }
 

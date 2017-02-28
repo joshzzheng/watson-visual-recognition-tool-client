@@ -79,7 +79,7 @@ export default class CreateCollection extends React.Component {
             console.log(res)
             onFinished()
             self.setState({upload: false}, function() {
-                browserHistory.push('/')
+                browserHistory.push('/collections')
             })
         })
     }

@@ -67,6 +67,17 @@ app.post('/api/delete_classifier', function(req, res) {
     });
 });
 
+app.post('/api/delete_collection', function(req, res) {
+    var visual_recognition = new VisualRecognitionV3({
+        api_key: req.query.api_key,
+        version_date: req.query.version || '2016-05-19'
+    });
+
+    visual_recognition.deleteCollection({collection_id: req.query.collection_id }, function(err, data) {
+        res.send(data);
+    });
+});
+
 app.post('/api/classifier_details', function(req, res) {
     var visual_recognition = new VisualRecognitionV3({
         api_key: req.query.api_key,
@@ -220,12 +231,55 @@ app.post('/api/create_collection', function(req, res) {
             return;
         }
 
+        var visual_recognition = new VisualRecognitionV3({
+            api_key: req.query.api_key,
+            version_date: req.query.version || '2016-05-19'
+        });
+
+        var params = {
+            name: req.query.name
+        }
+
         console.log(req.query.name);
 
-        crypto.pseudoRandomBytes(16, function (err, raw) {
-            fs.createReadStream(req.files[0].path).pipe(unzip.Extract({ path: '.tmp/uploads/' + raw.toString('hex') + Date.now() }));
+        var done = false;
+        var images_sent = 0;
+        var images_received = 0;
+
+        visual_recognition.createCollection(params, function(err, data) {
+            crypto.pseudoRandomBytes(16, function (err, raw) {
+                fs.createReadStream(req.files[0].path)
+                  .pipe(unzip.Parse())
+                  .on('entry', function (entry) {
+                      setTimeout(function () {
+                          var params = {
+                              collection_id: data.collection_id,
+                              image_file: entry
+                          }
+                          images_sent++;
+                        //   entry.autodrain();
+                          visual_recognition.addImage(params, function(err, data) {
+                            //   if (data != null) {
+                            //       console.log(data.images[0].image_file)
+                            //   } else {
+                            //       console.error('ERR: ' + entry.path)
+                            //   }
+                              images_received++;
+                              if (done) {
+                                  console.log(images_received + ' / ' + images_sent);
+                              }
+                              if (done && images_sent == images_received) {
+                                  fs.unlinkSync(req.files[0].path);
+                                  res.send({success: true})
+                              }
+                          });
+                      }, 5000)
+                })
+                .on('close', function() {
+                    done = true;
+                });
+            });
         });
-        res.send(null);
     });
 });
 
