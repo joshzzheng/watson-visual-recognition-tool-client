@@ -10,6 +10,7 @@ var fs = require('fs');
 var crypto = require('crypto');
 var mime = require('mime-types');
 var MongoClient = require('mongodb').MongoClient;
+var unzip = require('unzip2');
 var app = express();
 
 // Connection URL
@@ -128,6 +129,17 @@ app.post('/api/delete_classifier', function(req, res) {
     });
 });
 
+app.post('/api/delete_collection', function(req, res) {
+    var visual_recognition = new VisualRecognitionV3({
+        api_key: req.query.api_key,
+        version_date: req.query.version || '2016-05-19'
+    });
+
+    visual_recognition.deleteCollection({collection_id: req.query.collection_id }, function(err, data) {
+        res.send(data);
+    });
+});
+
 app.post('/api/classifier_details', function(req, res) {
     var visual_recognition = new VisualRecognitionV3({
         api_key: req.query.api_key,
@@ -222,6 +234,55 @@ app.post('/api/detect_faces', function(req, res) {
         });
     });
 });
+
+
+app.post('/api/recognize_text', function(req, res) {
+    fileUpload(req, res, function (err) {
+        if (err) {
+            res.send(err);
+            return;
+        }
+
+        var visual_recognition = new VisualRecognitionV3({
+            api_key: req.query.api_key,
+            version_date: req.query.version || '2016-05-19'
+        });
+
+        var params = req.query;
+
+        params.images_file = fs.createReadStream(req.file.path);
+
+        visual_recognition.recognizeText(params, function(err, data) {
+            fs.unlinkSync(req.file.path);
+            res.send(data);
+        });
+    });
+});
+
+
+app.post('/api/similar', function(req, res) {
+    fileUpload(req, res, function (err) {
+        if (err) {
+            res.send(err);
+            return;
+        }
+
+        var visual_recognition = new VisualRecognitionV3({
+            api_key: req.query.api_key,
+            version_date: req.query.version || '2016-05-19'
+        });
+
+        var params = req.query;
+
+        params.image_file = fs.createReadStream(req.file.path);
+
+        visual_recognition.findSimilar(params, function(err, data) {
+            fs.unlinkSync(req.file.path);
+            res.send(data);
+        });
+    });
+});
+
 
 const zipUpload = multer({
     limits: {
@@ -349,6 +410,81 @@ app.post('/api/create_classifier', function(req, res) {
             watsonDone = true;
             ready();
             res.send(data);
+        });
+    });
+});
+
+
+app.post('/api/create_collection', function(req, res) {
+    filesUpload(req, res, function (err) {
+        if (err) {
+            res.send(err);
+            return;
+        }
+
+        var visual_recognition = new VisualRecognitionV3({
+            api_key: req.query.api_key,
+            version_date: req.query.version || '2016-05-19'
+        });
+
+        var params = {
+            name: req.query.name
+        }
+
+        console.log(req.query.name);
+
+        var done = false;
+        var images_received = 0;
+        var count = 0;
+
+        var success = 0
+
+        visual_recognition.createCollection(params, function(err, data) {
+            crypto.pseudoRandomBytes(16, function (err, raw) {
+                fs.createReadStream(req.files[0].path)
+                  .pipe(unzip.Parse())
+                  .on('entry', function (entry) {
+                      // Skip all the trash files
+                      var type = mime.lookup(entry.path);
+                      var patt = new RegExp("^__MACOSX/[^/]+/\._");
+                      if (patt.test(entry.path) || (type !== 'image/png' && type !== 'image/jpg' && type !== 'image/jpeg')) {
+                          // Avoid memory leak
+                          entry.autodrain();
+                          return;
+                      }
+
+                      console.log(entry.path + ' : ' + type);
+                      count++;
+                      setTimeout(function (entry) {
+                          var params = {
+                              collection_id: data.collection_id,
+                              image_file: entry
+                          }
+
+                          // Avoid memory leak
+                          entry.autodrain();
+                          visual_recognition.addImage(params, function(err, data) {
+                              images_received++;
+                              console.log(images_received + ' / ' + count);
+
+                              if (data != null) {
+                                  success++;
+                              }
+
+                              if (done && count == images_received) {
+                                  console.log(success);
+                                  res.send({success: true});
+                              }
+                          });
+                          // You must wait at least 1 second between uploads
+                          // Says documentation, lets push it ;)
+                      }, count * 300, entry)
+                })
+                .on('close', function() {
+                    fs.unlinkSync(req.files[0].path);
+                    done = true;
+                });
+            });
         });
     });
 });

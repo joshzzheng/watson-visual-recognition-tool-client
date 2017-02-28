@@ -16,7 +16,6 @@ export default class Collections extends React.Component {
     }
 
     loadCollectionsFromServer = () => {
-        alert('This feature is incomplete and not yet live')
         var self = this
 
         var req = request.post('/api/list_collections')
@@ -46,8 +45,7 @@ export default class Collections extends React.Component {
     }
 
     onClick = () => {
-        alert('This feature is not yet available')
-        // browserHistory.push('/create_collection')
+        browserHistory.push('/create_collection')
     }
 
     componentDidMount() {
@@ -72,6 +70,7 @@ export default class Collections extends React.Component {
                     collectionID={collection.collection_id}
                     name={collection.name}
                     status={collection.status}
+                    images={collection.images}
                     reDraw={self.reDraw}
                     key={collection.collection_id || collection.name}/>
             )
@@ -81,7 +80,7 @@ export default class Collections extends React.Component {
                 <div style={{margin: '21px 0px'}}>
                     <Button text={"Create collection"} kind={"bold"} icon={"/btn_create.png"} onClick={this.onClick}/>
                 </div>
-                <StackGrid columnWidth={300} gutterWidth={40}>{collections}</StackGrid>
+                <StackGrid columnWidth={'100%'}>{collections}</StackGrid>
             </div>
         )
     }

@@ -29,6 +29,7 @@
     "react-stack-grid": "^0.1.1",
     "reactstrap": "^4.2.0",
     "superagent": "^2.0.0",
+    "unzip2": "^0.2.5",
     "watson-developer-cloud": "^2.15.5",
     "webpack": "^1.13.3"
   },

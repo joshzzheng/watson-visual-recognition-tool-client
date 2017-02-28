@@ -63,6 +63,8 @@ export default class ClassifierDetail extends React.Component {
         }
         if (this.props.classifierID == null && this.props.name == 'Faces') {
             req = request.post('/api/detect_faces')
+        } else if (this.props.classifierID == null && this.props.name == 'Text') {
+            req = request.post('/api/recognize_text')
         } else {
             req = request.post('/api/classify')
             req.query({classifier_ids: [this.props.classifierID]})
@@ -100,8 +102,11 @@ export default class ClassifierDetail extends React.Component {
                     results = res.body.images[0].faces
                 } else if (res.body.images[0].faces != null) {
                     self.setState({ error: 'No faces found' }, self.stateChanged)
-                }
-                else if (res.body.images[0].error != null) {
+                } else if (res.body.images[0].words != null && res.body.images[0].words.length > 0) {
+                    results = res.body.images[0].words
+                } else if (res.body.images[0].words != null) {
+                    self.setState({ error: 'No text found' }, self.stateChanged)
+                } else if (res.body.images[0].error != null) {
                     console.error(res.body.images[0].error.description)
                     if (res.body.images[0].error.description == 'Image size limit exceeded (2935034 bytes > 2097152 bytes [2 MiB]).') {
                         self.setState({ error: 'Image size limit (2MB) exceeded' }, self.stateChanged)
@@ -180,7 +185,7 @@ export default class ClassifierDetail extends React.Component {
         return(
             <Card style={{maxWidth:'30rem'}}>
                 {this.props.classifierID ?
-                    <DropDown delete={this.deleteClassifier} update={this.updateClassifier}/>:
+                    <DropDown link='https://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?node#classify_an_image' delete={this.deleteClassifier} update={this.updateClassifier}/>:
                     null
                 }
 
@@ -193,7 +198,7 @@ export default class ClassifierDetail extends React.Component {
 
                 <div style={{width: '100%', height:'20px'}}></div>
                 {this.state.error ? <div style={error}>{this.state.error}</div> : null}
-                {this.props.status == 'ready' ?
+                {this.props.status == 'ready' || this.props.status == 'available' ?
                     <DropButton
                         id={this.props.classifierID || this.props.name}
                         accept={"image/jpeg, image/png"}
