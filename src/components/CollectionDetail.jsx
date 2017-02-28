@@ -146,9 +146,14 @@ export default class CollectionDetail extends React.Component {
             color = '#F44336'
         }
 
+        var extraPadding = {
+            padding: '44px 0px'
+        }
+
         return(
-            <Card style={{maxWidth:'30rem'}}>
-                <DropDown delete={this.deleteClassifier} update={this.updateClassifier}/>
+            <Card style={{marginBottom:'20px'}}>
+                <DropDown link='https://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?node#find_similar' delete={this.deleteClassifier} update={this.updateClassifier}/>
+                <div style={[textStyle, {marginRight: '15px', marginTop: '-5px', position: 'relative', display: 'inline-block', float: 'right'}]}>{this.props.images} images</div>
                 <div style={titleStyle}>{this.props.name}</div>
                 <div style={textStyle}>{this.props.collectionID}</div>
                 <div style={textStyle}><div style={[status, {background: color}]}/>{this.props.status}</div>
@@ -159,6 +164,7 @@ export default class CollectionDetail extends React.Component {
                 <div style={{width: '100%', height:'20px'}}></div>
                 {this.state.error ? <div style={error}>{this.state.error}</div> : null}
                 <DropButton
+                    style={extraPadding}
                     upload={true}
                     onDrop={this.onDrop}
                     text={"Drag images here to classify them"}

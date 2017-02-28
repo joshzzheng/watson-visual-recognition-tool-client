@@ -180,7 +180,7 @@ export default class ClassifierDetail extends React.Component {
         return(
             <Card style={{maxWidth:'30rem'}}>
                 {this.props.classifierID ?
-                    <DropDown delete={this.deleteClassifier} update={this.updateClassifier}/>:
+                    <DropDown link='https://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?node#classify_an_image' delete={this.deleteClassifier} update={this.updateClassifier}/>:
                     null
                 }
 
