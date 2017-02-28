@@ -56,12 +56,48 @@ export default class ResultList extends React.Component {
         }
     }
 
+    drawText = () => {
+        var self = this
+        if (this.props.results[0].word != null) {
+            var fr = new FileReader
+            fr.onload = function() {
+                var img = new Image
+                img.onload = function() {
+                    var facesBox = []
+                    self.props.results.map(function(word) {
+                        var faceBox = {
+                            display: 'block',
+                            position: 'absolute',
+                            marginTop: '10px',
+                            zIndex: '2',
+                            left: (word.location.left/img.width)*100 + '%',
+                            top: (word.location.top/img.height)*100 + '%',
+                            width: (word.location.width/img.width)*100 + '%',
+                            height: 'calc(' + (word.location.height/img.height)*100 + '% - 10px)',
+                            border: '2px solid ' + Styles.colorPrimary,
+                            boxShadow: '0px 0px 1px 1px rgba(255,255,255,.6)',
+                            marginRight: '10px',
+                        }
+                        facesBox.push(faceBox)
+                    })
+                    self.setState({
+                        faces: facesBox
+                    })
+                }
+                img.src = fr.result
+            }
+            fr.readAsDataURL(this.props.file)
+        }
+    }
+
     componentDidMount() {
         this.drawFace()
+        this.drawText()
     }
 
     componentWillReceiveProps(newProps) {
         this.drawFace()
+        this.drawText()
     }
 
     render(){
@@ -163,6 +199,16 @@ export default class ResultList extends React.Component {
                         <div style={[textStyles.topScore, {float: 'right', display: 'inline-block'}]}>{this.props.results[0].age.min || this.props.results[0].age.max}</div> :
                         <div style={[textStyles.topScore, {float: 'right', display: 'inline-block'}]}>{this.props.results[0].age.min} - {this.props.results[0].age.max}</div>
                     }
+                </div>
+            </div>
+        } else if (this.props.results[0].word != null) {
+            var text = ''
+            for (var i in this.props.results) {
+                text += ' ' + this.props.results[i].word
+            }
+            resultList = <div>
+                <div style={[imgStyle, topResult]}>
+                    <div style={[textStyles.topClass, {display: 'inline-block'}]}>{text}</div>
                 </div>
             </div>
         } else {
