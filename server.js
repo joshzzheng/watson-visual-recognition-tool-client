@@ -173,6 +173,29 @@ app.post('/api/detect_faces', function(req, res) {
     });
 });
 
+app.post('/api/similar', function(req, res) {
+    fileUpload(req, res, function (err) {
+        if (err) {
+            res.send(err);
+            return;
+        }
+
+        var visual_recognition = new VisualRecognitionV3({
+            api_key: req.query.api_key,
+            version_date: req.query.version || '2016-05-19'
+        });
+
+        var params = req.query;
+
+        params.image_file = fs.createReadStream(req.file.path);
+
+        visual_recognition.findSimilar(params, function(err, data) {
+            fs.unlinkSync(req.file.path);
+            res.send(data);
+        });
+    });
+});
+
 const zipUpload = multer({
     limits: {
         fileSize: 100 * 1024 * 1024 // 100mb

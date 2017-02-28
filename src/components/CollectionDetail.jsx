@@ -33,17 +33,21 @@ export default class CollectionDetail extends React.Component {
         // browserHistory.push('/update_collection/'+this.props.collectionID)
     }
 
-    onDrop = (files, onFinished, onProgress) => {
+    onDrop = (files, rejects, onFinished, onProgress) => {
         var self = this
         var req
         self.setState({ error: null }, self.stateChanged)
-        if (this.props.collectionID == null && this.props.name == 'Faces') {
-            req = request.post('/api/detect_faces')
-        } else {
-            req = request.post('/api/classify')
-            req.query({classifier_ids: [this.props.collectionID]})
-            req.query({threshold: 0.0})
+        if (files == null || files.length <= 0) {
+            if (rejects != null && rejects[0].size > 2 * 1024 * 1024 && (rejects[0].type == 'image/jpeg' || rejects[0].type == 'image/png') ) {
+                self.setState({ error: 'Image size limit (2MB) exceeded' }, self.stateChanged)
+                return
+            }
+            self.setState({ error: 'Invalid image file (must be .jpg or .png)' }, self.stateChanged)
+            return
         }
+
+        req = request.post('/api/similar')
+        req.query({collection_id: this.props.collectionID})
 
         if (files[0]) {
             req.attach('file', files[0])
@@ -66,21 +70,9 @@ export default class CollectionDetail extends React.Component {
             onProgress(100)
             console.log(res)
             var results
-            if (res.body != null && res.body.images != null) {
-                if (res.body.images[0].classifiers != null && res.body.images[0].classifiers.length > 0 ) {
-                    results = res.body.images[0].classifiers[0].classes
-                    results.sort(function(a, b) {
-                        return b.score - a.score
-                    })
-                } else if (res.body.images[0].faces != null && res.body.images[0].faces.length > 0) {
-                    results = res.body.images[0].faces[0]
-                } else if (res.body.images[0].error != null) {
-                    console.error(res.body.images[0].error.description)
-                    if (res.body.images[0].error.description == 'Image size limit exceeded (2935034 bytes > 2097152 bytes [2 MiB]).') {
-                        self.setState({ error: 'Image size limit (2MB) exceeded' }, self.stateChanged)
-                    } else {
-                        self.setState({ error: res.body.images[0].error.description }, self.stateChanged)
-                    }
+            if (res.body != null && res.body.similar_images != null) {
+                for (var i in res.body.similar_images) {
+                    // do an api call for each pick.... ugh
                 }
             } else if (res.body.code == 'LIMIT_FILE_SIZE') {
                 self.setState({ error: 'Image size limit (2MB) exceeded' }, self.stateChanged)
@@ -163,13 +155,24 @@ export default class CollectionDetail extends React.Component {
 
                 <div style={{width: '100%', height:'20px'}}></div>
                 {this.state.error ? <div style={error}>{this.state.error}</div> : null}
-                <DropButton
-                    style={extraPadding}
-                    upload={true}
-                    onDrop={this.onDrop}
-                    text={"Drag images here to classify them"}
-                    subtext={"choose your files"} />
-                {this.state.results ? <ResultList file={this.state.file} results={this.state.results}/> : null}
+                {this.props.status == 'ready' || this.props.status == 'available' ?
+                    <DropButton
+                        style={extraPadding}
+                        id={this.props.collectionID}
+                        accept={"image/jpeg, image/png"}
+                        maxSize={2 * 1024 * 1024}
+                        upload={true}
+                        onDrop={this.onDrop}
+                        text={"Drag images here to find similar ones"}
+                        subtext={"choose your files"} />
+                    :
+                    <DropButton
+                        style={extraPadding}
+                        id={this.props.collectionID}
+                        text={"Drag images here to find similar ones"}
+                        subtext={"choose your files"}
+                        disabled={true}/>
+                }
             </Card>
         )
     }

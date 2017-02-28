@@ -193,7 +193,7 @@ export default class ClassifierDetail extends React.Component {
 
                 <div style={{width: '100%', height:'20px'}}></div>
                 {this.state.error ? <div style={error}>{this.state.error}</div> : null}
-                {this.props.status == 'ready' ?
+                {this.props.status == 'ready' || this.props.status == 'available' ?
                     <DropButton
                         id={this.props.classifierID || this.props.name}
                         accept={"image/jpeg, image/png"}
