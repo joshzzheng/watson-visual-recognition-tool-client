@@ -29,7 +29,7 @@ export default class CreateCollection extends React.Component {
     }
 
     cancel = () => {
-        browserHistory.push('/')
+        browserHistory.push('/collections')
     }
 
     errorCheck = () => {

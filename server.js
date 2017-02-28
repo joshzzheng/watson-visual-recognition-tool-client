@@ -243,39 +243,54 @@ app.post('/api/create_collection', function(req, res) {
         console.log(req.query.name);
 
         var done = false;
-        var images_sent = 0;
         var images_received = 0;
+        var count = 0;
+
+        var success = 0
 
         visual_recognition.createCollection(params, function(err, data) {
             crypto.pseudoRandomBytes(16, function (err, raw) {
                 fs.createReadStream(req.files[0].path)
                   .pipe(unzip.Parse())
                   .on('entry', function (entry) {
-                      setTimeout(function () {
+                      // Skip all the trash files
+                      var type = mime.lookup(entry.path);
+                      var patt = new RegExp("^__MACOSX/[^/]+/\._");
+                      if (patt.test(entry.path) || (type !== 'image/png' && type !== 'image/jpg' && type !== 'image/jpeg')) {
+                          // Avoid memory leak
+                          entry.autodrain();
+                          return;
+                      }
+
+                      console.log(entry.path + ' : ' + type);
+                      count++;
+                      setTimeout(function (entry) {
                           var params = {
                               collection_id: data.collection_id,
                               image_file: entry
                           }
-                          images_sent++;
-                        //   entry.autodrain();
+
+                          // Avoid memory leak
+                          entry.autodrain();
                           visual_recognition.addImage(params, function(err, data) {
-                            //   if (data != null) {
-                            //       console.log(data.images[0].image_file)
-                            //   } else {
-                            //       console.error('ERR: ' + entry.path)
-                            //   }
                               images_received++;
-                              if (done) {
-                                  console.log(images_received + ' / ' + images_sent);
+                              console.log(images_received + ' / ' + count);
+
+                              if (data != null) {
+                                  success++;
                               }
-                              if (done && images_sent == images_received) {
-                                  fs.unlinkSync(req.files[0].path);
-                                  res.send({success: true})
+
+                              if (done && count == images_received) {
+                                  console.log(success);
+                                  res.send({success: true});
                               }
                           });
-                      }, 5000)
+                          // You must wait at least 1 second between uploads
+                          // Says documentation, lets push it ;)
+                      }, count * 300, entry)
                 })
                 .on('close', function() {
+                    fs.unlinkSync(req.files[0].path);
                     done = true;
                 });
             });
