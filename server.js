@@ -298,7 +298,7 @@ const zipUpload = multer({
     storage: storage
 });
 
-function createRepoWithFiles(api_key, name, files, repoCreated, nameForName, ready) {
+function createRepo(api_key, name, repoCreated) {
     MongoClient.connect(url, function(err, db) {
         db.collection('inserts').find({api_key:api_key}, function(err, cursor){
             cursor.toArray(function(err, items) {
@@ -309,51 +309,66 @@ function createRepoWithFiles(api_key, name, files, repoCreated, nameForName, rea
                     .set('Authorization', 'token ' + access_token)
                     .send({ name: name })
                     .end(function(err, response) {
-                        // Start adding files
-                        var repo_url = response.body.url;
-
-                        request.post(repo_url + '/hooks')
-                        .set('Authorization', 'token ' + access_token)
-                        .send({ name: 'web' })
-                        .send({ events: ['repository'] })
-                        .send({ active: true })
-                        .send({ config: {
-                            url: 'https://delete-test-fake-lala.mybluemix.net/delete_repo',
-                            content_type: 'json'
-                        }})
-                        .end(function(err, response) {
-                            console.log(response)
-                        });
-
-                        // Repo successfully created
-                        repoCreated(response, name, files);
-
-                        var filesUploaded = 0
-
-                        for (var file in files) {
-                            // Wait 5 seconds in between uploads or things get overwritten
-                            setTimeout(function(file) {
-                                // Add file
-                                fs.readFile(files[file].path, function (err, data) {
-                                    request.put(repo_url + '/contents/' + nameForName(files[file].originalname))
-                                    .set('Authorization', 'token ' + access_token)
-                                    .send({ message: nameForName(files[file].originalname) })
-                                    .send({ content: new Buffer(data, 'binary').toString('base64') })
-                                    .end(function(err, response) {
-                                        // successfully added file
-                                        filesUploaded++
-                                        if (filesUploaded == files.length) {
-                                            ready()
-                                        }
-                                    });
-                                });
-                            }, file * 5000, file);
-                        }
+                        // Repo created
+                        repoCreated(access_token, response);
                     });
                 }
             });
         });
     });
+}
+
+function addFileToRepo(access_token, repo_url, file, fileAdded, nameForName) {
+    console.log(file.path)
+    fs.readFile(file.path, function (err, data) {
+        console.log(err)
+        request.put(repo_url + '/contents/' + nameForName(file.originalname) + mime.extension(file.mimetype))
+        .set('Authorization', 'token ' + access_token)
+        .send({ message: nameForName(file.originalname) + mime.extension(file.mimetype)})
+        .send({ content: new Buffer(data, 'binary').toString('base64') })
+        .end(function(err, response) {
+            // File added
+            fileAdded(response);
+        });
+    });
+}
+
+function addWriteStreamToRepo(access_token, repo_url, file_path, og_name, fileAdded) {
+    console.log(file_path)
+    fs.readFile(file_path, function (err, data) {
+        console.log(err)
+        request.put(repo_url + '/contents/' + og_name)
+        .set('Authorization', 'token ' + access_token)
+        .send({ message: og_name})
+        .send({ content: new Buffer(data, 'binary').toString('base64') })
+        .end(function(err, response) {
+            // File added
+            fs.unlinkSync(file_path);
+            fileAdded(response);
+        });
+    });
+}
+
+function createRepoWithFiles(api_key, name, files, repoCreated, nameForName, ready) {
+    createRepo(api_key, name, function(access_token, response) {
+        repoCreated(access_token, response);
+
+        var repo_url = response.body.url;
+        var filesUploaded = 0
+
+        for (var file in files) {
+            // Wait 5 seconds in between uploads or things get overwritten
+            setTimeout(function(file) {
+                // Add file
+                addFileToRepo(access_token, repo_url, files[file], function(response) {
+                    filesUploaded++
+                    if (filesUploaded == files.length) {
+                        ready()
+                    }
+                }, nameForName)
+            }, file * 5000, file);
+        }
+    })
 }
 
 var filesUpload = zipUpload.array('files')
@@ -377,13 +392,27 @@ app.post('/api/create_classifier', function(req, res) {
             }
         }
 
-        createRepoWithFiles(req.query.api_key, req.query.name, req.files, function(response, name, files) {
+        createRepoWithFiles(req.query.api_key, req.query.name, req.files, function(access_token, response) {
+            // Create web hook for deleting repo
+            request.post(response.body.url + '/hooks')
+            .set('Authorization', 'token ' + access_token)
+            .send({ name: 'web' })
+            .send({ events: ['repository'] })
+            .send({ active: true })
+            .send({ config: {
+                url: 'https://delete-test-fake-lala.mybluemix.net/delete_repo',
+                content_type: 'json'
+            }})
+            .end(function(err, response) {
+                console.log(response)
+            });
+
             // Inject repo data into our db
             var classes = [];
-            for (var file in files) {
-                if (files[file].originalname == 'NEGATIVE_EXAMPLES') {
+            for (var file in req.files) {
+                if (req.files[file].originalname == 'NEGATIVE_EXAMPLES') {
                 } else {
-                    classes.push(files[file].originalname);
+                    classes.push(req.files[file].originalname);
                 }
             }
 
@@ -391,7 +420,7 @@ app.post('/api/create_classifier', function(req, res) {
                 db.collection('repos').insertOne({
                     temp: response.body.html_url,
                     repo: response.body.url,
-                    name: name,
+                    name: req.query.name,
                     classes: classes
                 });
             });
@@ -457,50 +486,63 @@ app.post('/api/create_collection', function(req, res) {
 
         var success = 0
 
-        visual_recognition.createCollection(params, function(err, data) {
-            crypto.pseudoRandomBytes(16, function (err, raw) {
-                fs.createReadStream(req.files[0].path)
-                  .pipe(unzip.Parse())
-                  .on('entry', function (entry) {
-                      // Skip all the trash files
-                      var type = mime.lookup(entry.path);
-                      var patt = new RegExp("^__MACOSX/[^/]+/\._");
-                      if (patt.test(entry.path) || (type !== 'image/png' && type !== 'image/jpg' && type !== 'image/jpeg')) {
-                          // Avoid memory leak
-                          entry.autodrain();
-                          return;
-                      }
-
-                      console.log(entry.path + ' : ' + type);
-                      count++;
-                      setTimeout(function (entry) {
-                          var params = {
-                              collection_id: data.collection_id,
-                              image_file: entry
+        createRepo(req.query.api_key, req.query.name, function(access_token, response) {
+            var repo_url = response.body.url;
+            visual_recognition.createCollection(params, function(err, data) {
+                crypto.pseudoRandomBytes(16, function (err, raw) {
+                    fs.createReadStream(req.files[0].path)
+                      .pipe(unzip.Parse())
+                      .on('entry', function (entry) {
+                          // Skip all the trash files
+                          var type = mime.lookup(entry.path);
+                          var patt = new RegExp("^__MACOSX/[^/]+/\._");
+                          if (patt.test(entry.path) || (type !== 'image/png' && type !== 'image/jpg' && type !== 'image/jpeg')) {
+                              // Avoid memory leak
+                              entry.autodrain();
+                              return;
                           }
 
-                          // Avoid memory leak
-                          entry.autodrain();
-                          visual_recognition.addImage(params, function(err, data) {
-                              images_received++;
-                              console.log(images_received + ' / ' + count);
+                          console.log(entry.path + ' : ' + type);
+                          count++;
+                          setTimeout(function (entry) {
+                              var params = {
+                                  collection_id: data.collection_id,
+                                  image_file: entry
+                              };
 
-                              if (data != null) {
-                                  success++;
-                              }
+                                crypto.pseudoRandomBytes(16, function (err, raw) {
+                                    var path = '.tmp/uploads/' + raw.toString('hex') + Date.now() + '.' + mime.extension(mime.lookup(entry.path));
+                                    var stream = entry.pipe(fs.createWriteStream(path));
+                                    stream.on('finish', function () {
+                                        console.log('addfile')
+                                        addWriteStreamToRepo(access_token, repo_url, path, entry.path, function() {
+                                        // File added
+                                        });
+                                    });
+                                });
 
-                              if (done && count == images_received) {
-                                  console.log(success);
-                                  res.send({success: true});
-                              }
-                          });
-                          // You must wait at least 1 second between uploads
-                          // Says documentation, lets push it ;)
-                      }, count * 300, entry)
-                })
-                .on('close', function() {
-                    fs.unlinkSync(req.files[0].path);
-                    done = true;
+                              // Avoid memory leak
+                            //   entry.autodrain();
+                              visual_recognition.addImage(params, function(err, data) {
+                                  images_received++;
+                                  console.log(images_received + ' / ' + count);
+
+                                  if (data != null) {
+                                      success++;
+                                  }
+
+                                  if (done && count == images_received) {
+                                      console.log(success);
+                                      res.send({success: true});
+                                  }
+                              });
+                              // You must wait at least 1 second between uploads
+                          }, count * 1000, entry)
+                    })
+                    .on('close', function() {
+                        fs.unlinkSync(req.files[0].path);
+                        done = true;
+                    });
                 });
             });
         });
