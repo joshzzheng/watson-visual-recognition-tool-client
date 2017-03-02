@@ -45,7 +45,7 @@ export default class Collections extends React.Component {
     }
 
     onClick = () => {
-        browserHistory.push('/create_collection')
+        browserHistory.push('/collections/create')
     }
 
     componentDidMount() {

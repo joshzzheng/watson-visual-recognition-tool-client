@@ -46,7 +46,7 @@ export default class ClassifierDetail extends React.Component {
 
     updateClassifier = (e) => {
         e.preventDefault()
-        browserHistory.push('/update_classifier/'+this.props.classifierID)
+        browserHistory.push('/update/'+this.props.classifierID)
     }
 
     onDrop = (files, rejects, onFinished, onProgress) => {

@@ -18,16 +18,16 @@ class App extends React.Component {
 
                     {/*Classifiers*/}
                     <IndexRoute component={Classifiers}/>
-                    <Route path="/create_classifier" component={CreateClassifier}/>
-                    <Route path="/update_classifier">
-                        <Route path="/update_classifier/:classifierID" component={UpdateClassifier}/>
+                    <Route path="/create" component={CreateClassifier}/>
+                    <Route path="/update">
+                        <Route path="/update/:classifierID" component={UpdateClassifier}/>
                     </Route>
 
                     {/*Collections*/}
                     <Route path="/collections" component={Collections}/>
-                    <Route path="/create_collection" component={CreateCollection}/>
-                    <Route path="/update_collection">
-                        <Route path="/update_collection/:collectionID" component={UpdateCollection}/>
+                    <Route path="/collections/create" component={CreateCollection}/>
+                    <Route path="/collections/update">
+                        <Route path="/collections/update/:collectionID" component={UpdateCollection}/>
                     </Route>
 
                 </Route>
