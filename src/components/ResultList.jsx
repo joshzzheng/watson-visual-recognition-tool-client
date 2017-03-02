@@ -255,7 +255,7 @@ export default class ResultList extends React.Component {
                         <div style={{textAlign: 'left'}}>
                             This number does not represent a percentage of accuracy, but instead indicates Watson’s confidence.
                         </div>
-                        <a style={{color: 'white'}} href='https://www.ibm.com/blogs/bluemix/2016/10/watson-visual-recognition-training-best-practices/' target='_blank'>
+                        <a style={{color: 'white'}} href='https://www.ibm.com/watson/developercloud/doc/visual-recognition/customizing.html#guidelines-for-good-training' target='_blank'>
                             <u>Improve this score</u>
                         </a>
                     </Tooltip>:

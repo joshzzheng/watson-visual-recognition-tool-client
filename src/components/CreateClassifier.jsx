@@ -10,7 +10,7 @@ import Class from './Class'
 import ProgressModal from './ProgressModal'
 import StackGrid from 'react-stack-grid';
 
-var myNum = 2
+var myNum = 0
 
 @Radium
 export default class CreateClassifier extends React.Component {
@@ -19,12 +19,14 @@ export default class CreateClassifier extends React.Component {
         this.state = {
             classifierName: '',
             classes: [
-                {negative: true, file: null, id: 0},
+                {name: '', file: null, id: 0},
                 {name: '', file: null, id: 1},
+                {negative: true, file: null, id: 2},
             ],
             errors: false,
             upload: false,
         }
+        myNum = this.state.classes.length
     }
 
     onTextChange = (text) => {
@@ -150,7 +152,7 @@ export default class CreateClassifier extends React.Component {
 
     addClass = (e) => {
       var newClasses = $.extend([], this.state.classes)
-      newClasses.push({
+      newClasses.splice(newClasses.length - 1, 0, {
         name: "",
         file: null,
         id: myNum
