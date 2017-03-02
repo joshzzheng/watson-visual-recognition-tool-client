@@ -14,11 +14,12 @@ export default class DropDown extends React.Component {
 
 
     render() {
-
         var dropbtn = {
-            backgroundImage: `url(${'/btn_dropdown2.png'})`,
+            backgroundImage: `url(${'/btn_dropdown.png'})`,
             backgroundColor: 'transparent',
-            backgroundSize: 'contain',
+            backgroundPosition: '0 0',
+            backgroundSize: '50px 25px',
+            backgroundRepeat: 'no-repeat',
             width: '25px',
             height: '25px',
             padding: '0px',
@@ -26,7 +27,7 @@ export default class DropDown extends React.Component {
             border: 'none',
             cursor: 'pointer',
             ':hover': {
-                backgroundImage: `url(${'/btn_dropdown_hover2.png'})`
+                backgroundPosition: '-25px 0',
             }
         }
 

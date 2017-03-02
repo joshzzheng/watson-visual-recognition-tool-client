@@ -206,17 +206,19 @@ export default class DropButton extends React.Component {
             backgroundImage: `url(${'/btn_delete.png'})`,
             height: '25px',
             width: '25px',
-            backgroundSize: 'contain',
+            backgroundPosition: '0 0',
+            backgroundSize: '75px 25px',
+            backgroundRepeat: 'no-repeat',
             border: 'none',
             ':active': {
-                backgroundImage: `url(${'/btn_delete_pressed2.png'})`,
+                backgroundPosition: '-50px 0',
             }
         }
 
         if (this.state.clearHover) {
-            deleteStyle.backgroundImage = `url(${'/btn_delete_hover2.png'})`
+            deleteStyle.backgroundPosition = '-25px 0'
         } else {
-            deleteStyle.backgroundImage = `url(${'/btn_delete.png'})`
+            deleteStyle.backgroundPosition = '0 0'
         }
 
         return (
