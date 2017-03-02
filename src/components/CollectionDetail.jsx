@@ -2,6 +2,7 @@ import React from 'react'
 import request from 'superagent'
 import Radium from 'radium'
 import {browserHistory} from 'react-router'
+import StackGrid from 'react-stack-grid'
 
 import Styles from './Styles'
 import ResultList from './ResultList'
@@ -11,8 +12,19 @@ import DropDown from './DropDown'
 
 @Radium
 export default class CollectionDetail extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            results: []
+        }
+    }
+
     stateChanged = () => {
-        this.props.reDraw()
+        var self = this
+        self.props.reDraw()
+        // setTimeout(function() {
+        //     self.props.reDraw()
+        // }, 500)
     }
 
     deleteClassifier = (e) => {
@@ -69,10 +81,10 @@ export default class CollectionDetail extends React.Component {
         req.end(function(err, res) {
             onProgress(100)
             console.log(res)
-            var results
+            var results = []
             if (res.body != null && res.body.similar_images != null) {
                 for (var i in res.body.similar_images) {
-                    // do an api call for each pick.... ugh
+                    results.push(res.body.similar_images[i].metadata.image_url)
                 }
             } else if (res.body.code == 'LIMIT_FILE_SIZE') {
                 self.setState({ error: 'Image size limit (2MB) exceeded' }, self.stateChanged)
@@ -142,6 +154,32 @@ export default class CollectionDetail extends React.Component {
             padding: '44px 0px'
         }
 
+        var imgStyle = {
+            display: 'inline-flex',
+            margin: 'auto',
+            maxHeight: '100%',
+            maxWidth: '100%',
+        }
+
+        var base = {
+            width: '100%',
+            height: '150px',
+            display: 'inline-flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            overflow: 'hidden',
+            border: '1px solid #dedede',
+            marginRight: '10px',
+        }
+
+        var similar = this.state.results.map(function(result) {
+            return (
+                <div style={base} key={result}>
+                    <img src={result} style={imgStyle}/>
+                </div>
+            )
+        })
+
         return(
             <Card style={{marginBottom:'20px'}}>
                 <DropDown link='https://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?node#find_similar' delete={this.deleteClassifier} update={this.updateClassifier}/>
@@ -173,6 +211,7 @@ export default class CollectionDetail extends React.Component {
                         subtext={"choose your files"}
                         disabled={true}/>
                 }
+                <StackGrid style={{marginTop: '10px'}} columnWidth={'20%'} gutterWidth={0} duration={0}>{similar}</StackGrid>
             </Card>
         )
     }

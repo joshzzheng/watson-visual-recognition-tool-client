@@ -319,9 +319,7 @@ function createRepo(api_key, name, repoCreated) {
 }
 
 function addFileToRepo(access_token, repo_url, file, fileAdded, nameForName) {
-    console.log(file.path)
     fs.readFile(file.path, function (err, data) {
-        console.log(err)
         request.put(repo_url + '/contents/' + nameForName(file.originalname) + mime.extension(file.mimetype))
         .set('Authorization', 'token ' + access_token)
         .send({ message: nameForName(file.originalname) + mime.extension(file.mimetype)})
@@ -334,9 +332,7 @@ function addFileToRepo(access_token, repo_url, file, fileAdded, nameForName) {
 }
 
 function addWriteStreamToRepo(access_token, repo_url, file_path, og_name, fileAdded) {
-    console.log(file_path)
     fs.readFile(file_path, function (err, data) {
-        console.log(err)
         request.put(repo_url + '/contents/' + og_name)
         .set('Authorization', 'token ' + access_token)
         .send({ message: og_name})
@@ -378,6 +374,8 @@ app.post('/api/create_classifier', function(req, res) {
             res.send(err);
             return;
         }
+
+        req.socket.setTimeout(0);
 
         var githubDone = false;
         var watsonDone = false;
@@ -469,6 +467,8 @@ app.post('/api/create_collection', function(req, res) {
             return;
         }
 
+        req.socket.setTimeout(0);
+
         var visual_recognition = new VisualRecognitionV3({
             api_key: req.query.api_key,
             version_date: req.query.version || '2016-05-19'
@@ -488,6 +488,7 @@ app.post('/api/create_collection', function(req, res) {
 
         createRepo(req.query.api_key, req.query.name, function(access_token, response) {
             var repo_url = response.body.url;
+            var full_name = response.body.full_name;
             visual_recognition.createCollection(params, function(err, data) {
                 crypto.pseudoRandomBytes(16, function (err, raw) {
                     fs.createReadStream(req.files[0].path)
@@ -514,28 +515,36 @@ app.post('/api/create_collection', function(req, res) {
                                     var path = '.tmp/uploads/' + raw.toString('hex') + Date.now() + '.' + mime.extension(mime.lookup(entry.path));
                                     var stream = entry.pipe(fs.createWriteStream(path));
                                     stream.on('finish', function () {
-                                        console.log('addfile')
-                                        addWriteStreamToRepo(access_token, repo_url, path, entry.path, function() {
+                                        addWriteStreamToRepo(access_token, repo_url, path, entry.path, function(git_res) {
+                                            // if (git_res.body != null && git_res.body.content != null && git_res.body.content.download_url != null) {
+                                            //     console.log(git_res.body.content.download_url);
+                                            //     params.metadata = {image_url: git_res.body.content.download_url};
+                                            // }
                                         // File added
                                         });
                                     });
                                 });
 
-                              // Avoid memory leak
-                            //   entry.autodrain();
-                              visual_recognition.addImage(params, function(err, data) {
-                                  images_received++;
-                                  console.log(images_received + ' / ' + count);
+                                params.metadata = {image_url: 'https://raw.githubusercontent.com/' + full_name + '/master/' + entry.path};
 
-                                  if (data != null) {
-                                      success++;
-                                  }
+                                visual_recognition.addImage(params, function(err, data) {
+                                    images_received++;
+                                    console.log(images_received + ' / ' + count);
 
-                                  if (done && count == images_received) {
-                                      console.log(success);
-                                      res.send({success: true});
-                                  }
-                              });
+                                    if (err != null) {
+                                        console.log(err);
+                                    }
+
+                                    if (data != null) {
+                                        success++;
+                                    }
+
+                                    if (done && count == images_received) {
+                                        console.log(success);
+                                        res.send({success: true});
+                                    }
+                                });
+
                               // You must wait at least 1 second between uploads
                           }, count * 1000, entry)
                     })
