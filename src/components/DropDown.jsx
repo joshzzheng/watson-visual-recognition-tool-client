@@ -5,19 +5,29 @@ import Radium from 'radium'
 @Radium
 export default class DropDown extends React.Component {
     toggleHover = () => {
-        this.setState({hover: !this.state.hover})
+        this.setState({hover: false})
     }
+
+    onClick = () => {
+        this.setState({hover: true})
+    }
+
 
     render() {
 
         var dropbtn = {
-            background: `url(${'/btn_dropdown.png'})`,
+            backgroundImage: `url(${'/btn_dropdown2.png'})`,
+            backgroundColor: 'transparent',
             backgroundSize: 'contain',
-            width: '15px',
-            height: '15px',
+            width: '25px',
+            height: '25px',
             padding: '0px',
+            marginRight: '-5px',
             border: 'none',
             cursor: 'pointer',
+            ':hover': {
+                backgroundImage: `url(${'/btn_dropdown_hover2.png'})`
+            }
         }
 
         var dropdown = {
@@ -73,7 +83,7 @@ export default class DropDown extends React.Component {
 
         return (
             <div style={[dropdown, {float: 'right'}]}
-                onMouseEnter={this.toggleHover}
+                onClick={this.onClick}
                 onMouseLeave={this.toggleHover}>
                 <button style={dropbtn}></button>
                 <div style={dropdownContent}>
