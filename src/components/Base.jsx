@@ -1,4 +1,5 @@
 import React from 'react'
+import request from 'superagent'
 import Classifiers from './Classifiers'
 import TitleBar from './TitleBar'
 import TabBar from './TabBar'
@@ -12,12 +13,10 @@ export default class Base extends React.Component {
     }
 
     setApiKey = (key) => {
+        // Our two points of entry (ApiKeyModal/LandingPage) should give us:
+        // a valid key or null
         localStorage.setItem('apiKey', key)
         this.forceUpdate()
-    }
-
-    invalidApiKey = () => {
-        this.setApiKey('')
     }
 
     handleShowModal = () => {
@@ -35,13 +34,13 @@ export default class Base extends React.Component {
     render() {
         return (
             <div>
-                {localStorage.getItem('apiKey') == null || localStorage.getItem('apiKey') == ''? <LandingPage setApiKey={this.setApiKey}/> :
+                {localStorage.getItem('apiKey') == 'undefined' || localStorage.getItem('apiKey') == null || localStorage.getItem('apiKey') == ''? <LandingPage setApiKey={this.setApiKey}/> :
                     <div>
                         <TitleBar onClick={this.handleShowModal}/>
                         <TabBar/>
                         <div id="page-content-wrapper">
                             {/*This is to force an update*/}
-                            {React.cloneElement(this.props.children, {invalidApiKey: this.invalidApiKey})}
+                            {React.cloneElement(this.props.children)}
                         </div>
                         {this.state.showModal ?
                             <ApiKeyModal

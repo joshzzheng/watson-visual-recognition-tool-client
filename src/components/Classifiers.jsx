@@ -76,7 +76,6 @@ export default class Classifiers extends React.Component {
             if (res.body != null) {
                 if (res.body.statusInfo == 'invalid-api-key') {
                     console.error('Invalid API Key')
-                    self.props.invalidApiKey()
                     return
                 } else if (res.body.status == 'ERROR') {
                     console.error('There was an error fetching classifiers')

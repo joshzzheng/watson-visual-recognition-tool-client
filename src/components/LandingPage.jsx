@@ -1,6 +1,7 @@
 import React from 'react'
 import Styles from './Styles'
 import Radium, { Style } from 'radium'
+import request from 'superagent'
 
 @Radium
 export default class LandingPage extends React.Component {
@@ -12,9 +13,20 @@ export default class LandingPage extends React.Component {
         this.setState({focus: true})
     }
 
-    setApiKey = () => {
-        console.log('pressed')
-        this.props.setApiKey(this.state.key)
+    setApiKey = (e) => {
+        e.preventDefault()
+        var self = this
+        var req = request.post('/api/test_key')
+
+        req.query({ api_key: this.state.key })
+
+        req.end(function(err, res) {
+            if (res.body.valid) {
+                self.props.setApiKey(self.state.key)
+            } else {
+                self.setState({error: 'Invalid api key'})
+            }
+        })
     }
 
     onTextChange = (e) => {
@@ -88,7 +100,27 @@ export default class LandingPage extends React.Component {
             fontWeight: 'normal',
             color: 'white',
             transform: 'translate(-225px, -60px)',
-            opacity: '0',
+            opacity: '1',
+            zIndex: '11',
+            transition: 'all 200ms cubic-bezier(0.4, 0.0, 0.2, 1)',
+        }
+
+        var error = {
+            borderRadius: '15px',
+            border: 'none',
+            height: '30px',
+            width: '150px',
+            paddingTop:'6px',
+            textAlign:'center',
+            color: 'white',
+            background: '#F44336',
+            position: 'fixed',
+            left: '50%',
+            top: '50%',
+            font: Styles.fontDefault,
+            fontWeight: 'normal',
+            transform: 'translate(-50%, -60px)',
+            opacity: '1',
             zIndex: '11',
             transition: 'all 200ms cubic-bezier(0.4, 0.0, 0.2, 1)',
         }
@@ -245,7 +277,7 @@ export default class LandingPage extends React.Component {
                     transition: 'all 200ms cubic-bezier(0.4, 0.0, 0.2, 1)',
                     opacity: '0',
                 }} />
-                {this.state.focus ? <div style={key}>API Key</div> : <div style={keyNone}>API Key</div>}
+            {this.state.error && this.state.focus ? <div style={error}>Invalid api key</div> : null}
                 <form onSubmit={this.setApiKey}>
                 <input type='text'
                     className='myInputs'
