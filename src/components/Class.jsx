@@ -21,8 +21,26 @@ export default class Class extends React.Component {
         })
     }
 
-    onDrop = (file) => {
+    stateChanged = () => {
+        this.setState({
+            tooltipOpen: false
+        })
+        this.props.reDraw()
+    }
+
+    onDrop = (file, rejects) => {
+        this.setState({ error: null }, this.stateChanged)
         this.props.setClassFile(file, this.props.id)
+        if (file == null || file.length <= 0) {
+            if (rejects != null && rejects[0].size > 100 * 1024 * 1024 && (rejects[0].type == 'application/zip')) {
+                this.setState({ error: 'Size limit (100MB) exceeded' }, this.stateChanged)
+                return
+            }
+            if (rejects != null) {
+                this.setState({ error: 'Invalid file (must be .zip)' }, this.stateChanged)
+                return
+            }
+        }
     }
 
     onTextChange = (text) => {
@@ -44,6 +62,17 @@ export default class Class extends React.Component {
 
         var extraPadding = {
             padding: '44px 0px'
+        }
+
+        var error = {
+            paddingBottom: '10px',
+            textDecoration:'none',
+            display:'block',
+            whiteSpace:'nowrap',
+            overflow:'hidden',
+            textOverflow:'ellipsis',
+            color: '#F44336',
+            font: Styles.fontDefault,
         }
 
         var deleteStyle = {
@@ -84,6 +113,7 @@ export default class Class extends React.Component {
                                 </div>
                             </div>
                         }
+                        {this.state.error ? <div id='error--create-classifier' style={error}>{this.state.error}</div> : null}
                         <DropButton
                             accept={'application/zip'}
                             maxSize={100 * 1024 * 1024}
