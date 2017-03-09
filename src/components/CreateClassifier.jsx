@@ -69,8 +69,13 @@ export default class CreateClassifier extends React.Component {
             var validClasses = 0
             var hasNeg = false
 
+            var totalbytes = 0
+
             // State takes time, so we can just take a tally here
             this.state.classes.map(function(c) {
+                if (c.file != null) {
+                    totalbytes += c.file[0].size
+                }
                 if (c.negative) {
                      if (c.file != null) {
                          validClasses++
@@ -91,7 +96,15 @@ export default class CreateClassifier extends React.Component {
                 validClasses++
             })
 
+            console.log('total size: ' + totalbytes / (1000 * 1000) + 'MB')
             console.log('valid: ' + validClasses)
+
+            if (totalbytes / (1000 * 1000) > 256) {
+                errors = true
+                error = 'The service accepts a maximum of 256 MB per training call.'
+                self.setState({errors: errors, error: error})
+                return
+            }
 
             if (validClasses < 2) {
                 errors = true
