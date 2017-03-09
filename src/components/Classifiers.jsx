@@ -132,7 +132,7 @@ export default class Classifiers extends React.Component {
         return (
             <div>
                 <div style={{margin: '21px 0px'}}>
-                    <Button text={"Create classifier"} kind={"bold"} icon={"/btn_create.png"} onClick={this.onClick}/>
+                    <Button id="button--classifiers--create" text={"Create classifier"} kind={"bold"} icon={"/btn_create.png"} onClick={this.onClick}/>
                 </div>
                 <StackGrid columnWidth={300} gutterWidth={40}>{classifiers}</StackGrid>
             </div>

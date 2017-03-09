@@ -7,7 +7,8 @@ import request from 'superagent'
 
 @Radium
 export default class ApiKeyModal extends React.Component {
-    saveApiKey = () => {
+    saveApiKey = (e) => {
+        e.preventDefault()
         var self = this
         var key = ReactDOM.findDOMNode(this.refs.apiKey).value
         var modal = $(ReactDOM.findDOMNode(this))
@@ -18,19 +19,18 @@ export default class ApiKeyModal extends React.Component {
 
         req.end(function(err, res) {
             if (res.body.valid) {
-                self.props.setApiKey(key)
-                self.props.handleHideModal()
                 modal.modal('hide')
+                self.props.setApiKey(key)
             } else {
                 self.setState({error: 'Invalid api key'})
             }
         })
     }
 
-    logout = () => {
-        this.props.setApiKey('')
-        this.props.handleHideModal()
+    logout = (e) => {
+        e.preventDefault()
         $(ReactDOM.findDOMNode(this)).modal('hide')
+        this.props.setApiKey('')
     }
 
     componentDidMount() {
@@ -74,10 +74,11 @@ export default class ApiKeyModal extends React.Component {
                   <div className="modal-body">
                       <p>This tool needs a Watson Visual Recognition API key.</p>
                       <p><a href='https://console.ng.bluemix.net/registration/?target=/catalog/services/visual-recognition/'>Sign up for bluemix to get your free key</a></p>
-                      {this.state.error ? <p style={error}>{this.state.error}</p> : null}
+                      {this.state.error ? <p id='error--api-key-modal--api-key' style={error}>{this.state.error}</p> : null}
                       <form id="api-key-form" role="form" action="#">
                           <div className={this.state.error ? "form-group has-danger" : "form-group"}>
                               <input
+                                  id='input--api-key-modal--api-key'
                                   ref="apiKey"
                                   className="form-control"
                                   type="text"
@@ -86,8 +87,8 @@ export default class ApiKeyModal extends React.Component {
                       </form>
                   </div>
                   <div className="modal-footer" style={{textAlign: 'right'}}>
-                      <Button onClick={this.logout} text='Log out' style={{marginRight: '20px'}}/>
-                      <Button onClick={this.saveApiKey} kind={"bold"} text={"Save key"}/>
+                      <Button id='button--api-key-modal--logout' onClick={this.logout} text='Log out' style={{marginRight: '20px'}}/>
+                      <Button id='button--api-key-modal--submit' onClick={this.saveApiKey} kind={"bold"} text={"Save key"}/>
                   </div>
                 </div>
               </div>

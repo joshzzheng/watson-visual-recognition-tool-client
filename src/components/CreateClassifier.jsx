@@ -227,19 +227,12 @@ export default class CreateClassifier extends React.Component {
                     title={self.state.classifierName}
                     onChange={this.onTextChange}
                     inputStyle={textStyles.title}>
-                    <div style={{display: 'inline-block', backgroundColor: RGBA, borderRadius: '5px', borderColor: RGBA2, borderWidth: 'thin', borderStyle: 'solid', padding: '10px', paddingLeft: '10px', paddingRight: '20px', margin: '10px', marginBottom: '30px'}}>
-                        <div style={[textStyles.base, {color: Styles.colorTextDark, marginTop: '0px', marginBottom: '0px'}]}>
-                            <b>Requirements:</b>
-                        </div>
-                        <div style={[textStyles.base, {marginTop: '5px', marginLeft: '-15px', marginBottom: '-5px'}]}>
-                            <ul style={{listStyleType: 'circle'}}>
-                                <li>You need a minimum of 2 classes</li>
-                                <li style={{marginTop: '5px'}}>Classes require at least 10 images</li>
-                            </ul>
-                        </div>
-                    </div>
+
                     <div style={[textStyles.header, {margin: '10px', marginTop: '0px', marginBottom: '5px'}]}>
                         Classes
+                    </div>
+                    <div style={[textStyles.base, {margin: '10px', marginTop: '0px', marginBottom: '30px'}]}>
+                        Upload at least 2 classes, each in a zipped file with at least 10 photos.
                     </div>
                     {self.state.error ? <div style={error}>{self.state.error}</div> : null}
                     <StackGrid columnWidth={292} gutterWidth={40} style={{marginTop: '10px'}}>{this.state.classes.map(function(c, i) {

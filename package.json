@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "build": "NODE_ENV=production webpack --config ./webpack.prod.config.js --progress --colors",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "nightwatch tests",
+    "e2e-setup": "node_modules/selenium-standalone/bin/selenium-standalone install"
   },
   "author": "Josh Zheng <joshzheng@us.ibm.com> (https://github.com/boxcarton)",
   "license": "BSD-2-Clause",
@@ -26,6 +27,7 @@
     "reactstrap": "^4.2.0",
     "superagent": "^2.0.0",
     "watson-developer-cloud": "^2.15.5",
+    "watson-react-components": "^0.6.3",
     "webpack": "^1.13.3"
   },
   "devDependencies": {
@@ -38,6 +40,8 @@
     "babel-preset-es2017": "^6.22.0",
     "babel-preset-react": "^6.5.0",
     "babel-preset-stage-0": "^6.5.0",
+    "broken-link-checker": "^0.7.4",
+    "selenium-standalone": "^6.0.1",
     "webpack": "*",
     "webpack-dev-middleware": "^1.8.4",
     "webpack-dev-server": "^1.16.2",

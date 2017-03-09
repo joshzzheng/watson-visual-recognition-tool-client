@@ -240,7 +240,7 @@ export default class LandingPage extends React.Component {
         }
 
         return(
-            <div style={background}>
+            <div id='landing-page' style={background}>
                 <div style={filter}></div>
                 <img src="/watson.png" style={logo}></img>
                 <div style={title}>Visual Recognition Tool</div>
@@ -277,18 +277,19 @@ export default class LandingPage extends React.Component {
                     transition: 'all 200ms cubic-bezier(0.4, 0.0, 0.2, 1)',
                     opacity: '0',
                 }} />
-            {this.state.error && this.state.focus ? <div style={error}>Invalid api key</div> : null}
+            {this.state.error && this.state.focus ? <div id='error--landing-page--api-key' style={error}>Invalid api key</div> : null}
                 <form onSubmit={this.setApiKey}>
                 <input type='text'
+                    id='input--landing-page--api-key'
                     className='myInputs'
                     onFocus={this.onFocus}
                     onBlur={this.onBlur}
                     style={buttonStyle.base}
                     placeholder='API Key'
                     onChange={this.onTextChange}/>
-                {this.state.focus ? <button style={pics} onMouseDown={this.setApiKey}/> : <button style={picsNone}/>}
+                {this.state.focus ? <button style={pics} id='button--landing-page--api-key' onMouseDown={this.setApiKey}/> : <button style={picsNone}/>}
                 </form>
-                <div style={getKey}><a href='https://console.ng.bluemix.net/registration/?target=/catalog/services/visual-recognition/' target='_blank' style={link}>Sign up for bluemix to get your free key</a></div>
+                <div style={getKey}><a id='link--landing-page--api-key' href='https://console.ng.bluemix.net/catalog/services/visual-recognition/' target='_blank' style={link}>Sign up for bluemix to get your free key</a></div>
             </div>
         )
     }

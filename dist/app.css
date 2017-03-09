@@ -11,7 +11,7 @@ html {
 
 #main {
     background: #fafafa;
-    padding-top: 115px;
+    padding-top: 66px;
 }
 
 body {
@@ -28,3 +28,7 @@ body {
 *:focus {
     outline: none !important
 }
+
+.bottom-nav-bar{position:fixed;bottom:0;left:0;right:0;}
+._container{width:100%;margin:auto;padding:0rem 1rem}
+.bottom-nav-bar{background-color:#323232;display:-ms-flexbox;display:flex;-ms-flex-pack:start;justify-content:flex-start;-ms-flex-align:center;align-items:center}.bottom-nav-bar._full-width-row{padding:1rem 0rem}.bottom-nav-bar--icon{display:inline-block;margin-right:2rem}.bottom-nav-bar--nav{display:inline-block;margin-top:0rem}.bottom-nav-bar--nav-ul.base--ul_inline .bottom-nav-bar--nav-li{display:block;margin-bottom:.25rem}@media (min-width:560px){.bottom-nav-bar--nav-ul.base--ul_inline .bottom-nav-bar--nav-li{margin-right:1rem;margin-bottom:0rem;display:inline-block}}.bottom-nav-bar--nav-link{line-height:1.5;border-bottom:2px solid #aeaeae;color:#aeaeae}.bottom-nav-bar--nav-link:visited{border-bottom:2px solid #aeaeae;color:#aeaeae}.bottom-nav-bar--nav-link:active,.bottom-nav-bar--nav-link:hover{text-decoration: none;border-bottom:2px solid #d7aaff;color:#d7aaff}

@@ -68,6 +68,7 @@ export default class Button extends React.Component {
 
         return (
             <button
+                id={this.props.id}
                 style = {
                     this.props.icon ? [buttonStyle.base, buttonStyle[this.props.kind], buttonStyle.image, this.props.style] : [buttonStyle.base, buttonStyle[this.props.kind], this.props.style]
                 }

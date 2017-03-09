@@ -5,6 +5,7 @@ import TitleBar from './TitleBar'
 import TabBar from './TabBar'
 import ApiKeyModal from './ApiKeyModal'
 import LandingPage from './LandingPage'
+import { Footer } from 'watson-react-components/dist/components'
 
 export default class Base extends React.Component {
     constructor(props) {
@@ -37,7 +38,7 @@ export default class Base extends React.Component {
                 {localStorage.getItem('apiKey') == 'undefined' || localStorage.getItem('apiKey') == null || localStorage.getItem('apiKey') == ''? <LandingPage setApiKey={this.setApiKey}/> :
                     <div>
                         <TitleBar onClick={this.handleShowModal}/>
-                        <TabBar/>
+                        {/*<TabBar/>*/}
                         <div id="page-content-wrapper">
                             {/*This is to force an update*/}
                             {React.cloneElement(this.props.children)}
@@ -50,6 +51,7 @@ export default class Base extends React.Component {
                         }
                     </div>
                 }
+                {/*<Footer/>*/}
             </div>
         )
     }

@@ -71,7 +71,7 @@ export default class TitleBar extends React.Component {
                         textOverflow:'ellipsis'}}>
                             API Key: {localStorage.getItem('apiKey') || "Unknown"} &nbsp;&nbsp;
                         </div>
-                        <Button onClick={this.props.onClick} text={"Update key"}/>
+                        <Button id='button--base--update-api-key' onClick={this.props.onClick} text={"Update key"}/>
                     </div>
                 </div>
             </div>
