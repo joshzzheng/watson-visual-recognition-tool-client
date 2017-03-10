@@ -200,7 +200,7 @@ const zipUpload = multer({
     },
     fileFilter: function(req, file, cb) {
         var type = file.mimetype;
-        if (type !== 'application/zip') {
+        if (type !== 'application/zip' && type !== 'application/octet-stream' && type !== 'application/x-zip-compressed') {
             cb(new Error('Invalid zip file'));
         } else {
             cb(null, true);

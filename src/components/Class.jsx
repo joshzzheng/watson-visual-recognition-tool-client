@@ -115,7 +115,7 @@ export default class Class extends React.Component {
                         }
                         {this.state.error ? <div id='error--create-classifier' style={error}>{this.state.error}</div> : null}
                         <DropButton
-                            accept={'application/zip'}
+                            accept={'application/zip, application/octet-stream, application/x-zip-compressed'}
                             maxSize={100 * 1024 * 1024}
                             style={extraPadding}
                             errors={this.props.negative ? false : this.props.errors}
