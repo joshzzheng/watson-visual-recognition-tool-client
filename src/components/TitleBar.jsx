@@ -21,12 +21,7 @@ export default class TitleBar extends React.Component {
             float: 'left',
         }
 
-        var lineHeight = {
-            lineHeight: '65px',
-        }
-
         var title = {
-            display: 'inline-block',
             font: Styles.fontTitle,
             color: Styles.colorTextDark,
         }
@@ -34,9 +29,6 @@ export default class TitleBar extends React.Component {
         var right = {
             font: Styles.fontDefault,
             color: Styles.colorTextLight,
-            display: 'flex',
-            justifyContent: 'center',
-            float: 'right',
         }
 
         var shadowWrapper = {
@@ -55,6 +47,9 @@ export default class TitleBar extends React.Component {
             width: '100%',
             height: '100%',
             margin: 'auto',
+            display: 'flex',
+            lineHeight: '65px',
+            alignItems: 'center',
         }
 
         return (
@@ -62,17 +57,20 @@ export default class TitleBar extends React.Component {
                 <div style={contentWrapper}>
                     <div style={filter}></div>
                     <img src="/watson.png" style={logo}></img>
-                    <div style={[title, lineHeight]}>Visual Recognition Tool</div>
-                    <div style={[right, lineHeight]}>
-                        <div style={{maxWidth: '500px', textDecoration:'none',
-                        display:'block',
-                        whiteSpace:'nowrap',
-                        overflow:'hidden',
-                        textOverflow:'ellipsis'}}>
-                            API Key: {localStorage.getItem('apiKey') || "Unknown"} &nbsp;&nbsp;
-                        </div>
-                        <Button id='button--base--update-api-key' onClick={this.props.onClick} text={"Update key"}/>
+                    <div style={[title, {flex: 'none', marginRight: 'auto'}]}>Visual Recognition Tool</div>
+
+                    <div style={[right, {
+                            minWidth: '0px',
+                            marginLeft: '20px',
+                            display: 'flex'}]}>
+                            <div style={{
+                                    whiteSpace:'nowrap',
+                                    overflow:'hidden',
+                                    textOverflow:'ellipsis'}}>
+                                API Key: {localStorage.getItem('apiKey') || "Unknown"} &nbsp;&nbsp;
+                            </div>
                     </div>
+                    <Button style={{display: 'flex', flex: 'none'}} id='button--base--update-api-key' onClick={this.props.onClick} text={"Update key"}/>
                 </div>
             </div>
         )
