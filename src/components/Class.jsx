@@ -107,7 +107,7 @@ export default class Class extends React.Component {
                         {this.props.negative || this.props.fixedTitle ? null :
                             <div style={{position: 'relative', width: '100%', minWidth: '100%'}}>
                                 <div style={{position: 'absolute', top: '-43px', right: '0'}}>
-                                    <button key={this.props.id} style={deleteStyle}
+                                    <button className="delete-class" key={this.props.id} style={deleteStyle}
                                         onClick={this.delete}>
                                     </button>
                                 </div>
@@ -115,7 +115,7 @@ export default class Class extends React.Component {
                         }
                         {this.state.error ? <div id='error--create-classifier' style={error}>{this.state.error}</div> : null}
                         <DropButton
-                            accept={'application/zip, application/octet-stream, application/x-zip-compressed'}
+                            accept={'application/zip, application/x-zip-compressed, multipart/x-zip, application/x-compressed'}
                             maxSize={100 * 1024 * 1024}
                             style={extraPadding}
                             errors={this.props.negative ? false : this.props.errors}

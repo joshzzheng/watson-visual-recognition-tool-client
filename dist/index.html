@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <!-- Social media sharing -->
-    <meta property="og:title" content="European Travel Destinations">
-    <meta property="og:description" content="Offering tour packages for individuals or groups.">
+    <meta property="og:title" content="Watson Visual Recognition Tool">
+    <meta property="og:description" content="Visual Recognition uses deep learning algorithms to analyze images that can give you insights into your visual content. You can organize image libraries, understand an individual image, and create custom classifiers for specific results that are tailored to your needs.">
     <meta property="og:image" content="preview.png">
-    <meta property="og:url" content="http://euro-travel-example.com/index.htm">
+    <meta property="og:url" content="http://vr-tool.mybluemix.net">
     <meta name="twitter:card" content="summary_large_image">
 
     <title>Watson Visual Recognition Tool</title>
@@ -27,28 +27,19 @@
 
     <!-- <link href="https://unpkg.com/watson-react-components@0.6.3/dist/css/watson-react-components.min.css" rel="stylesheet" type="text/css" /> -->
 
-    <meta name="IBM.WTMCategory" scheme="IBM_WTMCategory" content="IBMBLUEMIX WEBSITE" />
-    <meta name="IBM.WTMSite" content="BLUEMIX"/>
-    <script type="text/javascript">
-            digitalData = {
-                page: {
-                    pageInfo: {
-                        pageID: "vr-tool"
-                    }
-                }
-            };
-    </script>
-    <script src="/analytics/build/bluemix-analytics.js"></script>
+    <!-- Bluemix Analytics -->
     <script>
-        window.onload = function() {
-            bluemixAnalytics.pageEvent("test", "This is my Page", {
-              who: "dbl",
-              why: "because"
-            })
-        };
+      window._analytics = {
+        coremetrics: false,
+        optimizely: false,
+        addRoll: false
+      };
     </script>
 
-    <!-- <script type="text/javascript">
+    <meta name="segment" property="wdc website" value="home page" />
+    <script src="https://console.ng.bluemix.net/analytics/build/bluemix-analytics.min.js"></script>
+
+    <script type="text/javascript">
       (function(e,t){var n=e.amplitude||{_q:[],_iq:{}};var r=t.createElement("script");r.type="text/javascript";
       r.async=true;r.src="https://d24n15hnbwhuhn.cloudfront.net/libs/amplitude-3.0.1-min.gz.js";
       r.onload=function(){e.amplitude.runQueuedFunctions()};var i=t.getElementsByTagName("script")[0];
@@ -64,7 +55,7 @@
 
       amplitude.getInstance().init("9e62e0fa5a6a3543b841c936699d16f6");
       amplitude.getInstance().logEvent('Page-loaded');
-    </script> -->
+    </script>
   </head>
   <body>
     <div id="main"></div>

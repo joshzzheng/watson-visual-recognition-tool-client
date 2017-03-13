@@ -93,7 +93,11 @@ var storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     crypto.pseudoRandomBytes(16, function (err, raw) {
-      cb(null, raw.toString('hex') + Date.now() + '.' + mime.extension(file.mimetype));
+        if (type !== 'application/zip' && type !== 'application/x-zip-compressed' && type !== 'multipart/x-zip' && type !== 'application/x-compressed') {
+            cb(null, raw.toString('hex') + Date.now() + '.' + mime.extension(file.mimetype));
+        } else {
+            cb(null, raw.toString('hex') + Date.now() + '.zip';
+        }
     });
   }
 });
@@ -200,7 +204,7 @@ const zipUpload = multer({
     },
     fileFilter: function(req, file, cb) {
         var type = file.mimetype;
-        if (type !== 'application/zip' && type !== 'application/octet-stream' && type !== 'application/x-zip-compressed') {
+        if (type !== 'application/zip' && type !== 'application/x-zip-compressed' && type !== 'multipart/x-zip' && type !== 'application/x-compressed') {
             cb(new Error('Invalid zip file'));
         } else {
             cb(null, true);

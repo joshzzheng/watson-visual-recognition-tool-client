@@ -225,7 +225,7 @@ export default class CreateClassifier extends React.Component {
 
         var self = this
         return (
-            <div>
+            <div id='create-classifier'>
                 <div style={[textStyles.header, {marginTop: '30px', marginBottom: '5px'}]}>
                     Create a new classifier
                 </div>
@@ -248,7 +248,7 @@ export default class CreateClassifier extends React.Component {
                         Upload at least 2 classes, each in a zipped file with at least 10 photos.
                     </div>
                     {self.state.error ? <div style={error}>{self.state.error}</div> : null}
-                    <StackGrid columnWidth={292} gutterWidth={40} style={{marginTop: '10px'}}>{this.state.classes.map(function(c, i) {
+                    <StackGrid className='gridz-are-real' columnWidth={292} gutterWidth={40} style={{marginTop: '10px'}}>{this.state.classes.map(function(c, i) {
                         return (
                             <Class
                                 errors={self.state.errors}
@@ -263,9 +263,9 @@ export default class CreateClassifier extends React.Component {
                         )
                     })}</StackGrid>
                     <div style={{textAlign: 'right'}}>
-                        <Button onClick={this.addClass} text='Add class' style={{float: 'left'}}/>
-                        <Button onClick={this.cancel} text='Cancel' style={{marginRight: '20px'}}/>
-                        <Button onClick={this.errorCheck} text='Create' kind='bold'/>
+                        <Button id='button--create-classifier--add-class' onClick={this.addClass} text='Add class' style={{float: 'left'}}/>
+                        <Button id='button--create-classifier--cancel' onClick={this.cancel} text='Cancel' style={{marginRight: '20px'}}/>
+                        <Button id='button--create-classifier--create' onClick={this.errorCheck} text='Create' kind='bold'/>
                     </div>
                 </TitleCard>
                 {this.state.upload ?

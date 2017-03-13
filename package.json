@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "build": "NODE_ENV=production webpack --config ./webpack.prod.config.js --progress --colors",
-    "test": "nightwatch tests",
+    "test": "casperjs test tests_casper",
+    "test-night": "nightwatch tests",
     "e2e-setup": "node_modules/selenium-standalone/bin/selenium-standalone install"
   },
   "author": "Josh Zheng <joshzheng@us.ibm.com> (https://github.com/boxcarton)",
