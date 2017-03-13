@@ -56,7 +56,7 @@ export default class TitleCard extends React.Component {
                         <div style={[text.base, this.props.inputStyle]}>
                             Negative&nbsp;&nbsp;<div style={[optional, {display: 'inline-block'}]}>(Optional)</div>
                         </div> :
-                        <div style={[text.base, this.props.inputStyle]}>
+                        <div style={[text.base, this.props.inputStyle, {wordWrap: 'break-word'}]}>
                             {this.props.title}
                         </div>
                     :
