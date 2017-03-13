@@ -38,7 +38,7 @@ casper.test.begin('Visual Recognition', 10, function suite(test) {
     })
 
     .then(function check_real_key() {
-        this.sendKeys('input#input--landing-page--api-key', '2d7f02e6708f3562a043ebf31159ff849d94d123', { reset: true, keepFocus: true });
+        this.sendKeys('input#input--landing-page--api-key', '', { reset: true, keepFocus: true });
         this.waitForSelector('button#button--landing-page--api-key', function() {
             this.mouse.click('button#button--landing-page--api-key');
             this.waitWhileSelector('#landing-page', function() {
@@ -120,7 +120,7 @@ casper.test.begin('Visual Recognition', 10, function suite(test) {
     })
 
     .then(function check_update_real_key() {
-        this.sendKeys('input#input--api-key-modal--api-key', '2d7f02e6708f3562a043ebf31159ff849d94d123', { reset: true, keepFocus: true });
+        this.sendKeys('input#input--api-key-modal--api-key', '', { reset: true, keepFocus: true });
         this.mouse.click('button#button--api-key-modal--submit');
         this.waitWhileSelector('#exampleModal', function() {
             this.test.pass('check update real key');
