@@ -128,7 +128,7 @@ export default class ProgressModal extends React.Component {
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <div style={textStyles.title}>Creating classifier</div>
+                            <div style={textStyles.title}>{this.props.title}</div>
                             <div style={textStyles.base}>This may take several minutes to complete.</div>
                         </div>
                         <div className="modal-body">

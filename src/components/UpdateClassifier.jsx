@@ -187,7 +187,7 @@ export default class UpdateClassifier extends React.Component {
                     Update classifier
                 </div>
                 <div style={[textStyles.base, {marginTop: '5px', marginBottom: '18px'}]}>
-                    A classifier is a group of classes that are trained against each other. This allows you identify highly specialized subjects.
+                    A classifier is a group of classes that are trained against each other. This allows you to identify highly specialized subjects.
                 </div>
                 <TitleCard
                     errors={self.state.errors}
@@ -219,7 +219,7 @@ export default class UpdateClassifier extends React.Component {
                 </TitleCard>
                 {this.state.upload ?
                     <ProgressModal
-                        load={this.create}/>
+                        title='Updating classifier' load={this.create}/>
                     : null
                 }
             </div>

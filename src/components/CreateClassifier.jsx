@@ -230,7 +230,7 @@ export default class CreateClassifier extends React.Component {
                     Create a new classifier
                 </div>
                 <div style={[textStyles.base, {marginTop: '5px', marginBottom: '18px'}]}>
-                    A classifier is a group of classes that are trained against each other. This allows you identify highly specialized subjects.
+                    A classifier is a group of classes that are trained against each other. This allows you to identify highly specialized subjects.
                 </div>
 
                 {self.state.titleError ? <div style={titleError}>Classifier name is required</div> : null}
@@ -270,7 +270,7 @@ export default class CreateClassifier extends React.Component {
                 </TitleCard>
                 {this.state.upload ?
                     <ProgressModal
-                        load={this.create}/>
+                        title='Creating classifier' load={this.create}/>
                     : null
                 }
             </div>
