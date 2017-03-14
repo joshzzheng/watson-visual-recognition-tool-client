@@ -96,6 +96,8 @@ export default class CreateClassifier extends React.Component {
                 validClasses++
             })
 
+            var error = null
+
             var dupes = {}
             var classCount = 0
             this.state.classes.map(function(c) {
@@ -124,13 +126,12 @@ export default class CreateClassifier extends React.Component {
 
             if (validClasses < 2) {
                 errors = true
-                var error = null
                 if (hasNeg) {
-                    error = 'Add at least one more class'
+                    error = 'Add at least one more class.'
                 } else if (validClasses == 1) {
-                    error = 'Add another class, or supply negative examples'
+                    error = 'Add another class, or supply negative examples.'
                 } else {
-                    error = 'You need a minimum of 2 classes'
+                    error = 'You need a minimum of 2 classes.'
                 }
                 self.setState({errors: errors, error: error})
                 return
@@ -172,6 +173,9 @@ export default class CreateClassifier extends React.Component {
 
         req.then(function(res, err) {
             console.log(res)
+            if (res.body == null) {
+                alert('An error occurred while processing your request.');
+            }
             onFinished()
             self.setState({upload: false}, function() {
                 browserHistory.push('/')

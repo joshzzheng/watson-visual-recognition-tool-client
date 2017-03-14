@@ -241,8 +241,7 @@ export default class LandingPage extends React.Component {
 
         return(
             <div id='landing-page' style={background}>
-                <div style={filter}></div>
-                <img src="/watson.png" style={logo}></img>
+                <img src="/watson_purple.png" style={logo}></img>
                 <div style={title}>Visual Recognition Tool</div>
                 {this.state.focus ? <div style={skrim}/> : <div style={skrimNone}/>}
                 <Style scopeSelector='.myInputs::-webkit-input-placeholder' rules={{

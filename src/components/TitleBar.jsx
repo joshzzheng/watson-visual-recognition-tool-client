@@ -55,8 +55,7 @@ export default class TitleBar extends React.Component {
         return (
             <div style={shadowWrapper}>
                 <div style={contentWrapper}>
-                    <div style={filter}></div>
-                    <img src="/watson.png" style={logo}></img>
+                    <img src="/watson_purple.png" style={logo}></img>
                     <div style={[title, {flex: 'none', marginRight: 'auto'}]}>Visual Recognition Tool</div>
 
                     <div style={[right, {

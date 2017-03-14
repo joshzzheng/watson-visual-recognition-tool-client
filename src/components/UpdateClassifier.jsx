@@ -85,7 +85,13 @@ export default class UpdateClassifier extends React.Component {
         self.setState({errors: false}, function() {
             var errors = this.state.errors
             var validClasses = 0
+
+            var totalbytes = 0
             this.state.classes.map(function(c) {
+                if (c.file != null) {
+                    totalbytes += c.file[0].size
+                }
+
                 if (c.negative || c.defaultClass) {
                      if (c.file != null) {
                          validClasses++
@@ -105,10 +111,37 @@ export default class UpdateClassifier extends React.Component {
                 validClasses++
             })
 
+            var error = null
+
+            var dupes = {}
+            var classCount = 0
+            this.state.classes.map(function(c) {
+                if (c.name != null && c.name != '') {
+                    dupes[c.name] = 1
+                    classCount++
+                }
+            })
+            console.log(Object.keys(dupes).length + ' / ' + classCount)
+            if (Object.keys(dupes).length < classCount) {
+                errors = true
+                error = 'Multiple classes have the same name.'
+                self.setState({errors: errors, error: error})
+                return
+            }
+
+            console.log('total size: ' + totalbytes / (1000 * 1000) + 'MB')
             console.log('valid: ' + validClasses)
+
+            if (totalbytes / (1000 * 1000) > 256) {
+                errors = true
+                error = 'The service accepts a maximum of 256 MB per training call.'
+                self.setState({errors: errors, error: error})
+                return
+            }
 
             if (validClasses < 1) {
                 errors = true
+                error = 'You must modify or add at least one class.'
                 self.setState({errors: errors})
                 return
             }
@@ -147,6 +180,9 @@ export default class UpdateClassifier extends React.Component {
 
         req.then(function(res, err) {
             console.log(res)
+            if (res.body == null) {
+                alert('An error occurred while processing your request.');
+            }
             onFinished()
             self.setState({upload: false})
             browserHistory.push('/')
@@ -180,6 +216,18 @@ export default class UpdateClassifier extends React.Component {
             marginTop: '5px',
         }
 
+        var error = {
+            paddingTop: '5px',
+            paddingLeft: '10px',
+            textDecoration:'none',
+            display:'block',
+            whiteSpace:'nowrap',
+            overflow:'hidden',
+            textOverflow:'ellipsis',
+            color: '#F44336',
+            font: Styles.fontDefault,
+        }
+
         var self = this
         return (
             <div>
@@ -196,6 +244,7 @@ export default class UpdateClassifier extends React.Component {
                     fixedTitle={true}
                     onChange={this.onTextChange}
                     inputStyle={textStyles.header}>
+                    {self.state.error ? <div style={error}>{self.state.error}</div> : null}
                     <StackGrid columnWidth={292} gutterWidth={40} style={{marginTop: '10px'}}>{this.state.classes.map(function(c, i) {
                         return (
                             <Class
