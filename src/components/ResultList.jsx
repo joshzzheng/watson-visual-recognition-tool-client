@@ -30,7 +30,7 @@ export default class ResultList extends React.Component {
                 var img = new Image
                 img.onload = function() {
                     var facesBox = []
-                    self.props.results.map(function(face) {
+                    self.props.results.map(function(face, index) {
                         var faceBox = {
                             display: 'block',
                             position: 'absolute',
@@ -43,6 +43,31 @@ export default class ResultList extends React.Component {
                             border: '2px solid ' + Styles.colorPrimary,
                             boxShadow: '0px 0px 1px 1px rgba(255,255,255,.6)',
                             marginRight: '10px',
+                        }
+                        if (index == 1) {
+                            faceBox.border = '2px solid #F012BE';
+                        } else if (index == 2) {
+                            faceBox.border = '2px solid #85144b';
+                        } else if (index == 3) {
+                            faceBox.border = '2px solid #FF4136';
+                        } else if (index == 4) {
+                            faceBox.border = '2px solid #FF851B';
+                        } else if (index == 5) {
+                            faceBox.border = '2px solid #FFDC00';
+                        } else if (index == 6) {
+                            faceBox.border = '2px solid #01FF70';
+                        } else if (index == 7) {
+                            faceBox.border = '2px solid #2ECC40';
+                        } else if (index == 8) {
+                            faceBox.border = '2px solid #3D9970';
+                        } else if (index == 9) {
+                            faceBox.border = '2px solid #39CCCC';
+                        } else if (index == 10) {
+                            faceBox.border = '2px solid #7FDBFF';
+                        } else if (index == 11) {
+                            faceBox.border = '2px solid #0074D9';
+                        } else if (index == 12) {
+                            faceBox.border = '2px solid #001f3f';
                         }
                         facesBox.push(faceBox)
                     })
@@ -126,8 +151,6 @@ export default class ResultList extends React.Component {
             border: '1px solid #dedede',
             marginTop: '10px',
             borderRadius: '5px',
-            borderWidth: 'thin',
-            borderStyle: 'solid',
         }
 
         var topResult = {
@@ -190,19 +213,49 @@ export default class ResultList extends React.Component {
         var resultList
         var self = this
         if (this.props.results[0].age != null) {
-            resultList = <div>
-                <div style={[imgStyle, topResult]}>
-                    <div style={[textStyles.topClass, {display: 'inline-block'}]}>Gender</div>
-                    <div style={[textStyles.topScore, {float: 'right', display: 'inline-block'}]}>{capitalizeFirstLetter(this.props.results[0].gender.gender)}</div>
-                </div>
-                <div style={[imgStyle, topResult]}>
-                    <div style={[textStyles.topClass, {display: 'inline-block'}]}>Age</div>
-                    {this.props.results[0].age.min == null || this.props.results[0].age.max == null ?
-                        <div style={[textStyles.topScore, {float: 'right', display: 'inline-block'}]}>{this.props.results[0].age.min || this.props.results[0].age.max}</div> :
-                        <div style={[textStyles.topScore, {float: 'right', display: 'inline-block'}]}>{this.props.results[0].age.min} - {this.props.results[0].age.max}</div>
-                    }
-                </div>
-            </div>
+            resultList = this.props.results.map(function(result, index){
+                var bodercolor = {
+                }
+                if (index == 0) {
+                    bodercolor.border = '2px solid ' + Styles.colorPrimary;
+                } else if (index == 1) {
+                    bodercolor.border = '2px solid #F012BE';
+                } else if (index == 2) {
+                    bodercolor.border = '2px solid #85144b';
+                } else if (index == 3) {
+                    bodercolor.border = '2px solid #FF4136';
+                } else if (index == 4) {
+                    bodercolor.border = '2px solid #FF851B';
+                } else if (index == 5) {
+                    bodercolor.border = '2px solid #FFDC00';
+                } else if (index == 6) {
+                    bodercolor.border = '2px solid #01FF70';
+                } else if (index == 7) {
+                    bodercolor.border = '2px solid #2ECC40';
+                } else if (index == 8) {
+                    bodercolor.border = '2px solid #3D9970';
+                } else if (index == 9) {
+                    bodercolor.border = '2px solid #39CCCC';
+                } else if (index == 10) {
+                    bodercolor.border = '2px solid #7FDBFF';
+                } else if (index == 11) {
+                    bodercolor.border = '2px solid #0074D9';
+                } else if (index == 12) {
+                    bodercolor.border = '2px solid #001f3f';
+                }
+                return (
+                    <li key={result.class}>
+                        <div style={[imgStyle, topResult, bodercolor]}>
+                            <div style={[textStyles.topClass, {display: 'inline-block'}]}>{capitalizeFirstLetter(self.props.results[index].gender.gender)}</div>
+
+                            {self.props.results[index].age.min == null || self.props.results[index].age.max == null ?
+                                <div style={[textStyles.topScore, {float: 'right', display: 'inline-block'}]}>{self.props.results[index].age.min || self.props.results[index].age.max}</div> :
+                                <div style={[textStyles.topScore, {float: 'right', display: 'inline-block'}]}>age {self.props.results[index].age.min} - {self.props.results[index].age.max}</div>
+                            }
+                        </div>
+                    </li>
+                )
+            })
         } else if (this.props.results[0].word != null) {
             var text = ''
             for (var i in this.props.results) {
