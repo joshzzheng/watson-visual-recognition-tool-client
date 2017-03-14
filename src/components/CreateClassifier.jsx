@@ -96,6 +96,22 @@ export default class CreateClassifier extends React.Component {
                 validClasses++
             })
 
+            var dupes = {}
+            var classCount = 0
+            this.state.classes.map(function(c) {
+                if (c.name != null && c.name != '') {
+                    dupes[c.name] = 1
+                    classCount++
+                }
+            })
+            console.log(Object.keys(dupes).length + ' / ' + classCount)
+            if (Object.keys(dupes).length < classCount) {
+                errors = true
+                error = 'Multiple classes have the same name.'
+                self.setState({errors: errors, error: error})
+                return
+            }
+
             console.log('total size: ' + totalbytes / (1000 * 1000) + 'MB')
             console.log('valid: ' + validClasses)
 
