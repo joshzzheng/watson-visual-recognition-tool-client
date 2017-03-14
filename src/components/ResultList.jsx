@@ -190,6 +190,46 @@ export default class ResultList extends React.Component {
             display: 'none'
         }
 
+        var progressSmall = {
+          width: '80px',
+          height: '5px',
+        }
+
+        var progressWrapSmall = {
+            borderRadius: '2.5px',
+            background: '#e1e1e1',
+            margin: '0 0 0 0',
+            overflow: 'hidden',
+            position: 'relative',
+        }
+
+        var progressBarSmall = {
+            borderRadius: '2.5px',
+            left: '0',
+            position: 'absolute',
+            top: '0',
+        }
+
+        var progress = {
+          width: '100%',
+          height: '10px',
+        }
+
+        var progressWrap = {
+            borderRadius: '5px',
+            background: '#e1e1e1',
+            margin: '20px 0 0 0',
+            overflow: 'hidden',
+            position: 'relative',
+        }
+
+        var progressBar = {
+            borderRadius: '5px',
+            left: '0',
+            position: 'absolute',
+            top: '0',
+        }
+
         var deleteStyle = {
             position: 'absolute',
             top: '15px',
@@ -268,17 +308,33 @@ export default class ResultList extends React.Component {
             </div>
         } else {
             resultList = this.props.results.map(function(result, index){
+                var color = '#64dd17'
+                 if (result.score <= .50) {
+                    color = '#F44336'
+                } else if (result.score <= .75) {
+                    color = '#ffab00'
+                }
                 return (
                     <li key={result.class}>
                         {index == 0 ?
                             <div style={[imgStyle, topResult]}>
                                 <div style={[textStyles.topClass, {display: 'inline-block'}]}>{result.class}</div>
-                                <div style={[textStyles.topScore, {float: 'right', display: 'inline-block'}]}>{~~(result.score * 100)}%</div>
+                                <div style={[textStyles.topScore, {float: 'right', display: 'inline-block'}]}>{Number(result.score).toFixed(2)}</div>
+                                <div style={{display: 'flex', alignItems: 'center'}}>
+                                    {/*<div style={{display: 'flex', flex: 'none', paddingRight: '10px'}}>0</div>*/}
+                                    <div style={[progressWrap, progress, {display: 'flex', flex: 'auto'}]}>
+                                        <div style={[progressBar, progress, {width: ~~(result.score * 100) + '%', background: color}]}></div>
+                                    </div>
+                                    {/*<div style={{display: 'flex', flex: 'none', paddingLeft: '10px'}}>1</div>*/}
+                                </div>
                             </div>
                             :
-                            <div style={resultStyle}>
-                                <div style={[textStyles.base, textStyles.dark, {display: 'inline-block'}]}><b>{result.class}</b></div>
-                                <div style={[textStyles.base, {float: 'right', display: 'inline-block'}]}>{~~(result.score * 100)}%</div>
+                            <div style={resultStyle, {display: 'flex', alignItems: 'center', marginTop: '20px'}}>
+                                <div style={[textStyles.base, textStyles.dark, {display: 'flex', marginRight: 'auto'}]}><b>{result.class}</b></div>
+                                <div style={[progressWrapSmall, progressSmall, {display: 'flex', marginRight: '10px'}]}>
+                                    <div style={[progressBarSmall, progressSmall, {width: ~~(result.score * 100) + '%', background: color}]}></div>
+                                </div>
+                                <div style={[textStyles.base, {display: 'flex'}]}>{Number(result.score).toFixed(2)}</div>
                             </div>
                         }
                     </li>
