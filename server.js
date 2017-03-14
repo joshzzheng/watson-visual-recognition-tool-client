@@ -93,10 +93,11 @@ var storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     crypto.pseudoRandomBytes(16, function (err, raw) {
+        var type = file.mimetype;
         if (type !== 'application/zip' && type !== 'application/x-zip-compressed' && type !== 'multipart/x-zip' && type !== 'application/x-compressed') {
             cb(null, raw.toString('hex') + Date.now() + '.' + mime.extension(file.mimetype));
         } else {
-            cb(null, raw.toString('hex') + Date.now() + '.zip';
+            cb(null, raw.toString('hex') + Date.now() + '.zip');
         }
     });
   }
