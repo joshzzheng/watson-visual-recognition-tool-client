@@ -57,13 +57,18 @@ export default class CreateClassifier extends React.Component {
 
     errorCheck = () => {
         var self = this
-        self.setState({errors: false}, function() {
+        self.setState({errors: false, error: null, titleError: null}, function() {
+            var titleError = null
             var errors = this.state.errors
             if (this.state.classifierName == null || this.state.classifierName == '') {
                 errors = true
-                self.setState({errors: errors, titleError: true})
-            } else {
-                self.setState({titleError: false})
+                titleError = 'Classifier name is required'
+                self.setState({errors: errors, titleError: titleError})
+            } else if (/[*\\|{}$/'`"\-]/.test(this.state.classifierName)) {
+                errors = true
+                var invalidChars = this.state.classifierName.match(/[*\\|{}$/'`"\-]/g)
+                titleError = 'Invalid characters: ' + invalidChars.join(' ')
+                self.setState({errors: errors, titleError: titleError})
             }
 
             var validClasses = 0
@@ -100,12 +105,20 @@ export default class CreateClassifier extends React.Component {
 
             var dupes = {}
             var classCount = 0
+
             this.state.classes.map(function(c) {
                 if (c.name != null && c.name != '') {
                     dupes[c.name] = 1
                     classCount++
+                    if (/[*\\|{}$/'`"\-]/.test(c.name)) {
+                        errors = true
+                        var invalidChars = c.name.match(/[*\\|{}$/'`"\-]/g)
+                        error = 'Invalid characters: ' + invalidChars.join(' ')
+                        self.setState({errors: errors, error: error})
+                    }
                 }
             })
+
             console.log(Object.keys(dupes).length + ' / ' + classCount)
             if (Object.keys(dupes).length < classCount) {
                 errors = true
@@ -135,8 +148,6 @@ export default class CreateClassifier extends React.Component {
                 }
                 self.setState({errors: errors, error: error})
                 return
-            } else {
-                self.setState({error: null})
             }
 
             if (!errors) {
@@ -253,8 +264,9 @@ export default class CreateClassifier extends React.Component {
                     A classifier is a group of classes that are trained against each other. This allows you to identify highly specialized subjects.
                 </div>
 
-                {self.state.titleError ? <div style={titleError}>Classifier name is required</div> : null}
+                {self.state.titleError ? <div style={titleError}>{self.state.titleError}</div> : null}
                 <TitleCard
+                    maxlength='30'
                     errors={self.state.errors}
                     placeholder='Classifier name'
                     title={self.state.classifierName}

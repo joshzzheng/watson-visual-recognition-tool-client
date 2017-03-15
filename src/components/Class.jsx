@@ -96,6 +96,7 @@ export default class Class extends React.Component {
             <div className="grid-item">
                 <div style={this.props.style}>
                     <TitleCard
+                        maxlength='50'
                         id={this.props.negative ? 'neg' : null}
                         errors={this.props.errors}
                         title={this.props.title}
