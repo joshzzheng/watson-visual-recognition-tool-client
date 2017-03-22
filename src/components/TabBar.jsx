@@ -36,8 +36,19 @@ export default class TabBar extends React.Component {
             ':hover': {
                 textDecoration: 'none',
                 color: Styles.colorPrimary,
-            },
+            }
+        }
 
+        var disabled = {
+            margin: '0',
+            padding: '0',
+            display: 'block',
+            textDecoration: 'none',
+            textAlign: 'center',
+            paddingRight: '21px',
+            lineHeight: '49px',
+            color: Styles.colorTextLight,
+            opacity: '0.4',
         }
 
         var active = {
@@ -75,7 +86,7 @@ export default class TabBar extends React.Component {
                 <div style={contentWrapper}>
                     <ul style={[topBar, unordered]}>
                         <li style={item}><Link style={link} to="/" activeStyle={active} onlyActiveOnIndex={true}>Classifiers</Link></li>
-                        <li style={item}><Link style={link} to="/collections" activeStyle={active}>Collections (Beta)</Link></li>
+                        <li style={item}><div style={disabled}>Collections (Coming soon)</div></li>
                     </ul>
                 </div>
             </div>

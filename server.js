@@ -33,6 +33,16 @@ app.get('*', function(req, response) {
   response.sendFile(__dirname + '/dist/index.html');
 });
 
+app.post('/api/test_key', function(req, res) {
+    var api_key = req.query.api_key;
+
+    request.post('https://gateway-a.watsonplatform.net/visual-recognition/api')
+    .query({api_key: api_key})
+    .end(function(err, response) {
+        res.send({valid: !(response.body.statusInfo == 'invalid-api-key')});
+    });
+})
+
 app.post('/api/list_classifiers', function(req, res) {
     var visual_recognition = new VisualRecognitionV3({
         api_key: req.query.api_key,
@@ -83,7 +93,12 @@ var storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     crypto.pseudoRandomBytes(16, function (err, raw) {
-      cb(null, raw.toString('hex') + Date.now() + '.' + mime.extension(file.mimetype));
+        var type = file.mimetype;
+        if (type !== 'application/zip' && type !== 'application/x-zip-compressed' && type !== 'multipart/x-zip' && type !== 'application/x-compressed') {
+            cb(null, raw.toString('hex') + Date.now() + '.' + mime.extension(file.mimetype));
+        } else {
+            cb(null, raw.toString('hex') + Date.now() + '.zip');
+        }
     });
   }
 });
@@ -190,7 +205,7 @@ const zipUpload = multer({
     },
     fileFilter: function(req, file, cb) {
         var type = file.mimetype;
-        if (type !== 'application/zip') {
+        if (type !== 'application/zip' && type !== 'application/x-zip-compressed' && type !== 'multipart/x-zip' && type !== 'application/x-compressed') {
             cb(new Error('Invalid zip file'));
         } else {
             cb(null, true);

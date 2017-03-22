@@ -57,20 +57,30 @@ export default class CreateClassifier extends React.Component {
 
     errorCheck = () => {
         var self = this
-        self.setState({errors: false}, function() {
+        self.setState({errors: false, error: null, titleError: null}, function() {
+            var titleError = null
             var errors = this.state.errors
             if (this.state.classifierName == null || this.state.classifierName == '') {
                 errors = true
-                self.setState({errors: errors, titleError: true})
-            } else {
-                self.setState({titleError: false})
+                titleError = 'Classifier name is required'
+                self.setState({errors: errors, titleError: titleError})
+            } else if (/[*\\|{}$/'`"\-]/.test(this.state.classifierName)) {
+                errors = true
+                var invalidChars = this.state.classifierName.match(/[*\\|{}$/'`"\-]/g)
+                titleError = 'Invalid characters: ' + invalidChars.join(' ')
+                self.setState({errors: errors, titleError: titleError})
             }
 
             var validClasses = 0
             var hasNeg = false
 
+            var totalbytes = 0
+
             // State takes time, so we can just take a tally here
             this.state.classes.map(function(c) {
+                if (c.file != null) {
+                    totalbytes += c.file[0].size
+                }
                 if (c.negative) {
                      if (c.file != null) {
                          validClasses++
@@ -91,22 +101,51 @@ export default class CreateClassifier extends React.Component {
                 validClasses++
             })
 
+            var error = null
+
+            var dupes = {}
+            var classCount = 0
+            this.state.classes.map(function(c) {
+                if (c.name != null && c.name != '') {
+                    dupes[c.name] = 1
+                    classCount++
+                    if (/[*\\|{}$/'`"\-]/.test(c.name)) {
+                        errors = true
+                        var invalidChars = c.name.match(/[*\\|{}$/'`"\-]/g)
+                        error = 'Invalid characters: ' + invalidChars.join(' ')
+                        self.setState({errors: errors, error: error})
+                    }
+                }
+            })
+            console.log(Object.keys(dupes).length + ' / ' + classCount)
+            if (Object.keys(dupes).length < classCount) {
+                errors = true
+                error = 'Multiple classes have the same name.'
+                self.setState({errors: errors, error: error})
+                return
+            }
+
+            console.log('total size: ' + totalbytes / (1000 * 1000) + 'MB')
             console.log('valid: ' + validClasses)
+
+            if (totalbytes / (1000 * 1000) > 256) {
+                errors = true
+                error = 'The service accepts a maximum of 256 MB per training call.'
+                self.setState({errors: errors, error: error})
+                return
+            }
 
             if (validClasses < 2) {
                 errors = true
-                var error = null
                 if (hasNeg) {
-                    error = 'Add at least one more class'
+                    error = 'Add at least one more class.'
                 } else if (validClasses == 1) {
-                    error = 'Add another class, or supply negative examples'
+                    error = 'Add another class, or supply negative examples.'
                 } else {
-                    error = 'You need a minimum of 2 classes'
+                    error = 'You need a minimum of 2 classes.'
                 }
                 self.setState({errors: errors, error: error})
                 return
-            } else {
-                self.setState({error: null})
             }
 
             if (!errors) {
@@ -143,6 +182,9 @@ export default class CreateClassifier extends React.Component {
 
         req.then(function(res, err) {
             console.log(res)
+            if (res.body == null) {
+                alert('An error occurred while processing your request.');
+            }
             onFinished()
             self.setState({upload: false}, function() {
                 browserHistory.push('/')
@@ -212,39 +254,37 @@ export default class CreateClassifier extends React.Component {
 
         var self = this
         return (
-            <div>
+            <div id='create-classifier'>
                 <div style={[textStyles.header, {marginTop: '30px', marginBottom: '5px'}]}>
                     Create a new classifier
                 </div>
                 <div style={[textStyles.base, {marginTop: '5px', marginBottom: '18px'}]}>
-                    A classifier is a group of classes that are trained against each other. This allows you identify highly specialized subjects.
+                    A classifier is a group of classes that are trained against each other. This allows you to identify highly specialized subjects.
                 </div>
 
-                {self.state.titleError ? <div style={titleError}>Classifier name is required</div> : null}
+
+                {self.state.titleError ? <div id='error--create-classifier--title' style={titleError}>{self.state.titleError}</div> : null}
                 <TitleCard
+                    inputId='input--create-classifier--classifier-name'
+                    maxlength='30'
                     errors={self.state.errors}
                     placeholder='Classifier name'
                     title={self.state.classifierName}
                     onChange={this.onTextChange}
                     inputStyle={textStyles.title}>
-                    <div style={{display: 'inline-block', backgroundColor: RGBA, borderRadius: '5px', borderColor: RGBA2, borderWidth: 'thin', borderStyle: 'solid', padding: '10px', paddingLeft: '10px', paddingRight: '20px', margin: '10px', marginBottom: '30px'}}>
-                        <div style={[textStyles.base, {color: Styles.colorTextDark, marginTop: '0px', marginBottom: '0px'}]}>
-                            <b>Requirements:</b>
-                        </div>
-                        <div style={[textStyles.base, {marginTop: '5px', marginLeft: '-15px', marginBottom: '-5px'}]}>
-                            <ul style={{listStyleType: 'circle'}}>
-                                <li>You need a minimum of 2 classes</li>
-                                <li style={{marginTop: '5px'}}>Classes require at least 10 images</li>
-                            </ul>
-                        </div>
-                    </div>
+
                     <div style={[textStyles.header, {margin: '10px', marginTop: '0px', marginBottom: '5px'}]}>
                         Classes
                     </div>
-                    {self.state.error ? <div style={error}>{self.state.error}</div> : null}
-                    <StackGrid columnWidth={292} gutterWidth={40} style={{marginTop: '10px'}}>{this.state.classes.map(function(c, i) {
+                    <div style={[textStyles.base, {margin: '10px', marginTop: '0px', marginBottom: '30px'}]}>
+                        Upload at least 2 classes, each in a zipped file with at least 10 photos.
+                    </div>
+                    {self.state.error ? <div id='error--create-classifier--class' style={error}>{self.state.error}</div> : null}
+                    <StackGrid className='gridz-are-real' columnWidth={292} gutterWidth={40} style={{marginTop: '10px'}}>{this.state.classes.map(function(c, i) {
                         return (
                             <Class
+                                inputClassName='input--create-classifier--class-name'
+                                dropzoneClassName='dropzone--create-classifier'
                                 errors={self.state.errors}
                                 negative={c.negative}
                                 title={c.name}
@@ -257,14 +297,14 @@ export default class CreateClassifier extends React.Component {
                         )
                     })}</StackGrid>
                     <div style={{textAlign: 'right'}}>
-                        <Button onClick={this.addClass} text='Add class' style={{float: 'left'}}/>
-                        <Button onClick={this.cancel} text='Cancel' style={{marginRight: '20px'}}/>
-                        <Button onClick={this.errorCheck} text='Create' kind='bold'/>
+                        <Button id='button--create-classifier--add-class' onClick={this.addClass} text='Add class' style={{float: 'left'}}/>
+                        <Button id='button--create-classifier--cancel' onClick={this.cancel} text='Cancel' style={{marginRight: '20px'}}/>
+                        <Button id='button--create-classifier--create' onClick={this.errorCheck} text='Create' kind='bold'/>
                     </div>
                 </TitleCard>
                 {this.state.upload ?
                     <ProgressModal
-                        load={this.create}/>
+                        title='Creating classifier' load={this.create}/>
                     : null
                 }
             </div>

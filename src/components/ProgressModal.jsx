@@ -13,7 +13,8 @@ export default class ProgressModal extends React.Component {
     }
 
     componentDidMount() {
-        $(ReactDOM.findDOMNode(this)).modal({
+        var myModal = $(ReactDOM.findDOMNode(this))
+        myModal.modal({
             backdrop: 'static',
             keyboard: false
         })
@@ -22,7 +23,10 @@ export default class ProgressModal extends React.Component {
             self.setState({ progress: p })
         },
         function() {
-            $(ReactDOM.findDOMNode(self)).modal('hide')
+            // myModal.modal('hide') Brute force hide
+            $('#my_modal').removeClass('show')
+            $('body').removeClass('modal-open')
+            $('.modal-backdrop').remove()
         })
     }
 
@@ -124,11 +128,11 @@ export default class ProgressModal extends React.Component {
         }
 
         return (
-            <div className="modal fade">
+            <div id="my_modal" className="modal fade">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <div style={textStyles.title}>Creating classifier</div>
+                            <div style={textStyles.title}>{this.props.title}</div>
                             <div style={textStyles.base}>This may take several minutes to complete.</div>
                         </div>
                         <div className="modal-body">

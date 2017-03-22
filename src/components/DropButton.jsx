@@ -133,6 +133,31 @@ export default class DropButton extends React.Component {
             maxHeight: '135px',
         }
 
+        //////////////////////////////////////////
+        // Polyfill
+        //////////////////////////////////////////
+        if (typeof Object.assign != 'function') {
+            Object.assign = function(target) {
+                'use strict';
+                if (target == null) {
+                    throw new TypeError('Cannot convert undefined or null to object');
+                }
+
+                target = Object(target);
+                for (var index = 1; index < arguments.length; index++) {
+                    var source = arguments[index];
+                    if (source != null) {
+                        for (var key in source) {
+                            if (Object.prototype.hasOwnProperty.call(source, key)) {
+                                target[key] = source[key];
+                            }
+                        }
+                    }
+                }
+                return target;
+            };
+        }
+
         dropzoneStyle = Object.assign(dropzoneStyle, this.props.style)
 
         if (this.props.errors && this.state.files.length == 0) {
@@ -234,6 +259,7 @@ export default class DropButton extends React.Component {
                 </div>
                 :
                 <Dropzone ref="dropzone"
+                    className={this.props.className}
                     id={this.props.id}
                     accept={this.props.accept}
                     maxSize={this.props.maxSize}

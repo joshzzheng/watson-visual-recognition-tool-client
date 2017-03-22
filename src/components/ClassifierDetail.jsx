@@ -185,7 +185,7 @@ export default class ClassifierDetail extends React.Component {
         return(
             <Card style={{maxWidth:'30rem'}}>
                 {this.props.classifierID ?
-                    <DropDown delete={this.deleteClassifier} update={this.updateClassifier}/>:
+                    <DropDown className='dropdown--classifier-detail' delete={this.deleteClassifier} update={this.updateClassifier}/>:
                     null
                 }
 
@@ -197,10 +197,11 @@ export default class ClassifierDetail extends React.Component {
                 {this.props.classifierID ? null : <div style={{height: '1em', marginTop: '2px'}}></div>}
 
                 <div style={{width: '100%', height:'20px'}}></div>
-                {this.state.error ? <div style={error}>{this.state.error}</div> : null}
+                {this.state.error ? <div id='error--classifier-detail' style={error}>{this.state.error}</div> : null}
                 {this.props.status == 'ready' ?
                     <DropButton
                         id={this.props.classifierID || this.props.name}
+                        className='dropzone--classifier-detail'
                         accept={"image/jpeg, image/png"}
                         maxSize={2 * 1024 * 1024}
                         upload={true}

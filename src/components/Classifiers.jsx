@@ -76,7 +76,6 @@ export default class Classifiers extends React.Component {
             if (res.body != null) {
                 if (res.body.statusInfo == 'invalid-api-key') {
                     console.error('Invalid API Key')
-                    self.props.invalidApiKey()
                     return
                 } else if (res.body.status == 'ERROR') {
                     console.error('There was an error fetching classifiers')
@@ -85,7 +84,7 @@ export default class Classifiers extends React.Component {
                 classifiers.sort(function(a, b) {
                     return new Date(b.created) - new Date(a.created)
                 })
-                classifiers.push({name: 'Default', status: 'ready'}, {name: 'Faces', status: 'ready'}, {name: 'Text', status: 'ready'})
+                classifiers.push({name: 'Default', status: 'ready'}, {name: 'Faces', status: 'ready'})
             }
             for (var i in classifiers) {
                 if (classifiers[i].status == 'training') {
@@ -133,7 +132,7 @@ export default class Classifiers extends React.Component {
         return (
             <div>
                 <div style={{margin: '21px 0px'}}>
-                    <Button text={"Create classifier"} kind={"bold"} icon={"/btn_create.png"} onClick={this.onClick}/>
+                    <Button id="button--classifiers--create" text={"Create classifier"} kind={"bold"} icon={"/btn_create.png"} onClick={this.onClick}/>
                 </div>
                 <StackGrid columnWidth={300} gutterWidth={40}>{classifiers}</StackGrid>
             </div>

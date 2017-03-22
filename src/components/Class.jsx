@@ -21,8 +21,26 @@ export default class Class extends React.Component {
         })
     }
 
-    onDrop = (file) => {
+    stateChanged = () => {
+        this.setState({
+            tooltipOpen: false
+        })
+        this.props.reDraw()
+    }
+
+    onDrop = (file, rejects) => {
+        this.setState({ error: null }, this.stateChanged)
         this.props.setClassFile(file, this.props.id)
+        if (file == null || file.length <= 0) {
+            if (rejects != null && rejects[0].size > 100 * 1024 * 1024 && (rejects[0].type == 'application/zip')) {
+                this.setState({ error: 'Size limit (100MB) exceeded' }, this.stateChanged)
+                return
+            }
+            if (rejects != null) {
+                this.setState({ error: 'Invalid file (must be .zip)' }, this.stateChanged)
+                return
+            }
+        }
     }
 
     onTextChange = (text) => {
@@ -46,6 +64,17 @@ export default class Class extends React.Component {
             padding: '44px 0px'
         }
 
+        var error = {
+            paddingBottom: '10px',
+            textDecoration:'none',
+            display:'block',
+            whiteSpace:'nowrap',
+            overflow:'hidden',
+            textOverflow:'ellipsis',
+            color: '#F44336',
+            font: Styles.fontDefault,
+        }
+
         var deleteStyle = {
             backgroundColor: 'transparent',
             backgroundImage: `url(${'/btn_delete.png'})`,
@@ -67,6 +96,8 @@ export default class Class extends React.Component {
             <div className="grid-item">
                 <div style={this.props.style}>
                     <TitleCard
+                        maxlength='50'
+                        inputClassName={this.props.inputClassName}
                         id={this.props.negative ? 'neg' : null}
                         errors={this.props.errors}
                         title={this.props.title}
@@ -78,14 +109,16 @@ export default class Class extends React.Component {
                         {this.props.negative || this.props.fixedTitle ? null :
                             <div style={{position: 'relative', width: '100%', minWidth: '100%'}}>
                                 <div style={{position: 'absolute', top: '-43px', right: '0'}}>
-                                    <button key={this.props.id} style={deleteStyle}
+                                    <button className="delete-class" key={this.props.id} style={deleteStyle}
                                         onClick={this.delete}>
                                     </button>
                                 </div>
                             </div>
                         }
+                        {this.state.error ? <div className='error--create-classifier--dropzone' style={error}>{this.state.error}</div> : null}
                         <DropButton
-                            accept={'application/zip'}
+                            className={this.props.dropzoneClassName}
+                            accept={'application/zip, application/x-zip-compressed, multipart/x-zip, application/x-compressed'}
                             maxSize={100 * 1024 * 1024}
                             style={extraPadding}
                             errors={this.props.negative ? false : this.props.errors}
