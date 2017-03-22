@@ -49,8 +49,9 @@ Tool: http://vr-tool.mybluemix.net
 
 After completing the steps above, you are ready to test your application. Start a browser and enter the URL of your application.
 
-              <your application name>.mybluemix.net
-
+  ```none
+  <your application name>.mybluemix.net
+  ```
 
 ## Troubleshooting
 
