@@ -10,6 +10,10 @@
     "test-night": "nightwatch tests",
     "e2e-setup": "node_modules/selenium-standalone/bin/selenium-standalone install"
   },
+  "engines": {
+    "node": ">=6.0",
+    "npm": ">=3.0"
+  },
   "author": "Josh Zheng <joshzheng@us.ibm.com> (https://github.com/boxcarton)",
   "license": "BSD-2-Clause",
   "dependencies": {
