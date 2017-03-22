@@ -96,11 +96,8 @@ export default class Class extends React.Component {
             <div className="grid-item">
                 <div style={this.props.style}>
                     <TitleCard
-<<<<<<< HEAD
-=======
                         maxlength='50'
                         inputClassName={this.props.inputClassName}
->>>>>>> parent of 91636bb... Revert "tests"
                         id={this.props.negative ? 'neg' : null}
                         errors={this.props.errors}
                         title={this.props.title}

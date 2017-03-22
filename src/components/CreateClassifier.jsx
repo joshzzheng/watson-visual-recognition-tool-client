@@ -253,15 +253,11 @@ export default class CreateClassifier extends React.Component {
                     A classifier is a group of classes that are trained against each other. This allows you to identify highly specialized subjects.
                 </div>
 
-<<<<<<< HEAD
-                {self.state.titleError ? <div style={titleError}>Classifier name is required</div> : null}
-                <TitleCard
-=======
+
                 {self.state.titleError ? <div id='error--create-classifier--title' style={titleError}>{self.state.titleError}</div> : null}
                 <TitleCard
                     inputId='input--create-classifier--classifier-name'
                     maxlength='30'
->>>>>>> parent of 91636bb... Revert "tests"
                     errors={self.state.errors}
                     placeholder='Classifier name'
                     title={self.state.classifierName}
