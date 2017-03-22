@@ -1,6 +1,6 @@
 # Watson Visual Recognition Tool
 
-Tool: http://vr-tool.mybluemix.net
+http://vr-tool.mybluemix.net
 
 [![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/boxcarton/watson-visual-recognition-tool-client)
 
