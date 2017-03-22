@@ -61,8 +61,9 @@ export default class TitleCard extends React.Component {
                         </div>
                     :
                     <input type='text' style={[text.base, this.props.inputStyle, this.props.errors && this.props.title == '' ? text.error : null]}
+                        id={this.props.inputId}
+                        className={this.props.inputClassName}
                         placeholder={this.props.placeholder}
-                        maxLength={this.props.maxlength}
                         onChange={this.props.onChange} />
                 }
                 <div style={container}>

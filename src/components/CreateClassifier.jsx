@@ -57,18 +57,13 @@ export default class CreateClassifier extends React.Component {
 
     errorCheck = () => {
         var self = this
-        self.setState({errors: false, error: null, titleError: null}, function() {
-            var titleError = null
+        self.setState({errors: false}, function() {
             var errors = this.state.errors
             if (this.state.classifierName == null || this.state.classifierName == '') {
                 errors = true
-                titleError = 'Classifier name is required'
-                self.setState({errors: errors, titleError: titleError})
-            } else if (/[*\\|{}$/'`"\-]/.test(this.state.classifierName)) {
-                errors = true
-                var invalidChars = this.state.classifierName.match(/[*\\|{}$/'`"\-]/g)
-                titleError = 'Invalid characters: ' + invalidChars.join(' ')
-                self.setState({errors: errors, titleError: titleError})
+                self.setState({errors: errors, titleError: true})
+            } else {
+                self.setState({titleError: false})
             }
 
             var validClasses = 0
@@ -105,20 +100,12 @@ export default class CreateClassifier extends React.Component {
 
             var dupes = {}
             var classCount = 0
-
             this.state.classes.map(function(c) {
                 if (c.name != null && c.name != '') {
                     dupes[c.name] = 1
                     classCount++
-                    if (/[*\\|{}$/'`"\-]/.test(c.name)) {
-                        errors = true
-                        var invalidChars = c.name.match(/[*\\|{}$/'`"\-]/g)
-                        error = 'Invalid characters: ' + invalidChars.join(' ')
-                        self.setState({errors: errors, error: error})
-                    }
                 }
             })
-
             console.log(Object.keys(dupes).length + ' / ' + classCount)
             if (Object.keys(dupes).length < classCount) {
                 errors = true
@@ -148,6 +135,8 @@ export default class CreateClassifier extends React.Component {
                 }
                 self.setState({errors: errors, error: error})
                 return
+            } else {
+                self.setState({error: null})
             }
 
             if (!errors) {
@@ -264,9 +253,15 @@ export default class CreateClassifier extends React.Component {
                     A classifier is a group of classes that are trained against each other. This allows you to identify highly specialized subjects.
                 </div>
 
-                {self.state.titleError ? <div style={titleError}>{self.state.titleError}</div> : null}
+<<<<<<< HEAD
+                {self.state.titleError ? <div style={titleError}>Classifier name is required</div> : null}
                 <TitleCard
+=======
+                {self.state.titleError ? <div id='error--create-classifier--title' style={titleError}>{self.state.titleError}</div> : null}
+                <TitleCard
+                    inputId='input--create-classifier--classifier-name'
                     maxlength='30'
+>>>>>>> parent of 91636bb... Revert "tests"
                     errors={self.state.errors}
                     placeholder='Classifier name'
                     title={self.state.classifierName}
@@ -279,10 +274,12 @@ export default class CreateClassifier extends React.Component {
                     <div style={[textStyles.base, {margin: '10px', marginTop: '0px', marginBottom: '30px'}]}>
                         Upload at least 2 classes, each in a zipped file with at least 10 photos.
                     </div>
-                    {self.state.error ? <div style={error}>{self.state.error}</div> : null}
+                    {self.state.error ? <div id='error--create-classifier--class' style={error}>{self.state.error}</div> : null}
                     <StackGrid className='gridz-are-real' columnWidth={292} gutterWidth={40} style={{marginTop: '10px'}}>{this.state.classes.map(function(c, i) {
                         return (
                             <Class
+                                inputClassName='input--create-classifier--class-name'
+                                dropzoneClassName='dropzone--create-classifier'
                                 errors={self.state.errors}
                                 negative={c.negative}
                                 title={c.name}

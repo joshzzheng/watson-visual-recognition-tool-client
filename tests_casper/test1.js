@@ -1,7 +1,7 @@
 const baseHost = 'http://localhost:8080';
 
 casper.test.begin('Visual Recognition', 10, function suite(test) {
-    casper.userAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/537.36(KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.36');
+    // casper.userAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/537.36(KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.36');
 
     // casper.on('remote.message', function(message) {
     //     this.echo('remote message caught: ' + message);
@@ -71,7 +71,7 @@ casper.test.begin('Visual Recognition', 10, function suite(test) {
     })
 
     .then(function check_wrong_format_dropzone() {
-        this.page.uploadFile('.dropzone--classifier-detail:first-child input', require('fs').absolute('test_files/vader.zip'));
+        this.page.uploadFile('.dropzone--classifier-detail:first-child input', require('fs').absolute('test_files/small.zip'));
         this.waitForSelector('#error--classifier-detail', function() {
             this.test.pass('check wrong format dropzone');
         });
@@ -93,18 +93,149 @@ casper.test.begin('Visual Recognition', 10, function suite(test) {
 
     // -- TEST DELETE
 
-    // -- TEST CREATE
-    // Test over 100mb
-    // Test over 250mb
-    // Test less than 10 pics
-    // Test over 10k pics
-    // Test no classifer name
-    // Test no class name
-    // Test illegal characters
-    // Test no files
-    // Test less than 2 classes
-    // Test wrong file type
-    // Test a successful classifier
+    .then(function check_create_close() {
+        this.mouse.click('button#button--classifiers--create');
+        this.waitForSelector('button#button--create-classifier--cancel', function() {
+            this.wait(500, function() {
+                this.mouse.click('button#button--create-classifier--cancel');
+                this.waitWhileSelector('button#button--create-classifier--cancel', function() {
+                    this.test.pass('check create close');
+                });
+            });
+        });
+    })
+
+    .then(function check_create_add_class() {
+        this.mouse.click('button#button--classifiers--create');
+        this.waitForSelector('.gridz-are-real span:nth-of-type(3)', function() {
+            this.mouse.click('.grid-item:first-child button.delete-class');
+
+            this.waitWhileSelector('.gridz-are-real span:nth-of-type(3)', function() {
+
+                this.mouse.click('button#button--create-classifier--add-class');
+                this.waitForSelector('.gridz-are-real span:nth-of-type(1)', function() {
+                    this.waitForSelector('.gridz-are-real span:nth-of-type(2)', function() {
+                        this.waitForSelector('.gridz-are-real span:nth-of-type(3)', function() {
+                            this.test.pass('check create add class');
+                        });
+                    });
+                });
+            });
+        });
+    })
+
+    .then(function check_create_classifier_errors() {
+        this.mouse.click('button#button--create-classifier--create');
+        this.waitForSelector('#error--create-classifier--title', function() {
+            this.waitForSelector('#error--create-classifier--class', function() {
+
+                this.sendKeys('input#input--create-classifier--classifier-name', 'My Classifier Name', { reset: true, keepFocus: true });
+                this.mouse.click('button#button--create-classifier--create');
+                this.waitWhileSelector('#error--create-classifier--title', function() {
+
+                    this.sendKeys('input#input--create-classifier--classifier-name', '!@#$%^&*()_+|}{":?><', { reset: true, keepFocus: true });
+                    this.mouse.click('button#button--create-classifier--create');
+                    this.waitForSelector('#error--create-classifier--title', function() {
+
+                        this.sendKeys('input#input--create-classifier--classifier-name', '', { reset: true, keepFocus: true });
+                        this.sendKeys('.gridz-are-real span:nth-of-type(1) input.input--create-classifier--class-name', 'Class Name1', { reset: true, keepFocus: true });
+                        this.sendKeys('.gridz-are-real span:nth-of-type(2) input.input--create-classifier--class-name', 'Class Name2', { reset: true, keepFocus: true });
+                        this.page.uploadFile('.gridz-are-real span:nth-of-type(1) .dropzone--create-classifier:first-child input', require('fs').absolute('test_files/small.zip'));
+                        this.page.uploadFile('.gridz-are-real span:nth-of-type(2) .dropzone--create-classifier:first-child input', require('fs').absolute('test_files/small.zip'));
+                        this.mouse.click('button#button--create-classifier--create');
+                        this.waitForSelector('#error--create-classifier--title', function() {
+                            this.test.pass('check create classifier errors');
+                        });
+                    });
+                });
+            });
+        });
+    })
+
+    .then(function check_create_class_errors() {
+        this.mouse.click('.grid-item:first-child button.delete-class');
+        this.waitWhileSelector('.gridz-are-real span:nth-of-type(3)', function() {
+            this.mouse.click('.grid-item:first-child button.delete-class');
+            this.waitWhileSelector('.gridz-are-real span:nth-of-type(2)', function() {
+                this.mouse.click('button#button--create-classifier--create');
+                this.waitForSelector('#error--create-classifier--class', function() {
+
+                    this.mouse.click('button#button--create-classifier--add-class');
+                    this.waitForSelector('.gridz-are-real span:nth-of-type(2)', function() {
+                        this.sendKeys('.gridz-are-real span:nth-of-type(1) input.input--create-classifier--class-name', 'Class Name1', { reset: true, keepFocus: true });
+                        this.mouse.click('button#button--create-classifier--create');
+                        this.waitForSelector('#error--create-classifier--class', function() {
+
+                            this.page.uploadFile('.gridz-are-real span:nth-of-type(1) .dropzone--create-classifier:first-child input', require('fs').absolute('test_files/small.zip'));
+                            this.mouse.click('button#button--create-classifier--create');
+                            this.waitForSelector('#error--create-classifier--class', function() {
+
+                                this.mouse.click('button#button--create-classifier--add-class');
+                                this.waitForSelector('.gridz-are-real span:nth-of-type(3)', function() {
+                                    this.sendKeys('.gridz-are-real span:nth-of-type(2) input.input--create-classifier--class-name', 'Class Name1', { reset: true, keepFocus: true });
+                                    this.page.uploadFile('.gridz-are-real span:nth-of-type(2) .dropzone--create-classifier:first-child input', require('fs').absolute('test_files/small.zip'));
+                                    this.mouse.click('button#button--create-classifier--create');
+                                    this.waitForSelector('#error--create-classifier--class', function() {
+                                        this.test.pass('check create class errors');
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    })
+
+    .then(function check_create_file_errors() {
+        this.page.uploadFile('.gridz-are-real span:nth-of-type(1) .dropzone--create-classifier:first-child input', require('fs').absolute('test_files/huge.zip'));
+        this.waitForSelector('.gridz-are-real span:nth-of-type(1) .error--create-classifier--dropzone', function() {
+
+            this.page.uploadFile('.gridz-are-real span:nth-of-type(2) .dropzone--create-classifier:first-child input', require('fs').absolute('test_files/huge.zip'));
+            this.waitForSelector('.gridz-are-real span:nth-of-type(2) .error--create-classifier--dropzone', function() {
+
+                this.sendKeys('input#input--create-classifier--classifier-name', 'My New Name');
+                this.wait(500, function() {
+                    // Not sure why this is necessary
+                });
+                this.page.uploadFile('.gridz-are-real span:nth-of-type(1) .dropzone--create-classifier:first-child input', require('fs').absolute('test_files/not_so_huge.zip'));
+                this.sendKeys('.gridz-are-real span:nth-of-type(2) input.input--create-classifier--class-name', 'Class Name2', { reset: true, keepFocus: true });
+                this.page.uploadFile('.gridz-are-real span:nth-of-type(2) .dropzone--create-classifier:first-child input', require('fs').absolute('test_files/not_so_huge.zip'));
+                this.mouse.click('button#button--create-classifier--add-class');
+                this.waitForSelector('.gridz-are-real span:nth-of-type(3)', function() {
+                    this.sendKeys('.gridz-are-real span:nth-of-type(3) input.input--create-classifier--class-name', 'Class Name3', { reset: true, keepFocus: true });
+                    this.page.uploadFile('.gridz-are-real span:nth-of-type(3) .dropzone--create-classifier:first-child input', require('fs').absolute('test_files/not_so_huge.zip'));
+                    this.page.uploadFile('.gridz-are-real span:nth-of-type(4) .dropzone--create-classifier:first-child input', require('fs').absolute('test_files/not_so_huge.zip'));
+                    this.mouse.click('button#button--create-classifier--create');
+                    this.waitWhileSelector('#error--create-classifier--title', function() {
+                        if ("The service accepts a maximum of 256 MB per training call." != this.fetchText('#error--create-classifier--class')) {
+                            this.warn("Error messages do not match!\nExpected: The service accepts a maximum of 256 MB per training call.\nActual: " + this.fetchText('#error--create-classifier--class'));
+                        }
+                        this.test.pass('check create file errors');
+                    });
+                });
+            });
+        });
+    })
+
+    // .then(function check_create_create_classifier() {
+    //     this.mouse.click('.grid-item:first-child button.delete-class');
+    //     this.waitWhileSelector('.gridz-are-real span:nth-of-type(4)', function() {
+    //         this.mouse.click('.grid-item:first-child button.delete-class');
+    //         this.waitWhileSelector('.gridz-are-real span:nth-of-type(3)', function() {
+    //             this.page.uploadFile('.gridz-are-real span:nth-of-type(1) .dropzone--create-classifier:first-child input', require('fs').absolute('test_files/small.zip'));
+    //             this.page.uploadFile('.gridz-are-real span:nth-of-type(2) .dropzone--create-classifier:first-child input', require('fs').absolute('test_files/small.zip'));
+    //             this.mouse.click('button#button--create-classifier--create');
+    //             this.wait(500, function() {
+    //                 this.capture('load.jpg');
+    //             });
+    //             this.waitWhileSelector('#button--create-classifier--cancel', function() {
+    //                 this.capture('worked.jpg')
+    //                 this.test.pass('check create create classifier');
+    //             }, null, 60000);
+    //         });
+    //     });
+    // })
 
     .then(function check_update_fake_key() {
         this.mouse.click('button#button--base--update-api-key');

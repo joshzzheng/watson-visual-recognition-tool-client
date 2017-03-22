@@ -88,9 +88,9 @@ export default class DropDown extends React.Component {
                 onMouseLeave={this.toggleHover}>
                 <button className={this.props.className} style={dropbtn}></button>
                 <div style={dropdownContent}>
-                    <a id='link--classifiers--api-reference' style={[aStyle, aa]} key='0' href='https://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?node#classify_an_image' target='_blank'>API reference</a>
-                    <a id='link--classifiers--update' style={[aStyle, ab]} key='1' href="#" onClick={this.props.update}>Update</a>
-                    <a id='link--classifiers--delete' style={[aStyle, ac, {color: '#f44336'}]} key='2' href="#" onClick={this.props.delete}>Delete</a>
+                    <a className='link--classifiers--api-reference' style={[aStyle, aa]} key='0' href='https://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?node#classify_an_image' target='_blank'>API reference</a>
+                    <a className='link--classifiers--update' style={[aStyle, ab]} key='1' href="#" onClick={this.props.update}>Update</a>
+                    <a className='link--classifiers--delete' style={[aStyle, ac, {color: '#f44336'}]} key='2' href="#" onClick={this.props.delete}>Delete</a>
                 </div>
             </div>
         )

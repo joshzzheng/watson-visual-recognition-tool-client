@@ -96,7 +96,11 @@ export default class Class extends React.Component {
             <div className="grid-item">
                 <div style={this.props.style}>
                     <TitleCard
+<<<<<<< HEAD
+=======
                         maxlength='50'
+                        inputClassName={this.props.inputClassName}
+>>>>>>> parent of 91636bb... Revert "tests"
                         id={this.props.negative ? 'neg' : null}
                         errors={this.props.errors}
                         title={this.props.title}
@@ -114,8 +118,9 @@ export default class Class extends React.Component {
                                 </div>
                             </div>
                         }
-                        {this.state.error ? <div id='error--create-classifier' style={error}>{this.state.error}</div> : null}
+                        {this.state.error ? <div className='error--create-classifier--dropzone' style={error}>{this.state.error}</div> : null}
                         <DropButton
+                            className={this.props.dropzoneClassName}
                             accept={'application/zip, application/x-zip-compressed, multipart/x-zip, application/x-compressed'}
                             maxSize={100 * 1024 * 1024}
                             style={extraPadding}
