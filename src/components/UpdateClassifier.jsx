@@ -82,7 +82,7 @@ export default class UpdateClassifier extends React.Component {
 
     errorCheck = () => {
         var self = this
-        self.setState({errors: false}, function() {
+        self.setState({errors: false, error: null}, function() {
             var errors = this.state.errors
             var validClasses = 0
 
@@ -119,6 +119,12 @@ export default class UpdateClassifier extends React.Component {
                 if (c.name != null && c.name != '') {
                     dupes[c.name] = 1
                     classCount++
+                    if (/[*\\|{}$/'`"\-]/.test(c.name)) {
+                        errors = true
+                        var invalidChars = c.name.match(/[*\\|{}$/'`"\-]/g)
+                        error = 'Invalid characters: ' + invalidChars.join(' ')
+                        self.setState({errors: errors, error: error})
+                    }
                 }
             })
             console.log(Object.keys(dupes).length + ' / ' + classCount)
@@ -146,7 +152,7 @@ export default class UpdateClassifier extends React.Component {
                 return
             }
 
-            if (!this.state.errors) {
+            if (!errors) {
                 self.setState({upload: true})
             }
         })
