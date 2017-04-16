@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="0"
+            tests="21">
+
+  <testsuite name="my_first_test"
+    errors="0" failures="0" hostname="" id="" package="my_first_test" skipped="0"
+    tests="21" time="34.67" timestamp="Wed, 22 Mar 2017 19:01:26 GMT">
+  
+    <testcase name="load tool" time="2.804" assertions="1">
+
+    
+    </testcase>
+  
+    <testcase name="check bluemix link" time="0.06100" assertions="0">
+    </testcase>
+  
+    <testcase name="check invalid key" time="0.8800" assertions="2">
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="check real key" time="1.125" assertions="3">
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="check 5mb dropzone" time="2.049" assertions="2">
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="check dropzone" time="1.933" assertions="1">
+
+    
+    </testcase>
+  
+    <testcase name="check wrong format dropzone" time="0.1300" assertions="1">
+
+    
+    </testcase>
+  
+    <testcase name="check create close" time="0.8520" assertions="2">
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="check create add class" time="1.628" assertions="5">
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="check create classifier errors" time="6.743" assertions="5">
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="check create class errors" time="3.827" assertions="8">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="check create file errors" time="4.300" assertions="4">
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="check create create classifier" time="3.279" assertions="3">
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="check dropdown" time="1.187" assertions="1">
+
+    
+    </testcase>
+  
+    <testcase name="check api link" time="0.06400" assertions="0">
+    </testcase>
+  
+    <testcase name="check update" time="0.001000" assertions="0">
+    </testcase>
+  
+    <testcase name="check delete" time="0.2370" assertions="0">
+    </testcase>
+  
+    <testcase name="check update fake key" time="1.464" assertions="3">
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="check update real key" time="1.248" assertions="1">
+
+    
+    </testcase>
+  
+    <testcase name="check logout" time="0.7650" assertions="2">
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="finish" time="0.09500" assertions="0">
+    </testcase>
+  
+  
+  </testsuite>
+</testsuites>

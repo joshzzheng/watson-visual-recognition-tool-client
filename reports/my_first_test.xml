@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="1"
+            failures="0"
+            tests="8">
+
+  <testsuite name="my_first_test"
+    errors="1" failures="0" hostname="" id="" package="my_first_test" skipped="7"
+    tests="8" time="0.01000" timestamp="Wed, 08 Mar 2017 23:53:27 GMT">
+  
+    <testcase name="check bluemix link" time="0.01000" assertions="0">
+    </testcase>
+      <system-err>
+          Error while running [My First Test / check bluemix link]:
+
+  ReferenceError: options is not defined
+    at Object.check bluemix link (/Users/niko/Documents/watson-visual-recognition-tool-client/tests/my_first_test.js:8:45)
+    at Module.call (/usr/local/lib/node_modules/nightwatch/lib/runner/module.js:62:34)
+    at /usr/local/lib/node_modules/nightwatch/lib/runner/testcase.js:70:29
+    at _fulfilled (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:834:54)
+    at self.promiseDispatch.done (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:863:30)
+    at Promise.promise.promiseDispatch (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:796:13)
+    at /usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:556:49
+    at runSingle (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:137:13)
+    at flush (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:125:13)
+    at _combinedTickCallback (internal/process/next_tick.js:67:7)
+    at process._tickCallback (internal/process/next_tick.js:98:9)
+      </system-err>
+  
+  
+    
+    <testcase
+      name="check invalid key">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="check real key">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="check dropdown">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="check create">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="check update fake key">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="check update real key">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="check logout">
+      <skipped />
+    </testcase>
+    
+  
+  </testsuite>
+</testsuites>

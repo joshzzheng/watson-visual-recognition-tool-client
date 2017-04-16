@@ -1,0 +1,495 @@
+12:01:26.096 INFO - Selenium build info: version: '3.0.1', revision: '1969d75'
+12:01:26.097 INFO - Launching a standalone Selenium Server
+2017-03-22 12:01:26.124:INFO::main: Logging initialized @371ms
+12:01:26.194 INFO - Driver provider org.openqa.selenium.ie.InternetExplorerDriver registration is skipped:
+ registration capabilities Capabilities [{ensureCleanSession=true, browserName=internet explorer, version=, platform=WINDOWS}] does not match the current platform MAC
+12:01:26.195 INFO - Driver provider org.openqa.selenium.edge.EdgeDriver registration is skipped:
+ registration capabilities Capabilities [{browserName=MicrosoftEdge, version=, platform=WINDOWS}] does not match the current platform MAC
+12:01:26.195 INFO - Driver class not found: com.opera.core.systems.OperaDriver
+12:01:26.195 INFO - Driver provider com.opera.core.systems.OperaDriver registration is skipped:
+Unable to create new instances on this machine.
+12:01:26.195 INFO - Driver class not found: com.opera.core.systems.OperaDriver
+12:01:26.195 INFO - Driver provider com.opera.core.systems.OperaDriver is not registered
+2017-03-22 12:01:26.246:INFO:osjs.Server:main: jetty-9.2.15.v20160210
+2017-03-22 12:01:26.272:INFO:osjsh.ContextHandler:main: Started o.s.j.s.ServletContextHandler@6cc4c815{/,null,AVAILABLE}
+2017-03-22 12:01:26.310:INFO:osjs.ServerConnector:main: Started ServerConnector@7823a2f9{HTTP/1.1}{0.0.0.0:4444}
+2017-03-22 12:01:26.310:INFO:osjs.Server:main: Started @558ms
+12:01:26.310 INFO - Selenium Server is up and running
+12:01:27.071 INFO - SessionCleaner initialized with insideBrowserTimeout 0 and clientGoneTimeout 1800000 polling every 180000
+12:01:27.105 INFO - Executing: [new session: Capabilities [{acceptSslCerts=true, name=My First Test, browserName=chrome, javascriptEnabled=true, platform=ANY}]])
+12:01:27.128 INFO - Creating a new session for Capabilities [{acceptSslCerts=true, name=My First Test, browserName=chrome, javascriptEnabled=true, platform=ANY}]
+Starting ChromeDriver 2.27.440174 (e97a722caafc2d3a8b807ee115bfb307f7d2cfd9) on port 9268
+Only local connections are allowed.
+12:01:27.519 INFO - Attempting bi-dialect session, assuming Postel's Law holds true on the remote end
+12:01:28.462 INFO - Detected dialect: OSS
+12:01:28.476 INFO - Done: [new session: Capabilities [{acceptSslCerts=true, name=My First Test, browserName=chrome, javascriptEnabled=true, platform=ANY}]]
+12:01:28.492 INFO - Executing: [get: http://localhost:8080])
+12:01:29.652 INFO - Done: [get: http://localhost:8080]
+12:01:29.658 INFO - Executing: [find elements: By.cssSelector: #landing-page])
+12:01:29.687 INFO - Done: [find elements: By.cssSelector: #landing-page]
+12:01:29.691 INFO - Executing: [is displayed: 0 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #landing-page]])
+12:01:29.710 INFO - Done: [is displayed: 0 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #landing-page]]
+12:01:29.719 INFO - Executing: [find element: By.cssSelector: a#link--landing-page--api-key])
+12:01:29.736 INFO - Done: [find element: By.cssSelector: a#link--landing-page--api-key]
+12:01:29.740 INFO - Executing: [get element attribute: 1 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: a#link--landing-page--api-key], href])
+12:01:29.748 INFO - Done: [get element attribute: 1 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: a#link--landing-page--api-key], href]
+12:01:29.797 INFO - Executing: [find element: By.cssSelector: input#input--landing-page--api-key])
+12:01:29.814 INFO - Done: [find element: By.cssSelector: input#input--landing-page--api-key]
+12:01:29.819 INFO - Executing: [send keys: 2 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: input#input--landing-page--api-key], [0, 0, 0, 0]])
+12:01:29.968 INFO - Done: [send keys: 2 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: input#input--landing-page--api-key], [0, 0, 0, 0]]
+12:01:29.976 INFO - Executing: [find elements: By.cssSelector: button#button--landing-page--api-key])
+12:01:29.993 INFO - Done: [find elements: By.cssSelector: button#button--landing-page--api-key]
+12:01:29.996 INFO - Executing: [is displayed: 3 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--landing-page--api-key]])
+12:01:30.013 INFO - Done: [is displayed: 3 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--landing-page--api-key]]
+12:01:30.020 INFO - Executing: [find element: By.cssSelector: button#button--landing-page--api-key])
+12:01:30.036 INFO - Done: [find element: By.cssSelector: button#button--landing-page--api-key]
+12:01:30.040 INFO - Executing: [click: 3 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--landing-page--api-key]])
+12:01:30.090 INFO - Done: [click: 3 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--landing-page--api-key]]
+12:01:30.094 INFO - Executing: [find elements: By.cssSelector: #error--landing-page--api-key])
+12:01:30.111 INFO - Done: [find elements: By.cssSelector: #error--landing-page--api-key]
+12:01:30.622 INFO - Executing: [find elements: By.cssSelector: #error--landing-page--api-key])
+12:01:30.635 INFO - Done: [find elements: By.cssSelector: #error--landing-page--api-key]
+12:01:30.638 INFO - Executing: [is displayed: 4 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #error--landing-page--api-key]])
+12:01:30.653 INFO - Done: [is displayed: 4 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #error--landing-page--api-key]]
+12:01:30.660 INFO - Executing: [find element: By.cssSelector: input#input--landing-page--api-key])
+12:01:30.667 INFO - Done: [find element: By.cssSelector: input#input--landing-page--api-key]
+12:01:30.672 INFO - Executing: [clear: 2 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: input#input--landing-page--api-key]])
+12:01:30.691 INFO - Done: [clear: 2 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: input#input--landing-page--api-key]]
+12:01:30.695 INFO - Executing: [find element: By.cssSelector: input#input--landing-page--api-key])
+12:01:30.701 INFO - Done: [find element: By.cssSelector: input#input--landing-page--api-key]
+12:01:30.705 INFO - Executing: [send keys: 2 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: input#input--landing-page--api-key], [2, d, 7, f, 0, 2, e, 6, 7, 0, 8, f, 3, 5, 6, 2, a, 0, 4, 3, e, b, f, 3, 1, 1, 5, 9, f, f, 8, 4, 9, d, 9, 4, d, 1, 2, 3]])
+12:01:31.188 INFO - Done: [send keys: 2 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: input#input--landing-page--api-key], [2, d, 7, f, 0, 2, e, 6, 7, 0, 8, f, 3, 5, 6, 2, a, 0, 4, 3, e, b, f, 3, 1, 1, 5, 9, f, f, 8, 4, 9, d, 9, 4, d, 1, 2, 3]]
+12:01:31.191 INFO - Executing: [find elements: By.cssSelector: button#button--landing-page--api-key])
+12:01:31.198 INFO - Done: [find elements: By.cssSelector: button#button--landing-page--api-key]
+12:01:31.210 INFO - Executing: [is displayed: 3 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--landing-page--api-key]])
+12:01:31.217 INFO - Done: [is displayed: 3 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--landing-page--api-key]]
+12:01:31.220 INFO - Executing: [find element: By.cssSelector: button#button--landing-page--api-key])
+12:01:31.227 INFO - Done: [find element: By.cssSelector: button#button--landing-page--api-key]
+12:01:31.230 INFO - Executing: [click: 3 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--landing-page--api-key]])
+12:01:31.248 INFO - Done: [click: 3 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--landing-page--api-key]]
+12:01:31.252 INFO - Executing: [find elements: By.cssSelector: #landing-page])
+12:01:31.259 INFO - Done: [find elements: By.cssSelector: #landing-page]
+12:01:31.766 INFO - Executing: [find elements: By.cssSelector: #landing-page])
+12:01:31.778 INFO - Done: [find elements: By.cssSelector: #landing-page]
+12:01:31.784 INFO - Executing: [find elements: By.cssSelector: .dropzone--classifier-detail:first-child])
+12:01:31.800 INFO - Done: [find elements: By.cssSelector: .dropzone--classifier-detail:first-child]
+12:01:32.310 INFO - Executing: [find elements: By.cssSelector: .dropzone--classifier-detail:first-child])
+12:01:32.319 INFO - Done: [find elements: By.cssSelector: .dropzone--classifier-detail:first-child]
+12:01:32.830 INFO - Executing: [find elements: By.cssSelector: .dropzone--classifier-detail:first-child])
+12:01:32.839 INFO - Done: [find elements: By.cssSelector: .dropzone--classifier-detail:first-child]
+12:01:33.349 INFO - Executing: [find elements: By.cssSelector: .dropzone--classifier-detail:first-child])
+12:01:33.570 INFO - Done: [find elements: By.cssSelector: .dropzone--classifier-detail:first-child]
+12:01:33.574 INFO - Executing: [is displayed: 5 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .dropzone--classifier-detail:first-child]])
+12:01:33.633 INFO - Done: [is displayed: 5 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .dropzone--classifier-detail:first-child]]
+12:01:33.637 INFO - Executing: [find element: By.cssSelector: .dropzone--classifier-detail:first-child input])
+12:01:33.665 INFO - Done: [find element: By.cssSelector: .dropzone--classifier-detail:first-child input]
+12:01:33.670 INFO - Executing: [send keys: 21 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .dropzone--classifier-detail:first-child input], [/, U, s, e, r, s, /, n, i, k, o, /, D, o, c, u, m, e, n, t, s, /, w, a, t, s, o, n, -, v, i, s, u, a, l, -, r, e, c, o, g, n, i, t, i, o, n, -, t, o, o, l, -, c, l, i, e, n, t, /, t, e, s, t, _, f, i, l, e, s, /, l, a, r, g, e, ., p, n, g]])
+12:01:33.786 INFO - Done: [send keys: 21 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .dropzone--classifier-detail:first-child input], [/, U, s, e, r, s, /, n, i, k, o, /, D, o, c, u, m, e, n, t, s, /, w, a, t, s, o, n, -, v, i, s, u, a, l, -, r, e, c, o, g, n, i, t, i, o, n, -, t, o, o, l, -, c, l, i, e, n, t, /, t, e, s, t, _, f, i, l, e, s, /, l, a, r, g, e, ., p, n, g]]
+12:01:33.790 INFO - Executing: [find elements: By.cssSelector: #error--classifier-detail])
+12:01:33.808 INFO - Done: [find elements: By.cssSelector: #error--classifier-detail]
+12:01:33.810 INFO - Executing: [is displayed: 22 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #error--classifier-detail]])
+12:01:33.828 INFO - Done: [is displayed: 22 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #error--classifier-detail]]
+12:01:33.833 INFO - Executing: [find element: By.cssSelector: .dropzone--classifier-detail:first-child input])
+12:01:33.841 INFO - Done: [find element: By.cssSelector: .dropzone--classifier-detail:first-child input]
+12:01:33.844 INFO - Executing: [send keys: 21 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .dropzone--classifier-detail:first-child input], [/, U, s, e, r, s, /, n, i, k, o, /, D, o, c, u, m, e, n, t, s, /, w, a, t, s, o, n, -, v, i, s, u, a, l, -, r, e, c, o, g, n, i, t, i, o, n, -, t, o, o, l, -, c, l, i, e, n, t, /, t, e, s, t, _, f, i, l, e, s, /, s, m, a, l, l, ., j, p, g]])
+12:01:33.941 INFO - Done: [send keys: 21 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .dropzone--classifier-detail:first-child input], [/, U, s, e, r, s, /, n, i, k, o, /, D, o, c, u, m, e, n, t, s, /, w, a, t, s, o, n, -, v, i, s, u, a, l, -, r, e, c, o, g, n, i, t, i, o, n, -, t, o, o, l, -, c, l, i, e, n, t, /, t, e, s, t, _, f, i, l, e, s, /, s, m, a, l, l, ., j, p, g]]
+12:01:33.945 INFO - Executing: [find elements: By.cssSelector: button#button--results--clear])
+12:01:33.967 INFO - Done: [find elements: By.cssSelector: button#button--results--clear]
+12:01:34.475 INFO - Executing: [find elements: By.cssSelector: button#button--results--clear])
+12:01:34.483 INFO - Done: [find elements: By.cssSelector: button#button--results--clear]
+12:01:34.989 INFO - Executing: [find elements: By.cssSelector: button#button--results--clear])
+12:01:34.997 INFO - Done: [find elements: By.cssSelector: button#button--results--clear]
+12:01:35.501 INFO - Executing: [find elements: By.cssSelector: button#button--results--clear])
+12:01:35.586 INFO - Done: [find elements: By.cssSelector: button#button--results--clear]
+12:01:35.590 INFO - Executing: [is displayed: 23 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--results--clear]])
+12:01:35.605 INFO - Done: [is displayed: 23 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--results--clear]]
+12:01:35.608 INFO - Executing: [find element: By.cssSelector: button#button--results--clear])
+12:01:35.625 INFO - Done: [find element: By.cssSelector: button#button--results--clear]
+12:01:35.628 INFO - Executing: [click: 23 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--results--clear]])
+12:01:35.760 INFO - Done: [click: 23 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--results--clear]]
+12:01:35.765 INFO - Executing: [find element: By.cssSelector: .dropzone--classifier-detail:first-child input])
+12:01:35.773 INFO - Done: [find element: By.cssSelector: .dropzone--classifier-detail:first-child input]
+12:01:35.776 INFO - Executing: [send keys: 21 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .dropzone--classifier-detail:first-child input], [/, U, s, e, r, s, /, n, i, k, o, /, D, o, c, u, m, e, n, t, s, /, w, a, t, s, o, n, -, v, i, s, u, a, l, -, r, e, c, o, g, n, i, t, i, o, n, -, t, o, o, l, -, c, l, i, e, n, t, /, t, e, s, t, _, f, i, l, e, s, /, s, m, a, l, l, ., z, i, p]])
+12:01:35.857 INFO - Done: [send keys: 21 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .dropzone--classifier-detail:first-child input], [/, U, s, e, r, s, /, n, i, k, o, /, D, o, c, u, m, e, n, t, s, /, w, a, t, s, o, n, -, v, i, s, u, a, l, -, r, e, c, o, g, n, i, t, i, o, n, -, t, o, o, l, -, c, l, i, e, n, t, /, t, e, s, t, _, f, i, l, e, s, /, s, m, a, l, l, ., z, i, p]]
+12:01:35.860 INFO - Executing: [find elements: By.cssSelector: #error--classifier-detail])
+12:01:35.869 INFO - Done: [find elements: By.cssSelector: #error--classifier-detail]
+12:01:35.872 INFO - Executing: [is displayed: 24 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #error--classifier-detail]])
+12:01:35.890 INFO - Done: [is displayed: 24 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #error--classifier-detail]]
+12:01:35.907 INFO - Executing: [find element: By.cssSelector: button#button--classifiers--create])
+12:01:35.924 INFO - Done: [find element: By.cssSelector: button#button--classifiers--create]
+12:01:35.926 INFO - Executing: [click: 25 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--classifiers--create]])
+12:01:36.031 INFO - Done: [click: 25 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--classifiers--create]]
+12:01:36.035 INFO - Executing: [find elements: By.cssSelector: button#button--create-classifier--cancel])
+12:01:36.128 INFO - Done: [find elements: By.cssSelector: button#button--create-classifier--cancel]
+12:01:36.131 INFO - Executing: [is displayed: 26 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--create-classifier--cancel]])
+12:01:36.149 INFO - Done: [is displayed: 26 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--create-classifier--cancel]]
+12:01:36.655 INFO - Executing: [find element: By.cssSelector: button#button--create-classifier--cancel])
+12:01:36.673 INFO - Done: [find element: By.cssSelector: button#button--create-classifier--cancel]
+12:01:36.675 INFO - Executing: [click: 26 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--create-classifier--cancel]])
+12:01:36.732 INFO - Done: [click: 26 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--create-classifier--cancel]]
+12:01:36.736 INFO - Executing: [find elements: By.cssSelector: button#button--create-classifier--cancel])
+12:01:36.745 INFO - Done: [find elements: By.cssSelector: button#button--create-classifier--cancel]
+12:01:36.750 INFO - Executing: [find element: By.cssSelector: button#button--classifiers--create])
+12:01:36.758 INFO - Done: [find element: By.cssSelector: button#button--classifiers--create]
+12:01:36.759 INFO - Executing: [click: 27 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--classifiers--create]])
+12:01:36.830 INFO - Done: [click: 27 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--classifiers--create]]
+12:01:36.834 INFO - Executing: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(3)])
+12:01:36.919 INFO - Done: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(3)]
+12:01:36.922 INFO - Executing: [is displayed: 28 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(3)]])
+12:01:36.938 INFO - Done: [is displayed: 28 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(3)]]
+12:01:37.443 INFO - Executing: [is displayed: 28 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(3)]])
+12:01:37.454 INFO - Done: [is displayed: 28 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(3)]]
+12:01:37.457 INFO - Executing: [find element: By.cssSelector: .grid-item:first-child button.delete-class])
+12:01:37.475 INFO - Done: [find element: By.cssSelector: .grid-item:first-child button.delete-class]
+12:01:37.477 INFO - Executing: [click: 29 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .grid-item:first-child button.delete-class]])
+12:01:37.587 INFO - Done: [click: 29 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .grid-item:first-child button.delete-class]]
+12:01:37.590 INFO - Executing: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(3)])
+12:01:37.597 INFO - Done: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(3)]
+12:01:38.104 INFO - Executing: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(3)])
+12:01:38.112 INFO - Done: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(3)]
+12:01:38.115 INFO - Executing: [find element: By.cssSelector: button#button--create-classifier--add-class])
+12:01:38.131 INFO - Done: [find element: By.cssSelector: button#button--create-classifier--add-class]
+12:01:38.134 INFO - Executing: [click: 30 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--create-classifier--add-class]])
+12:01:38.270 INFO - Done: [click: 30 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--create-classifier--add-class]]
+12:01:38.273 INFO - Executing: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(1)])
+12:01:38.300 INFO - Done: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(1)]
+12:01:38.303 INFO - Executing: [is displayed: 31 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(1)]])
+12:01:38.319 INFO - Done: [is displayed: 31 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(1)]]
+12:01:38.322 INFO - Executing: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(2)])
+12:01:38.338 INFO - Done: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(2)]
+12:01:38.339 INFO - Executing: [is displayed: 35 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(2)]])
+12:01:38.355 INFO - Done: [is displayed: 35 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(2)]]
+12:01:38.358 INFO - Executing: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(3)])
+12:01:38.364 INFO - Done: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(3)]
+12:01:38.365 INFO - Executing: [is displayed: 28 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(3)]])
+12:01:38.372 INFO - Done: [is displayed: 28 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(3)]]
+12:01:38.381 INFO - Executing: [find element: By.cssSelector: button#button--create-classifier--create])
+12:01:38.397 INFO - Done: [find element: By.cssSelector: button#button--create-classifier--create]
+12:01:38.399 INFO - Executing: [click: 36 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--create-classifier--create]])
+12:01:38.562 INFO - Done: [click: 36 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--create-classifier--create]]
+12:01:38.567 INFO - Executing: [find elements: By.cssSelector: #error--create-classifier--title])
+12:01:38.583 INFO - Done: [find elements: By.cssSelector: #error--create-classifier--title]
+12:01:38.585 INFO - Executing: [is displayed: 37 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #error--create-classifier--title]])
+12:01:38.604 INFO - Done: [is displayed: 37 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #error--create-classifier--title]]
+12:01:38.608 INFO - Executing: [find elements: By.cssSelector: #error--create-classifier--class])
+12:01:38.624 INFO - Done: [find elements: By.cssSelector: #error--create-classifier--class]
+12:01:38.627 INFO - Executing: [is displayed: 38 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #error--create-classifier--class]])
+12:01:38.642 INFO - Done: [is displayed: 38 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #error--create-classifier--class]]
+12:01:38.646 INFO - Executing: [find element: By.cssSelector: input#input--create-classifier--classifier-name])
+12:01:38.661 INFO - Done: [find element: By.cssSelector: input#input--create-classifier--classifier-name]
+12:01:38.664 INFO - Executing: [send keys: 39 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: input#input--create-classifier--classifier-name], [M, y,  , C, l, a, s, s, i, f, i, e, r,  , N, a, m, e]])
+12:01:39.876 INFO - Done: [send keys: 39 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: input#input--create-classifier--classifier-name], [M, y,  , C, l, a, s, s, i, f, i, e, r,  , N, a, m, e]]
+12:01:39.879 INFO - Executing: [find element: By.cssSelector: button#button--create-classifier--create])
+12:01:39.885 INFO - Done: [find element: By.cssSelector: button#button--create-classifier--create]
+12:01:39.887 INFO - Executing: [click: 36 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--create-classifier--create]])
+12:01:40.075 INFO - Done: [click: 36 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--create-classifier--create]]
+12:01:40.078 INFO - Executing: [find elements: By.cssSelector: #error--create-classifier--title])
+12:01:40.088 INFO - Done: [find elements: By.cssSelector: #error--create-classifier--title]
+12:01:40.090 INFO - Executing: [find element: By.cssSelector: input#input--create-classifier--classifier-name])
+12:01:40.096 INFO - Done: [find element: By.cssSelector: input#input--create-classifier--classifier-name]
+12:01:40.098 INFO - Executing: [clear: 39 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: input#input--create-classifier--classifier-name]])
+12:01:40.175 INFO - Done: [clear: 39 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: input#input--create-classifier--classifier-name]]
+12:01:40.178 INFO - Executing: [find element: By.cssSelector: input#input--create-classifier--classifier-name])
+12:01:40.187 INFO - Done: [find element: By.cssSelector: input#input--create-classifier--classifier-name]
+12:01:40.189 INFO - Executing: [send keys: 39 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: input#input--create-classifier--classifier-name], [!, @, #, $, %, ^, &, *, (, ), _, +, |, }, {, ", :, ?, >, <]])
+12:01:41.475 INFO - Done: [send keys: 39 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: input#input--create-classifier--classifier-name], [!, @, #, $, %, ^, &, *, (, ), _, +, |, }, {, ", :, ?, >, <]]
+12:01:41.477 INFO - Executing: [find element: By.cssSelector: button#button--create-classifier--create])
+12:01:41.483 INFO - Done: [find element: By.cssSelector: button#button--create-classifier--create]
+12:01:41.485 INFO - Executing: [click: 36 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--create-classifier--create]])
+12:01:41.680 INFO - Done: [click: 36 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--create-classifier--create]]
+12:01:41.684 INFO - Executing: [find elements: By.cssSelector: #error--create-classifier--title])
+12:01:41.694 INFO - Done: [find elements: By.cssSelector: #error--create-classifier--title]
+12:01:41.696 INFO - Executing: [is displayed: 40 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #error--create-classifier--title]])
+12:01:41.711 INFO - Done: [is displayed: 40 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #error--create-classifier--title]]
+12:01:41.713 INFO - Executing: [find element: By.cssSelector: input#input--create-classifier--classifier-name])
+12:01:41.720 INFO - Done: [find element: By.cssSelector: input#input--create-classifier--classifier-name]
+12:01:41.723 INFO - Executing: [send keys: 39 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: input#input--create-classifier--classifier-name], [, , , , , , , , , , , , , , , , , , , , , , , , , , ]])
+12:01:43.077 INFO - Done: [send keys: 39 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: input#input--create-classifier--classifier-name], [, , , , , , , , , , , , , , , , , , , , , , , , , , ]]
+12:01:43.080 INFO - Executing: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(1) input.input--create-classifier--class-name])
+12:01:43.097 INFO - Done: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(1) input.input--create-classifier--class-name]
+12:01:43.099 INFO - Executing: [send keys: 41 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(1) input.input--create-classifier--class-name], [C, l, a, s, s,  , N, a, m, e, 1]])
+12:01:43.885 INFO - Done: [send keys: 41 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(1) input.input--create-classifier--class-name], [C, l, a, s, s,  , N, a, m, e, 1]]
+12:01:43.887 INFO - Executing: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(2) input.input--create-classifier--class-name])
+12:01:43.903 INFO - Done: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(2) input.input--create-classifier--class-name]
+12:01:43.906 INFO - Executing: [send keys: 42 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(2) input.input--create-classifier--class-name], [C, l, a, s, s,  , N, a, m, e, 2]])
+12:01:44.694 INFO - Done: [send keys: 42 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(2) input.input--create-classifier--class-name], [C, l, a, s, s,  , N, a, m, e, 2]]
+12:01:44.697 INFO - Executing: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(1) .dropzone--create-classifier:first-child input])
+12:01:44.713 INFO - Done: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(1) .dropzone--create-classifier:first-child input]
+12:01:44.716 INFO - Executing: [send keys: 43 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(1) .dropzone--create-classifier:first-child input], [/, U, s, e, r, s, /, n, i, k, o, /, D, o, c, u, m, e, n, t, s, /, w, a, t, s, o, n, -, v, i, s, u, a, l, -, r, e, c, o, g, n, i, t, i, o, n, -, t, o, o, l, -, c, l, i, e, n, t, /, t, e, s, t, _, f, i, l, e, s, /, s, m, a, l, l, ., z, i, p]])
+12:01:44.805 INFO - Done: [send keys: 43 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(1) .dropzone--create-classifier:first-child input], [/, U, s, e, r, s, /, n, i, k, o, /, D, o, c, u, m, e, n, t, s, /, w, a, t, s, o, n, -, v, i, s, u, a, l, -, r, e, c, o, g, n, i, t, i, o, n, -, t, o, o, l, -, c, l, i, e, n, t, /, t, e, s, t, _, f, i, l, e, s, /, s, m, a, l, l, ., z, i, p]]
+12:01:44.808 INFO - Executing: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(2) .dropzone--create-classifier:first-child input])
+12:01:44.825 INFO - Done: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(2) .dropzone--create-classifier:first-child input]
+12:01:44.828 INFO - Executing: [send keys: 44 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(2) .dropzone--create-classifier:first-child input], [/, U, s, e, r, s, /, n, i, k, o, /, D, o, c, u, m, e, n, t, s, /, w, a, t, s, o, n, -, v, i, s, u, a, l, -, r, e, c, o, g, n, i, t, i, o, n, -, t, o, o, l, -, c, l, i, e, n, t, /, t, e, s, t, _, f, i, l, e, s, /, s, m, a, l, l, ., z, i, p]])
+12:01:44.921 INFO - Done: [send keys: 44 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(2) .dropzone--create-classifier:first-child input], [/, U, s, e, r, s, /, n, i, k, o, /, D, o, c, u, m, e, n, t, s, /, w, a, t, s, o, n, -, v, i, s, u, a, l, -, r, e, c, o, g, n, i, t, i, o, n, -, t, o, o, l, -, c, l, i, e, n, t, /, t, e, s, t, _, f, i, l, e, s, /, s, m, a, l, l, ., z, i, p]]
+12:01:44.923 INFO - Executing: [find element: By.cssSelector: button#button--create-classifier--create])
+12:01:44.931 INFO - Done: [find element: By.cssSelector: button#button--create-classifier--create]
+12:01:44.933 INFO - Executing: [click: 36 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--create-classifier--create]])
+12:01:45.088 INFO - Done: [click: 36 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--create-classifier--create]]
+12:01:45.092 INFO - Executing: [find elements: By.cssSelector: #error--create-classifier--title])
+12:01:45.099 INFO - Done: [find elements: By.cssSelector: #error--create-classifier--title]
+12:01:45.101 INFO - Executing: [is displayed: 45 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #error--create-classifier--title]])
+12:01:45.115 INFO - Done: [is displayed: 45 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #error--create-classifier--title]]
+12:01:45.125 INFO - Executing: [find element: By.cssSelector: .grid-item:first-child button.delete-class])
+12:01:45.132 INFO - Done: [find element: By.cssSelector: .grid-item:first-child button.delete-class]
+12:01:45.134 INFO - Executing: [click: 46 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .grid-item:first-child button.delete-class]])
+12:01:45.259 INFO - Done: [click: 46 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .grid-item:first-child button.delete-class]]
+12:01:45.263 INFO - Executing: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(3)])
+12:01:45.270 INFO - Done: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(3)]
+12:01:45.777 INFO - Executing: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(3)])
+12:01:45.785 INFO - Done: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(3)]
+12:01:45.789 INFO - Executing: [find element: By.cssSelector: .grid-item:first-child button.delete-class])
+12:01:45.795 INFO - Done: [find element: By.cssSelector: .grid-item:first-child button.delete-class]
+12:01:45.797 INFO - Executing: [click: 47 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .grid-item:first-child button.delete-class]])
+12:01:45.897 INFO - Done: [click: 47 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .grid-item:first-child button.delete-class]]
+12:01:45.900 INFO - Executing: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(2)])
+12:01:45.907 INFO - Done: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(2)]
+12:01:46.411 INFO - Executing: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(2)])
+12:01:46.420 INFO - Done: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(2)]
+12:01:46.422 INFO - Executing: [find element: By.cssSelector: button#button--create-classifier--create])
+12:01:46.429 INFO - Done: [find element: By.cssSelector: button#button--create-classifier--create]
+12:01:46.431 INFO - Executing: [click: 36 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--create-classifier--create]])
+12:01:46.520 INFO - Done: [click: 36 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--create-classifier--create]]
+12:01:46.523 INFO - Executing: [find elements: By.cssSelector: #error--create-classifier--class])
+12:01:46.531 INFO - Done: [find elements: By.cssSelector: #error--create-classifier--class]
+12:01:46.533 INFO - Executing: [is displayed: 48 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #error--create-classifier--class]])
+12:01:46.549 INFO - Done: [is displayed: 48 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #error--create-classifier--class]]
+12:01:46.551 INFO - Executing: [find element: By.cssSelector: button#button--create-classifier--add-class])
+12:01:46.557 INFO - Done: [find element: By.cssSelector: button#button--create-classifier--add-class]
+12:01:46.558 INFO - Executing: [click: 30 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--create-classifier--add-class]])
+12:01:46.660 INFO - Done: [click: 30 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--create-classifier--add-class]]
+12:01:46.662 INFO - Executing: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(2)])
+12:01:46.670 INFO - Done: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(2)]
+12:01:46.672 INFO - Executing: [is displayed: 28 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(3)]])
+12:01:46.678 INFO - Done: [is displayed: 28 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(3)]]
+12:01:46.680 INFO - Executing: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(1) input.input--create-classifier--class-name])
+12:01:46.688 INFO - Done: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(1) input.input--create-classifier--class-name]
+12:01:46.690 INFO - Executing: [send keys: 49 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(1) input.input--create-classifier--class-name], [C, l, a, s, s,  , N, a, m, e, 1]])
+12:01:47.297 INFO - Done: [send keys: 49 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(1) input.input--create-classifier--class-name], [C, l, a, s, s,  , N, a, m, e, 1]]
+12:01:47.300 INFO - Executing: [find element: By.cssSelector: button#button--create-classifier--create])
+12:01:47.306 INFO - Done: [find element: By.cssSelector: button#button--create-classifier--create]
+12:01:47.307 INFO - Executing: [click: 36 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--create-classifier--create]])
+12:01:47.424 INFO - Done: [click: 36 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--create-classifier--create]]
+12:01:47.428 INFO - Executing: [find elements: By.cssSelector: #error--create-classifier--class])
+12:01:47.435 INFO - Done: [find elements: By.cssSelector: #error--create-classifier--class]
+12:01:47.437 INFO - Executing: [is displayed: 50 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #error--create-classifier--class]])
+12:01:47.453 INFO - Done: [is displayed: 50 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #error--create-classifier--class]]
+12:01:47.456 INFO - Executing: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(1) .dropzone--create-classifier:first-child input])
+12:01:47.464 INFO - Done: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(1) .dropzone--create-classifier:first-child input]
+12:01:47.467 INFO - Executing: [send keys: 51 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(1) .dropzone--create-classifier:first-child input], [/, U, s, e, r, s, /, n, i, k, o, /, D, o, c, u, m, e, n, t, s, /, w, a, t, s, o, n, -, v, i, s, u, a, l, -, r, e, c, o, g, n, i, t, i, o, n, -, t, o, o, l, -, c, l, i, e, n, t, /, t, e, s, t, _, f, i, l, e, s, /, s, m, a, l, l, ., z, i, p]])
+12:01:47.547 INFO - Done: [send keys: 51 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(1) .dropzone--create-classifier:first-child input], [/, U, s, e, r, s, /, n, i, k, o, /, D, o, c, u, m, e, n, t, s, /, w, a, t, s, o, n, -, v, i, s, u, a, l, -, r, e, c, o, g, n, i, t, i, o, n, -, t, o, o, l, -, c, l, i, e, n, t, /, t, e, s, t, _, f, i, l, e, s, /, s, m, a, l, l, ., z, i, p]]
+12:01:47.551 INFO - Executing: [find element: By.cssSelector: button#button--create-classifier--create])
+12:01:47.560 INFO - Done: [find element: By.cssSelector: button#button--create-classifier--create]
+12:01:47.562 INFO - Executing: [click: 36 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--create-classifier--create]])
+12:01:47.670 INFO - Done: [click: 36 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--create-classifier--create]]
+12:01:47.677 INFO - Executing: [find elements: By.cssSelector: #error--create-classifier--class])
+12:01:47.684 INFO - Done: [find elements: By.cssSelector: #error--create-classifier--class]
+12:01:47.692 INFO - Executing: [is displayed: 52 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #error--create-classifier--class]])
+12:01:47.707 INFO - Done: [is displayed: 52 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #error--create-classifier--class]]
+12:01:47.712 INFO - Executing: [find element: By.cssSelector: button#button--create-classifier--add-class])
+12:01:47.718 INFO - Done: [find element: By.cssSelector: button#button--create-classifier--add-class]
+12:01:47.720 INFO - Executing: [click: 30 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--create-classifier--add-class]])
+12:01:47.835 INFO - Done: [click: 30 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--create-classifier--add-class]]
+12:01:47.839 INFO - Executing: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(3)])
+12:01:47.845 INFO - Done: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(3)]
+12:01:47.847 INFO - Executing: [is displayed: 28 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(3)]])
+12:01:47.855 INFO - Done: [is displayed: 28 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(3)]]
+12:01:47.858 INFO - Executing: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(2) input.input--create-classifier--class-name])
+12:01:47.864 INFO - Done: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(2) input.input--create-classifier--class-name]
+12:01:47.866 INFO - Executing: [send keys: 53 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(2) input.input--create-classifier--class-name], [C, l, a, s, s,  , N, a, m, e, 1]])
+12:01:48.621 INFO - Done: [send keys: 53 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(2) input.input--create-classifier--class-name], [C, l, a, s, s,  , N, a, m, e, 1]]
+12:01:48.648 INFO - Executing: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(2) .dropzone--create-classifier:first-child input])
+12:01:48.656 INFO - Done: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(2) .dropzone--create-classifier:first-child input]
+12:01:48.668 INFO - Executing: [send keys: 54 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(2) .dropzone--create-classifier:first-child input], [/, U, s, e, r, s, /, n, i, k, o, /, D, o, c, u, m, e, n, t, s, /, w, a, t, s, o, n, -, v, i, s, u, a, l, -, r, e, c, o, g, n, i, t, i, o, n, -, t, o, o, l, -, c, l, i, e, n, t, /, t, e, s, t, _, f, i, l, e, s, /, s, m, a, l, l, ., z, i, p]])
+12:01:48.754 INFO - Done: [send keys: 54 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(2) .dropzone--create-classifier:first-child input], [/, U, s, e, r, s, /, n, i, k, o, /, D, o, c, u, m, e, n, t, s, /, w, a, t, s, o, n, -, v, i, s, u, a, l, -, r, e, c, o, g, n, i, t, i, o, n, -, t, o, o, l, -, c, l, i, e, n, t, /, t, e, s, t, _, f, i, l, e, s, /, s, m, a, l, l, ., z, i, p]]
+12:01:48.756 INFO - Executing: [find element: By.cssSelector: button#button--create-classifier--create])
+12:01:48.762 INFO - Done: [find element: By.cssSelector: button#button--create-classifier--create]
+12:01:48.764 INFO - Executing: [click: 36 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--create-classifier--create]])
+12:01:48.915 INFO - Done: [click: 36 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--create-classifier--create]]
+12:01:48.918 INFO - Executing: [find elements: By.cssSelector: #error--create-classifier--class])
+12:01:48.925 INFO - Done: [find elements: By.cssSelector: #error--create-classifier--class]
+12:01:48.927 INFO - Executing: [is displayed: 55 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #error--create-classifier--class]])
+12:01:48.942 INFO - Done: [is displayed: 55 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #error--create-classifier--class]]
+12:01:48.951 INFO - Executing: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(1) .dropzone--create-classifier:first-child input])
+12:01:48.957 INFO - Done: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(1) .dropzone--create-classifier:first-child input]
+12:01:48.959 INFO - Executing: [send keys: 51 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(1) .dropzone--create-classifier:first-child input], [/, U, s, e, r, s, /, n, i, k, o, /, D, o, c, u, m, e, n, t, s, /, w, a, t, s, o, n, -, v, i, s, u, a, l, -, r, e, c, o, g, n, i, t, i, o, n, -, t, o, o, l, -, c, l, i, e, n, t, /, t, e, s, t, _, f, i, l, e, s, /, h, u, g, e, ., z, i, p]])
+12:01:49.039 INFO - Done: [send keys: 51 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(1) .dropzone--create-classifier:first-child input], [/, U, s, e, r, s, /, n, i, k, o, /, D, o, c, u, m, e, n, t, s, /, w, a, t, s, o, n, -, v, i, s, u, a, l, -, r, e, c, o, g, n, i, t, i, o, n, -, t, o, o, l, -, c, l, i, e, n, t, /, t, e, s, t, _, f, i, l, e, s, /, h, u, g, e, ., z, i, p]]
+12:01:49.042 INFO - Executing: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(1) .error--create-classifier--dropzone])
+12:01:49.058 INFO - Done: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(1) .error--create-classifier--dropzone]
+12:01:49.060 INFO - Executing: [is displayed: 56 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(1) .error--create-classifier--dropzone]])
+12:01:49.075 INFO - Done: [is displayed: 56 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(1) .error--create-classifier--dropzone]]
+12:01:49.078 INFO - Executing: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(1) .dropzone--create-classifier:first-child input])
+12:01:49.084 INFO - Done: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(1) .dropzone--create-classifier:first-child input]
+12:01:49.087 INFO - Executing: [send keys: 51 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(1) .dropzone--create-classifier:first-child input], [/, U, s, e, r, s, /, n, i, k, o, /, D, o, c, u, m, e, n, t, s, /, w, a, t, s, o, n, -, v, i, s, u, a, l, -, r, e, c, o, g, n, i, t, i, o, n, -, t, o, o, l, -, c, l, i, e, n, t, /, t, e, s, t, _, f, i, l, e, s, /, s, m, a, l, l, ., j, p, g]])
+12:01:49.166 INFO - Done: [send keys: 51 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(1) .dropzone--create-classifier:first-child input], [/, U, s, e, r, s, /, n, i, k, o, /, D, o, c, u, m, e, n, t, s, /, w, a, t, s, o, n, -, v, i, s, u, a, l, -, r, e, c, o, g, n, i, t, i, o, n, -, t, o, o, l, -, c, l, i, e, n, t, /, t, e, s, t, _, f, i, l, e, s, /, s, m, a, l, l, ., j, p, g]]
+12:01:49.169 INFO - Executing: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(1) .error--create-classifier--dropzone])
+12:01:49.179 INFO - Done: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(1) .error--create-classifier--dropzone]
+12:01:49.181 INFO - Executing: [is displayed: 56 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(1) .error--create-classifier--dropzone]])
+12:01:49.187 INFO - Done: [is displayed: 56 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(1) .error--create-classifier--dropzone]]
+12:01:49.189 INFO - Executing: [find element: By.cssSelector: input#input--create-classifier--classifier-name])
+12:01:49.209 INFO - Done: [find element: By.cssSelector: input#input--create-classifier--classifier-name]
+12:01:49.213 INFO - Executing: [send keys: 39 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: input#input--create-classifier--classifier-name], [M, y,  , C, l, a, s, s, i, f, i, e, r,  , N, a, m, e]])
+12:01:50.516 INFO - Done: [send keys: 39 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: input#input--create-classifier--classifier-name], [M, y,  , C, l, a, s, s, i, f, i, e, r,  , N, a, m, e]]
+12:01:50.519 INFO - Executing: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(1) .dropzone--create-classifier:first-child input])
+12:01:50.525 INFO - Done: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(1) .dropzone--create-classifier:first-child input]
+12:01:50.528 INFO - Executing: [send keys: 51 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(1) .dropzone--create-classifier:first-child input], [/, U, s, e, r, s, /, n, i, k, o, /, D, o, c, u, m, e, n, t, s, /, w, a, t, s, o, n, -, v, i, s, u, a, l, -, r, e, c, o, g, n, i, t, i, o, n, -, t, o, o, l, -, c, l, i, e, n, t, /, t, e, s, t, _, f, i, l, e, s, /, n, o, t, _, s, o, _, h, u, g, e, ., z, i, p]])
+12:01:50.608 INFO - Done: [send keys: 51 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(1) .dropzone--create-classifier:first-child input], [/, U, s, e, r, s, /, n, i, k, o, /, D, o, c, u, m, e, n, t, s, /, w, a, t, s, o, n, -, v, i, s, u, a, l, -, r, e, c, o, g, n, i, t, i, o, n, -, t, o, o, l, -, c, l, i, e, n, t, /, t, e, s, t, _, f, i, l, e, s, /, n, o, t, _, s, o, _, h, u, g, e, ., z, i, p]]
+12:01:50.611 INFO - Executing: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(2) input.input--create-classifier--class-name])
+12:01:50.618 INFO - Done: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(2) input.input--create-classifier--class-name]
+12:01:50.620 INFO - Executing: [clear: 53 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(2) input.input--create-classifier--class-name]])
+12:01:50.702 INFO - Done: [clear: 53 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(2) input.input--create-classifier--class-name]]
+12:01:50.705 INFO - Executing: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(2) input.input--create-classifier--class-name])
+12:01:50.714 INFO - Done: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(2) input.input--create-classifier--class-name]
+12:01:50.717 INFO - Executing: [send keys: 53 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(2) input.input--create-classifier--class-name], [C, l, a, s, s,  , N, a, m, e, 2]])
+12:01:51.468 INFO - Done: [send keys: 53 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(2) input.input--create-classifier--class-name], [C, l, a, s, s,  , N, a, m, e, 2]]
+12:01:51.470 INFO - Executing: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(2) .dropzone--create-classifier:first-child input])
+12:01:51.477 INFO - Done: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(2) .dropzone--create-classifier:first-child input]
+12:01:51.479 INFO - Executing: [send keys: 54 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(2) .dropzone--create-classifier:first-child input], [/, U, s, e, r, s, /, n, i, k, o, /, D, o, c, u, m, e, n, t, s, /, w, a, t, s, o, n, -, v, i, s, u, a, l, -, r, e, c, o, g, n, i, t, i, o, n, -, t, o, o, l, -, c, l, i, e, n, t, /, t, e, s, t, _, f, i, l, e, s, /, n, o, t, _, s, o, _, h, u, g, e, ., z, i, p]])
+12:01:51.563 INFO - Done: [send keys: 54 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(2) .dropzone--create-classifier:first-child input], [/, U, s, e, r, s, /, n, i, k, o, /, D, o, c, u, m, e, n, t, s, /, w, a, t, s, o, n, -, v, i, s, u, a, l, -, r, e, c, o, g, n, i, t, i, o, n, -, t, o, o, l, -, c, l, i, e, n, t, /, t, e, s, t, _, f, i, l, e, s, /, n, o, t, _, s, o, _, h, u, g, e, ., z, i, p]]
+12:01:51.566 INFO - Executing: [find element: By.cssSelector: button#button--create-classifier--add-class])
+12:01:51.572 INFO - Done: [find element: By.cssSelector: button#button--create-classifier--add-class]
+12:01:51.574 INFO - Executing: [click: 30 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--create-classifier--add-class]])
+12:01:51.723 INFO - Done: [click: 30 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--create-classifier--add-class]]
+12:01:51.728 INFO - Executing: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(3)])
+12:01:51.737 INFO - Done: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(3)]
+12:01:51.739 INFO - Executing: [is displayed: 57 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(3)]])
+12:01:51.756 INFO - Done: [is displayed: 57 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(3)]]
+12:01:51.758 INFO - Executing: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(3) input.input--create-classifier--class-name])
+12:01:51.778 INFO - Done: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(3) input.input--create-classifier--class-name]
+12:01:51.780 INFO - Executing: [send keys: 58 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(3) input.input--create-classifier--class-name], [C, l, a, s, s,  , N, a, m, e, 3]])
+12:01:52.762 INFO - Done: [send keys: 58 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(3) input.input--create-classifier--class-name], [C, l, a, s, s,  , N, a, m, e, 3]]
+12:01:52.765 INFO - Executing: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(3) .dropzone--create-classifier:first-child input])
+12:01:52.783 INFO - Done: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(3) .dropzone--create-classifier:first-child input]
+12:01:52.787 INFO - Executing: [send keys: 59 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(3) .dropzone--create-classifier:first-child input], [/, U, s, e, r, s, /, n, i, k, o, /, D, o, c, u, m, e, n, t, s, /, w, a, t, s, o, n, -, v, i, s, u, a, l, -, r, e, c, o, g, n, i, t, i, o, n, -, t, o, o, l, -, c, l, i, e, n, t, /, t, e, s, t, _, f, i, l, e, s, /, n, o, t, _, s, o, _, h, u, g, e, ., z, i, p]])
+12:01:52.888 INFO - Done: [send keys: 59 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(3) .dropzone--create-classifier:first-child input], [/, U, s, e, r, s, /, n, i, k, o, /, D, o, c, u, m, e, n, t, s, /, w, a, t, s, o, n, -, v, i, s, u, a, l, -, r, e, c, o, g, n, i, t, i, o, n, -, t, o, o, l, -, c, l, i, e, n, t, /, t, e, s, t, _, f, i, l, e, s, /, n, o, t, _, s, o, _, h, u, g, e, ., z, i, p]]
+12:01:52.891 INFO - Executing: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(4) .dropzone--create-classifier:first-child input])
+12:01:52.908 INFO - Done: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(4) .dropzone--create-classifier:first-child input]
+12:01:52.911 INFO - Executing: [send keys: 60 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(4) .dropzone--create-classifier:first-child input], [/, U, s, e, r, s, /, n, i, k, o, /, D, o, c, u, m, e, n, t, s, /, w, a, t, s, o, n, -, v, i, s, u, a, l, -, r, e, c, o, g, n, i, t, i, o, n, -, t, o, o, l, -, c, l, i, e, n, t, /, t, e, s, t, _, f, i, l, e, s, /, n, o, t, _, s, o, _, h, u, g, e, ., z, i, p]])
+12:01:53.011 INFO - Done: [send keys: 60 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(4) .dropzone--create-classifier:first-child input], [/, U, s, e, r, s, /, n, i, k, o, /, D, o, c, u, m, e, n, t, s, /, w, a, t, s, o, n, -, v, i, s, u, a, l, -, r, e, c, o, g, n, i, t, i, o, n, -, t, o, o, l, -, c, l, i, e, n, t, /, t, e, s, t, _, f, i, l, e, s, /, n, o, t, _, s, o, _, h, u, g, e, ., z, i, p]]
+12:01:53.014 INFO - Executing: [find element: By.cssSelector: button#button--create-classifier--create])
+12:01:53.021 INFO - Done: [find element: By.cssSelector: button#button--create-classifier--create]
+12:01:53.022 INFO - Executing: [click: 36 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--create-classifier--create]])
+12:01:53.210 INFO - Done: [click: 36 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--create-classifier--create]]
+12:01:53.213 INFO - Executing: [find elements: By.cssSelector: #error--create-classifier--class])
+12:01:53.225 INFO - Done: [find elements: By.cssSelector: #error--create-classifier--class]
+12:01:53.227 INFO - Executing: [is displayed: 61 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #error--create-classifier--class]])
+12:01:53.242 INFO - Done: [is displayed: 61 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #error--create-classifier--class]]
+12:01:53.251 INFO - Executing: [find element: By.cssSelector: .grid-item:first-child button.delete-class])
+12:01:53.266 INFO - Done: [find element: By.cssSelector: .grid-item:first-child button.delete-class]
+12:01:53.269 INFO - Executing: [click: 62 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .grid-item:first-child button.delete-class]])
+12:01:53.407 INFO - Done: [click: 62 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .grid-item:first-child button.delete-class]]
+12:01:53.410 INFO - Executing: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(4)])
+12:01:53.432 INFO - Done: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(4)]
+12:01:53.967 INFO - Executing: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(4)])
+12:01:53.975 INFO - Done: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(4)]
+12:01:53.978 INFO - Executing: [find element: By.cssSelector: .grid-item:first-child button.delete-class])
+12:01:53.985 INFO - Done: [find element: By.cssSelector: .grid-item:first-child button.delete-class]
+12:01:53.997 INFO - Executing: [click: 63 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .grid-item:first-child button.delete-class]])
+12:01:54.119 INFO - Done: [click: 63 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .grid-item:first-child button.delete-class]]
+12:01:54.123 INFO - Executing: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(3)])
+12:01:54.131 INFO - Done: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(3)]
+12:01:54.636 INFO - Executing: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(3)])
+12:01:54.644 INFO - Done: [find elements: By.cssSelector: .gridz-are-real span:nth-of-type(3)]
+12:01:54.647 INFO - Executing: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(1) .dropzone--create-classifier:first-child input])
+12:01:54.653 INFO - Done: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(1) .dropzone--create-classifier:first-child input]
+12:01:54.656 INFO - Executing: [send keys: 59 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(3) .dropzone--create-classifier:first-child input], [/, U, s, e, r, s, /, n, i, k, o, /, D, o, c, u, m, e, n, t, s, /, w, a, t, s, o, n, -, v, i, s, u, a, l, -, r, e, c, o, g, n, i, t, i, o, n, -, t, o, o, l, -, c, l, i, e, n, t, /, t, e, s, t, _, f, i, l, e, s, /, s, m, a, l, l, ., z, i, p]])
+12:01:54.721 INFO - Done: [send keys: 59 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(3) .dropzone--create-classifier:first-child input], [/, U, s, e, r, s, /, n, i, k, o, /, D, o, c, u, m, e, n, t, s, /, w, a, t, s, o, n, -, v, i, s, u, a, l, -, r, e, c, o, g, n, i, t, i, o, n, -, t, o, o, l, -, c, l, i, e, n, t, /, t, e, s, t, _, f, i, l, e, s, /, s, m, a, l, l, ., z, i, p]]
+12:01:54.724 INFO - Executing: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(2) .dropzone--create-classifier:first-child input])
+12:01:54.730 INFO - Done: [find element: By.cssSelector: .gridz-are-real span:nth-of-type(2) .dropzone--create-classifier:first-child input]
+12:01:54.734 INFO - Executing: [send keys: 60 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(4) .dropzone--create-classifier:first-child input], [/, U, s, e, r, s, /, n, i, k, o, /, D, o, c, u, m, e, n, t, s, /, w, a, t, s, o, n, -, v, i, s, u, a, l, -, r, e, c, o, g, n, i, t, i, o, n, -, t, o, o, l, -, c, l, i, e, n, t, /, t, e, s, t, _, f, i, l, e, s, /, s, m, a, l, l, ., z, i, p]])
+12:01:54.798 INFO - Done: [send keys: 60 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .gridz-are-real span:nth-of-type(4) .dropzone--create-classifier:first-child input], [/, U, s, e, r, s, /, n, i, k, o, /, D, o, c, u, m, e, n, t, s, /, w, a, t, s, o, n, -, v, i, s, u, a, l, -, r, e, c, o, g, n, i, t, i, o, n, -, t, o, o, l, -, c, l, i, e, n, t, /, t, e, s, t, _, f, i, l, e, s, /, s, m, a, l, l, ., z, i, p]]
+12:01:54.800 INFO - Executing: [find element: By.cssSelector: button#button--create-classifier--create])
+12:01:54.807 INFO - Done: [find element: By.cssSelector: button#button--create-classifier--create]
+12:01:54.808 INFO - Executing: [click: 36 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--create-classifier--create]])
+12:01:54.934 INFO - Done: [click: 36 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--create-classifier--create]]
+12:01:54.939 INFO - Executing: [find elements: By.cssSelector: button#button--create-classifier--cancel])
+12:01:54.956 INFO - Done: [find elements: By.cssSelector: button#button--create-classifier--cancel]
+12:01:55.462 INFO - Executing: [find elements: By.cssSelector: button#button--create-classifier--cancel])
+12:01:55.471 INFO - Done: [find elements: By.cssSelector: button#button--create-classifier--cancel]
+12:01:55.981 INFO - Executing: [find elements: By.cssSelector: button#button--create-classifier--cancel])
+12:01:55.989 INFO - Done: [find elements: By.cssSelector: button#button--create-classifier--cancel]
+12:01:56.495 INFO - Executing: [find elements: By.cssSelector: button#button--create-classifier--cancel])
+12:01:56.519 INFO - Done: [find elements: By.cssSelector: button#button--create-classifier--cancel]
+12:01:56.527 INFO - Executing: [find elements: By.cssSelector: .dropdown--classifier-detail:first-child])
+12:01:56.542 INFO - Done: [find elements: By.cssSelector: .dropdown--classifier-detail:first-child]
+12:01:57.053 INFO - Executing: [find elements: By.cssSelector: .dropdown--classifier-detail:first-child])
+12:01:57.061 INFO - Done: [find elements: By.cssSelector: .dropdown--classifier-detail:first-child]
+12:01:57.563 INFO - Executing: [find elements: By.cssSelector: .dropdown--classifier-detail:first-child])
+12:01:57.574 INFO - Done: [find elements: By.cssSelector: .dropdown--classifier-detail:first-child]
+12:01:57.578 INFO - Executing: [is displayed: 65 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .dropdown--classifier-detail:first-child]])
+12:01:57.623 INFO - Done: [is displayed: 65 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .dropdown--classifier-detail:first-child]]
+12:01:57.625 INFO - Executing: [find element: By.cssSelector: .dropdown--classifier-detail:first-child])
+12:01:57.651 INFO - Done: [find element: By.cssSelector: .dropdown--classifier-detail:first-child]
+12:01:57.654 INFO - Executing: [click: 65 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .dropdown--classifier-detail:first-child]])
+12:01:57.708 INFO - Done: [click: 65 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: .dropdown--classifier-detail:first-child]]
+12:01:57.712 INFO - Executing: [find element: By.cssSelector: a.link--classifiers--api-reference])
+12:01:57.744 INFO - Done: [find element: By.cssSelector: a.link--classifiers--api-reference]
+12:01:57.747 INFO - Executing: [get element attribute: 81 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: a.link--classifiers--api-reference], href])
+12:01:57.768 INFO - Done: [get element attribute: 81 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: a.link--classifiers--api-reference], href]
+12:01:57.781 INFO - Executing: [find element: By.cssSelector: a.link--classifiers--delete])
+12:01:57.808 INFO - Done: [find element: By.cssSelector: a.link--classifiers--delete]
+12:01:57.812 INFO - Executing: [click: 82 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: a.link--classifiers--delete]])
+12:01:57.909 INFO - Done: [click: 82 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: a.link--classifiers--delete]]
+12:01:57.912 INFO - Executing: [accept alert])
+12:01:58.010 INFO - Done: [accept alert]
+12:01:58.019 INFO - Executing: [find element: By.cssSelector: button#button--base--update-api-key])
+12:01:58.047 INFO - Done: [find element: By.cssSelector: button#button--base--update-api-key]
+12:01:58.049 INFO - Executing: [click: 83 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--base--update-api-key]])
+12:01:58.175 INFO - Done: [click: 83 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--base--update-api-key]]
+12:01:58.179 INFO - Executing: [find elements: By.cssSelector: #exampleModal])
+12:01:58.200 INFO - Done: [find elements: By.cssSelector: #exampleModal]
+12:01:58.203 INFO - Executing: [is displayed: 84 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #exampleModal]])
+12:01:58.218 INFO - Done: [is displayed: 84 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #exampleModal]]
+12:01:58.723 INFO - Executing: [is displayed: 84 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #exampleModal]])
+12:01:58.740 INFO - Done: [is displayed: 84 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #exampleModal]]
+12:01:58.744 INFO - Executing: [find element: By.cssSelector: input#input--api-key-modal--api-key])
+12:01:58.759 INFO - Done: [find element: By.cssSelector: input#input--api-key-modal--api-key]
+12:01:58.761 INFO - Executing: [send keys: 85 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: input#input--api-key-modal--api-key], [0, 0, 0, 0]])
+12:01:58.816 INFO - Done: [send keys: 85 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: input#input--api-key-modal--api-key], [0, 0, 0, 0]]
+12:01:58.819 INFO - Executing: [find element: By.cssSelector: button#button--api-key-modal--submit])
+12:01:58.837 INFO - Done: [find element: By.cssSelector: button#button--api-key-modal--submit]
+12:01:58.841 INFO - Executing: [click: 86 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--api-key-modal--submit]])
+12:01:58.898 INFO - Done: [click: 86 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--api-key-modal--submit]]
+12:01:58.901 INFO - Executing: [find elements: By.cssSelector: #error--api-key-modal--api-key])
+12:01:58.918 INFO - Done: [find elements: By.cssSelector: #error--api-key-modal--api-key]
+12:01:59.444 INFO - Executing: [find elements: By.cssSelector: #error--api-key-modal--api-key])
+12:01:59.454 INFO - Done: [find elements: By.cssSelector: #error--api-key-modal--api-key]
+12:01:59.459 INFO - Executing: [is displayed: 87 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #error--api-key-modal--api-key]])
+12:01:59.474 INFO - Done: [is displayed: 87 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #error--api-key-modal--api-key]]
+12:01:59.480 INFO - Executing: [find element: By.cssSelector: input#input--api-key-modal--api-key])
+12:01:59.486 INFO - Done: [find element: By.cssSelector: input#input--api-key-modal--api-key]
+12:01:59.489 INFO - Executing: [clear: 85 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: input#input--api-key-modal--api-key]])
+12:01:59.510 INFO - Done: [clear: 85 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: input#input--api-key-modal--api-key]]
+12:01:59.513 INFO - Executing: [find element: By.cssSelector: input#input--api-key-modal--api-key])
+12:01:59.519 INFO - Done: [find element: By.cssSelector: input#input--api-key-modal--api-key]
+12:01:59.521 INFO - Executing: [send keys: 85 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: input#input--api-key-modal--api-key], [2, d, 7, f, 0, 2, e, 6, 7, 0, 8, f, 3, 5, 6, 2, a, 0, 4, 3, e, b, f, 3, 1, 1, 5, 9, f, f, 8, 4, 9, d, 9, 4, d, 1, 2, 3]])
+12:01:59.643 INFO - Done: [send keys: 85 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: input#input--api-key-modal--api-key], [2, d, 7, f, 0, 2, e, 6, 7, 0, 8, f, 3, 5, 6, 2, a, 0, 4, 3, e, b, f, 3, 1, 1, 5, 9, f, f, 8, 4, 9, d, 9, 4, d, 1, 2, 3]]
+12:01:59.646 INFO - Executing: [find element: By.cssSelector: button#button--api-key-modal--submit])
+12:01:59.651 INFO - Done: [find element: By.cssSelector: button#button--api-key-modal--submit]
+12:01:59.653 INFO - Executing: [click: 86 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--api-key-modal--submit]])
+12:01:59.678 INFO - Done: [click: 86 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--api-key-modal--submit]]
+12:01:59.680 INFO - Executing: [find elements: By.cssSelector: #exampleModal])
+12:01:59.686 INFO - Done: [find elements: By.cssSelector: #exampleModal]
+12:02:00.190 INFO - Executing: [find elements: By.cssSelector: #exampleModal])
+12:02:00.203 INFO - Done: [find elements: By.cssSelector: #exampleModal]
+12:02:00.712 INFO - Executing: [find elements: By.cssSelector: #exampleModal])
+12:02:00.723 INFO - Done: [find elements: By.cssSelector: #exampleModal]
+12:02:00.729 INFO - Executing: [find element: By.cssSelector: button#button--base--update-api-key])
+12:02:00.736 INFO - Done: [find element: By.cssSelector: button#button--base--update-api-key]
+12:02:00.738 INFO - Executing: [click: 83 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--base--update-api-key]])
+12:02:00.818 INFO - Done: [click: 83 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--base--update-api-key]]
+12:02:00.821 INFO - Executing: [find elements: By.cssSelector: #exampleModal])
+12:02:00.828 INFO - Done: [find elements: By.cssSelector: #exampleModal]
+12:02:00.830 INFO - Executing: [is displayed: 88 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #exampleModal]])
+12:02:00.847 INFO - Done: [is displayed: 88 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #exampleModal]]
+12:02:01.355 INFO - Executing: [is displayed: 88 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #exampleModal]])
+12:02:01.366 INFO - Done: [is displayed: 88 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #exampleModal]]
+12:02:01.368 INFO - Executing: [find element: By.cssSelector: button#button--api-key-modal--logout])
+12:02:01.383 INFO - Done: [find element: By.cssSelector: button#button--api-key-modal--logout]
+12:02:01.386 INFO - Executing: [click: 89 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--api-key-modal--logout]])
+12:02:01.452 INFO - Done: [click: 89 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: button#button--api-key-modal--logout]]
+12:02:01.457 INFO - Executing: [find elements: By.cssSelector: #landing-page])
+12:02:01.473 INFO - Done: [find elements: By.cssSelector: #landing-page]
+12:02:01.474 INFO - Executing: [is displayed: 90 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #landing-page]])
+12:02:01.488 INFO - Done: [is displayed: 90 [[ChromeDriver: chrome on MAC (a1d1ea051a25a83e34b29def4ad8f6c9)] -> css selector: #landing-page]]
+12:02:01.494 INFO - Executing: [delete session: 70c6e310-d073-4e29-aa37-b3898af0830a])
+12:02:01.582 INFO - Done: [delete session: 70c6e310-d073-4e29-aa37-b3898af0830a]
